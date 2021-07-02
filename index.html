@@ -14,18 +14,26 @@
         <img src="images/amean_logo_main.png" alt="AMEAN LOGO" width="200px">
     </div>
       <!-- Main page -->
-      <div class="main">
+      <div class="main" id="questionCard">
         <!-- Number of Question  -->
         <div class="wrapper" id="pages">
           <span id="quizNumber"> - </span>
         </div>
 
+        <div class="results" id="pages">
+            <span id="results"> - </span>
+        </div>
+
+        
+
         <!-- Quiz Question -->
         <div class="quiz-questions" id="display-area">
 
-          <p id="question"></p>
+          <p id="question" class="questionText"></p>
           <ul id="answer">
           </ul>
+
+          <input type="number" class="answer" id="studentAnswer">
 
           <div id="quiz-results">
             <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>

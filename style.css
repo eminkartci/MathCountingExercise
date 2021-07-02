@@ -179,3 +179,25 @@
       margin-top: 5%;
       margin-bottom: 5%;
   }
+  
+  .questionText{
+      color:#000;
+      font-size: 22px;
+
+  }
+
+  .answer{
+
+    width: 30%;
+    height: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+
+  }
+
+
+.results{
+    margin-bottom: 5%;
+    margin-left: 90%;
+}

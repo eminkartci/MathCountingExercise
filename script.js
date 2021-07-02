@@ -1,8 +1,9 @@
 
 
 let questionCount = document.getElementById('quizNumber');
+let resultCount = document.getElementById("results");
 let index = 0,totalQuestionCount = 10;
-
+let result = 0,trueCount = 0,falseCount = 0;
 
 function updateCount() {
 
@@ -14,18 +15,43 @@ function updateCount() {
     questionCount.innerHTML = index + " / " + totalQuestionCount;
 
 }
+
+function updateResult(){
+
+    resultCount.innerHTML = trueCount+ ' / ' + (falseCount + trueCount);
+
+}
+
+
 updateCount();
+updateResult();
 
 
 function getAnswer(){
 
+    
+    
+
+    let studentAnswer = document.getElementById("studentAnswer").value;
+
+    if(studentAnswer == result){
+        document.getElementById("questionCard").style.background = '#edfff0';
+        trueCount++;
+    }else{
+        document.getElementById("questionCard").style.background = '#fde7e8';
+        falseCount++;
+    }
+
+    //console.log("Öğrenci Cevabı: ",studentAnswer);
     updateCount();
+    updateResult();
+    generateQuestion();
     
 }
 
 function generateQuestion(){
 
-    let number1 = 0, number2 = 0,result = 0;
+    let number1 = 0, number2 = 0;
     let operation = '+';
 
     number1 = Math.floor(Math.random() * 100);
