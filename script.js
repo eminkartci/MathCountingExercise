@@ -130,7 +130,8 @@ function generateRandomDisivorOfNumber(sayi) {
 }
 
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="" class="resultMiniText">Puanınız</p><p id="" class="resultText">' + (100 / totalQuestionCount) * trueCount + '/100</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="" class="resultMiniText">Puanınız</p><p id="" class="resultText">' + (100 / totalQuestionCount) * trueCount + '/100</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">Sonucu İndir</button></div></div>'
+    resetFields();
 }
 
 document.getElementById("studentAnswer").onkeypress = function(e) {
@@ -149,4 +150,21 @@ document.getElementById("studentAnswer").oninput = function() {
     } else {
         document.getElementById("submit").innerHTML = "Atla";
     }
+}
+
+async function downloadResult() {
+
+    html2canvas(document.getElementById("questionCard")).then(async function(canvas) {
+
+        const image = await fetch(canvas.toDataURL("image/png", 0.9))
+        const imageBlog = await image.blob()
+        const imageURL = URL.createObjectURL(imageBlog)
+
+        const link = document.createElement('a')
+        link.href = imageURL
+        link.download = "Result";
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    });
 }
