@@ -48,6 +48,8 @@ function getAnswer() {
     updateResult();
     generateQuestion();
 
+    document.getElementById("studentAnswer").value = "";
+
 }
 
 function generateQuestion() {
