@@ -1,12 +1,14 @@
 # MathCountingExercise
+## Object
 
-## Emin Kartcı
+## Authors
+### Emin Kartcı
 ```
 Git     : eminkartci
-Website : https://www.eminkartci.com/
+Website : <a href="https://www.eminkartci.com/">Emin</a>
 Date    : 3 July 2021
 ```
-## Durmuş Kartcı
+### Durmuş Kartcı
 ```
 Git     : DurmushKartci
 Website : https://www.durmuskartci.com/
