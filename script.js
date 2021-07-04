@@ -95,7 +95,6 @@ function generateRandomDisivorOfNumber(sayi) {
 
     }
     array.push(sayi * 2)
-    array.push(sayi * 3)
     array.push(sayi * 4)
 
     let random = Math.floor(Math.random() * array.length)
