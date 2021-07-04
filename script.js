@@ -22,31 +22,59 @@ function updateResult(){
 
 }
 
+function buttonHandler(){
 
-updateCount();
-updateResult();
+    let submitBtn = document.getElementById("submit");
 
+    if(submitBtn.innerHTML == "Cevapla"){
+        getAnswer();
+    }else if(submitBtn.innerHTML == "Atla"){
+        revealResult();
+    }else if(submitBtn.innerHTML == "Geç"){
+        generateQuestion();
+    }
+
+}
 
 function getAnswer(){
-
-    
-    
 
     let studentAnswer = document.getElementById("studentAnswer").value;
 
     if(studentAnswer == result){
         document.getElementById("questionCard").style.background = '#edfff0';
         trueCount++;
+        updateCount();
+        updateResult();
+        generateQuestion();
     }else{
         document.getElementById("questionCard").style.background = '#fde7e8';
         falseCount++;
+
+        revealResult();
     }
 
     //console.log("Öğrenci Cevabı: ",studentAnswer);
-    updateCount();
-    updateResult();
-    generateQuestion();
     
+    
+}
+
+function resetFields(){
+    document.getElementById("submit").innerHTML = "Atla";
+    document.getElementById("studentAnswer").value = "";
+    document.getElementById("studentAnswer").style.backgroundColor = 'rgba(100,200,100,0.1)';
+}
+
+function revealResult(){
+
+    let field = document.getElementById("studentAnswer");
+
+    field.style.backgroundColor = 'rgba(200,100,100,0.1)';
+    field.style.color = 'rgba(30,200,100,0.8)';
+    field.disabled = true;
+    field.value = result;
+
+    document.getElementById("submit").style.backgroundColor = 'red';
+    document.getElementById("submit").innerHTML = "Geç";
 }
 
 function generateQuestion(){
@@ -81,5 +109,24 @@ function generateQuestion(){
 
     document.getElementById("question").innerHTML = question;
 
+    resetFields();
+
 }
+
+
+
+
+let inputField = document.getElementById("studentAnswer");
+let submitButton = document.getElementById("submit");
+inputField.onchange = () => {
+
+    if(inputField.value == ""){
+        submitButton.innerHTML = "Atla";
+    }else{
+        submitButton.innerHTML = "Cevapla";
+    }
+}
+
+updateCount();
+updateResult();
 generateQuestion();

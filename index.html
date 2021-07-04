@@ -13,6 +13,7 @@
     <div class="logo">
         <img src="images/amean_logo_main.png" alt="AMEAN LOGO" width="200px">
     </div>
+
       <!-- Main page -->
       <div class="main" id="questionCard">
         <!-- Number of Question  -->
@@ -30,13 +31,13 @@
         <div class="quiz-questions" id="display-area">
 
           <p id="question" class="questionText"></p>
-          <ul id="answer">
-          </ul>
 
-          <input type="number" class="answer" id="studentAnswer">
-
+          <div class="answerField">
+            <p width = "20%" class="answerLabel">Cevap: </p>
+            <input type="number" class="answer" id="studentAnswer">
+          </div>
           <div id="quiz-results">
-            <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
+            <button type="button" name="button" class="submit" id="submit" onclick="buttonHandler()">Atla</button>
           </div>
         </div>
 
