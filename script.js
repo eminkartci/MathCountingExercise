@@ -40,6 +40,7 @@ function getAnswer() {
         updateCount();
         updateResult();
         generateQuestion();
+        resetFields();
     } else {
         document.getElementById("questionCard").style.background = '#fde7e8';
         falseCount++;
@@ -51,6 +52,7 @@ function getAnswer() {
 }
 
 function generateQuestion() {
+    document.getElementById("studentAnswer").disabled = false;
 
     let number1 = 0,
         number2 = 0;
@@ -83,14 +85,19 @@ function generateQuestion() {
 
     document.getElementById("question").innerHTML = question;
 
+    resetFields();
+
+}
+
+function resetFields() {
+    document.getElementById("submit").innerHTML = "Atla";
+    document.getElementById("studentAnswer").value = "";
 }
 
 function revealResult() {
 
     let field = document.getElementById("studentAnswer");
 
-    field.style.backgroundColor = 'rgba(200,100,100,0.1)';
-    field.style.color = 'rgba(30,200,100,0.8)';
     field.disabled = true;
     field.value = result;
 
@@ -126,3 +133,11 @@ document.getElementById("studentAnswer").onkeypress = function(e) {
 }
 
 generateQuestion();
+
+document.getElementById("studentAnswer").oninput = function() {
+    if (this.value != "") {
+        document.getElementById("submit").innerHTML = "Cevapla";
+    } else {
+        document.getElementById("submit").innerHTML = "Atla";
+    }
+}
