@@ -36,9 +36,11 @@ function getAnswer() {
     if (studentAnswer == result) {
         document.getElementById("questionCard").style.background = '#edfff0';
         trueCount++;
+        document.getElementById("studentAnswer").value = "";
     } else {
         document.getElementById("questionCard").style.background = '#fde7e8';
         falseCount++;
+        revealResult();
     }
 
     //console.log("Öğrenci Cevabı: ",studentAnswer);
@@ -46,7 +48,6 @@ function getAnswer() {
     updateResult();
     generateQuestion();
 
-    document.getElementById("studentAnswer").value = "";
 
 }
 
@@ -78,12 +79,24 @@ function generateQuestion() {
 
 
     let question = number1 + " " + operation + " " + number2 + " = x denklemine göre x'in değeri kaçtır ?";
-    let answer = 0;
 
 
 
     document.getElementById("question").innerHTML = question;
 
+}
+
+function revealResult() {
+
+    let field = document.getElementById("studentAnswer");
+
+    field.style.backgroundColor = 'rgba(200,100,100,0.1)';
+    field.style.color = 'rgba(30,200,100,0.8)';
+    field.disabled = true;
+    field.value = result;
+
+    document.getElementById("submit").style.backgroundColor = 'red';
+    document.getElementById("submit").innerHTML = "Geç";
 }
 
 function generateRandomDisivorOfNumber(sayi) {
