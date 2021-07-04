@@ -1,7 +1,7 @@
 # MathCountingExercise
 ### Amaç
 Bu projenin amacı kullanıcının işlem hızını ve doğruluğunu arttırmaktır.
-### Authors
+### Yazarlar
 #### Emin Kartcı
 ```
 Git     : eminkartci
