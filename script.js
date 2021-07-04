@@ -6,6 +6,8 @@ let result = 0,
     trueCount = 0,
     falseCount = 0;
 
+let resultRevealed = false;
+
 function updateCount() {
 
     if (index == totalQuestionCount) {
@@ -30,25 +32,30 @@ updateResult();
 
 
 function getAnswer() {
+    if (resultRevealed == false) {
+        let studentAnswer = document.getElementById("studentAnswer").value;
 
-    let studentAnswer = document.getElementById("studentAnswer").value;
+        if (studentAnswer == result) {
+            document.getElementById("questionCard").style.background = '#edfff0';
+            trueCount++;
+            document.getElementById("studentAnswer").value = "";
+            generateQuestion();
+            resetFields();
+        } else {
+            document.getElementById("questionCard").style.background = '#fde7e8';
+            falseCount++;
 
-    if (studentAnswer == result) {
-        document.getElementById("questionCard").style.background = '#edfff0';
-        trueCount++;
-        document.getElementById("studentAnswer").value = "";
+            revealResult();
+        }
         updateCount();
         updateResult();
+
+    } else {
+        document.getElementById("questionCard").style.background = '#edfff0';
+        resultRevealed = false;
         generateQuestion();
         resetFields();
-    } else {
-        document.getElementById("questionCard").style.background = '#fde7e8';
-        falseCount++;
-
-        revealResult();
     }
-
-
 }
 
 function generateQuestion() {
@@ -91,6 +98,7 @@ function generateQuestion() {
 
 function resetFields() {
     document.getElementById("submit").innerHTML = "Atla";
+    document.getElementById("submit").style.background = "#6dce70";
     document.getElementById("studentAnswer").value = "";
 }
 
@@ -103,6 +111,7 @@ function revealResult() {
 
     document.getElementById("submit").style.backgroundColor = 'red';
     document.getElementById("submit").innerHTML = "Geç";
+    resultRevealed = true;
 }
 
 function generateRandomDisivorOfNumber(sayi) {
