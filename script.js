@@ -37,16 +37,15 @@ function getAnswer() {
         document.getElementById("questionCard").style.background = '#edfff0';
         trueCount++;
         document.getElementById("studentAnswer").value = "";
+        updateCount();
+        updateResult();
+        generateQuestion();
     } else {
         document.getElementById("questionCard").style.background = '#fde7e8';
         falseCount++;
+
         revealResult();
     }
-
-    //console.log("Öğrenci Cevabı: ",studentAnswer);
-    updateCount();
-    updateResult();
-    generateQuestion();
 
 
 }
