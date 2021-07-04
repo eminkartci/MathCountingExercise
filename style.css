@@ -222,6 +222,16 @@ canvas {
 
 .questionText {
     color: #000;
+    font-size: 28px;
+}
+
+.resultText {
+    color: #000;
+    font-size: 28px;
+}
+
+.resultMiniText {
+    color: #000;
     font-size: 22px;
 }
 

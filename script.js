@@ -9,7 +9,8 @@ let result = 0,
 function updateCount() {
 
     if (index == 10) {
-        return;
+
+        return finishQuiz();
     }
 
     index ++;
@@ -29,9 +30,6 @@ updateResult();
 
 
 function getAnswer() {
-
-
-
 
     let studentAnswer = document.getElementById("studentAnswer").value;
 
@@ -102,6 +100,18 @@ function generateRandomDisivorOfNumber(sayi) {
 
     let random = Math.floor(Math.random() * array.length)
     return array[random];
+}
+
+function finishQuiz() {
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="" class="resultMiniText">Puanınız</p><p id="" class="resultText">' + (100 / totalQuestionCount) * trueCount + '/100</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button></div></div>'
+}
+
+document.getElementById("studentAnswer").onkeypress = function(e) {
+    if (!e) e = window.event;
+    var keyCode = e.code || e.key;
+    if (keyCode == 'Enter') {
+        getAnswer();
+    }
 }
 
 generateQuestion();

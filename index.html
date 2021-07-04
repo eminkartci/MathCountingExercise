@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,47 +9,63 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
     <div class="logo">
         <img src="images/amean_logo_main.png" alt="AMEAN LOGO" width="200px">
     </div>
-      <!-- Main page -->
-      <div class="main" id="questionCard">
+    <!-- Main page -->
+    <div class="main" id="questionCard">
+
+        <!-- <div class="quiz-questions" id="display-area">
+
+            <p id="result" class="resultText">Puanınız</p>
+            <p id="question" class="questionText">0/100</p>
+            <ul id="answer">
+            </ul>
+
+
+            <div id="quiz-results">
+                <button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button>
+            </div>
+        </div> -->
+
         <!-- Number of Question  -->
         <div class="wrapper" id="pages">
-          <span id="quizNumber"> - </span>
+            <span id="quizNumber"> - </span>
         </div>
 
         <div class="results" id="pages">
             <span id="results"> - </span>
         </div>
 
-        
+
 
         <!-- Quiz Question -->
         <div class="quiz-questions" id="display-area">
 
-          <p id="question" class="questionText"></p>
-          <ul id="answer">
-          </ul>
+            <p id="question" class="questionText"></p>
+            <ul id="answer">
+            </ul>
 
-          <input type="number" class="answer" id="studentAnswer">
+            <input type="number" class="answer" id="studentAnswer">
 
-          <div id="quiz-results">
-            <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
-          </div>
+            <div id="quiz-results">
+                <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
+            </div>
         </div>
 
-      </div>
+    </div>
 
-      <canvas id="canvas"></canvas>
-
-
+    <!-- <canvas id="canvas"></canvas> -->
 
 
 
-    <script src= "script.js"></script>
+
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
