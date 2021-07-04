@@ -8,7 +8,7 @@ let result = 0,
 
 function updateCount() {
 
-    if (index == 10) {
+    if (index == totalQuestionCount) {
 
         return finishQuiz();
     }
