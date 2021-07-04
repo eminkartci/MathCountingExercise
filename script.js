@@ -6,10 +6,13 @@ let result = 0,
     trueCount = 0,
     falseCount = 0;
 
+let resultRevealed = false;
+
 function updateCount() {
 
-    if (index == 10) {
-        return;
+    if (index == totalQuestionCount) {
+
+        return finishQuiz();
     }
 
     index ++;
@@ -23,63 +26,40 @@ function updateResult() {
 
 }
 
-function buttonHandler() {
 
-    let submitBtn = document.getElementById("submit");
+updateCount();
+updateResult();
 
-    if (submitBtn.innerHTML == "Cevapla") {
-        getAnswer();
-    } else if (submitBtn.innerHTML == "Atla") {
-        revealResult();
-    } else if (submitBtn.innerHTML == "Geç") {
-        generateQuestion();
-    }
-
-}
 
 function getAnswer() {
+    if (resultRevealed == false) {
+        let studentAnswer = document.getElementById("studentAnswer").value;
 
-    let studentAnswer = document.getElementById("studentAnswer").value;
+        if (studentAnswer == result) {
+            document.getElementById("questionCard").style.background = '#edfff0';
+            trueCount++;
+            document.getElementById("studentAnswer").value = "";
+            generateQuestion();
+            resetFields();
+        } else {
+            document.getElementById("questionCard").style.background = '#fde7e8';
+            falseCount++;
 
-    if (studentAnswer == result) {
-        document.getElementById("questionCard").style.background = '#edfff0';
-        trueCount++;
+            revealResult();
+        }
         updateCount();
         updateResult();
+
+    } else {
+        document.getElementById("questionCard").style.background = '#edfff0';
+        resultRevealed = false;
         generateQuestion();
         resetFields();
-    } else {
-        document.getElementById("questionCard").style.background = '#fde7e8';
-        falseCount++;
-
-        revealResult();
     }
-
-    //console.log("Öğrenci Cevabı: ",studentAnswer);
-
-
-}
-
-function resetFields() {
-    document.getElementById("submit").innerHTML = "Atla";
-    document.getElementById("studentAnswer").value = "";
-    document.getElementById("studentAnswer").style.backgroundColor = 'rgba(100,200,100,0.1)';
-}
-
-function revealResult() {
-
-    let field = document.getElementById("studentAnswer");
-
-    field.style.backgroundColor = 'rgba(200,100,100,0.1)';
-    field.style.color = 'rgba(30,200,100,0.8)';
-    field.disabled = true;
-    field.value = result;
-
-    document.getElementById("submit").style.backgroundColor = 'red';
-    document.getElementById("submit").innerHTML = "Geç";
 }
 
 function generateQuestion() {
+    document.getElementById("studentAnswer").disabled = false;
 
     let number1 = 0,
         number2 = 0;
@@ -98,6 +78,7 @@ function generateQuestion() {
         result = number1 - number2;
     } else if (randomOperator == 2) {
         operation = '/';
+        number2 = generateRandomDisivorOfNumber(number1)
         result = number1 / number2;
     } else if (randomOperator == 3) {
         operation = '.';
@@ -106,7 +87,6 @@ function generateQuestion() {
 
 
     let question = number1 + " " + operation + " " + number2 + " = x denklemine göre x'in değeri kaçtır ?";
-    let answer = 0;
 
 
 
@@ -116,20 +96,57 @@ function generateQuestion() {
 
 }
 
+function resetFields() {
+    document.getElementById("submit").innerHTML = "Atla";
+    document.getElementById("submit").style.background = "#6dce70";
+    document.getElementById("studentAnswer").value = "";
+}
 
+function revealResult() {
 
+    let field = document.getElementById("studentAnswer");
 
-let inputField = document.getElementById("studentAnswer");
-let submitButton = document.getElementById("submit");
-inputField.onchange = () => {
+    field.disabled = true;
+    field.value = result;
 
-    if (inputField.value == "") {
-        submitButton.innerHTML = "Atla";
-    } else {
-        submitButton.innerHTML = "Cevapla";
+    document.getElementById("submit").style.backgroundColor = 'red';
+    document.getElementById("submit").innerHTML = "Geç";
+    resultRevealed = true;
+}
+
+function generateRandomDisivorOfNumber(sayi) {
+    let array = [];
+    for (let i = 1; i <= sayi; i++) {
+        if (sayi % i == 0) {
+            array.push(i);
+        }
+
+    }
+    array.push(sayi * 2)
+    array.push(sayi * 4)
+
+    let random = Math.floor(Math.random() * array.length)
+    return array[random];
+}
+
+function finishQuiz() {
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="" class="resultMiniText">Puanınız</p><p id="" class="resultText">' + (100 / totalQuestionCount) * trueCount + '/100</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button></div></div>'
+}
+
+document.getElementById("studentAnswer").onkeypress = function(e) {
+    if (!e) e = window.event;
+    var keyCode = e.code || e.key;
+    if (keyCode == 'Enter') {
+        getAnswer();
     }
 }
 
-updateCount();
-updateResult();
 generateQuestion();
+
+document.getElementById("studentAnswer").oninput = function() {
+    if (this.value != "") {
+        document.getElementById("submit").innerHTML = "Cevapla";
+    } else {
+        document.getElementById("submit").innerHTML = "Atla";
+    }
+}
