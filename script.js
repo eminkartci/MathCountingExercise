@@ -236,8 +236,10 @@ function calculateMinuteNumber() {
 }
 
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="" class="resultText">Puanınız</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU İNDİR</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU İNDİR</button></div></div>'
     document.getElementById("submit").innerHTML = "Yeniden Başla";
+    document.getElementById("userNameText").innerHTML = user_name + " " + user_surname;
+    document.getElementById("sınıf").innerHTML = user_grade + ". Sınıf";
     document.getElementById("submit").style.background = "#6dce70";
     document.getElementById("questionCard").style.background = "#edfff0";
     clearInterval(myVar);

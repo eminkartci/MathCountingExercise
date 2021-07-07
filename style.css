@@ -225,14 +225,19 @@ canvas {
     font-size: 28px;
 }
 
-.resultText {
+.userNameText {
     color: #000;
     font-size: 28px;
 }
 
-.resultMiniText {
-    color: #000;
+.resultText {
+    color: rgb(99, 97, 97);
     font-size: 26px;
+}
+
+.resultMiniText {
+    color: rgb(4, 153, 4);
+    font-size: 24px;
 }
 
 .answer {
