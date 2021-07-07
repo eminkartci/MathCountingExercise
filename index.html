@@ -16,13 +16,34 @@
     <div class="logo">
         <img src="images/amean_logo_durmus.png" alt="AMEAN LOGO" width="200px">
     </div>
-<<<<<<< HEAD
-
-      <!-- Main page -->
-      <div class="main" id="questionCard">
-=======
     <!-- Main page -->
     <div class="main" id="questionCard">
+
+        <!--------------------------------
+            LOGİN PAGE
+         ----------------------------------->
+
+        <p id="" class="resultText">Hoş Geldiniz</p>
+        <p id="bug" class="" style="color:red;font-size:15px"></p>
+
+        <div class="answerField">
+            <p width="20%" class="answerLabel">Adın&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;: </p>
+            <input type="text" class="answer" id="student_name">
+        </div>
+
+        <div class="answerField">
+            <p width="20%" class="answerLabel">Soyadın: </p>
+            <input type="text" class="answer" id="student_surname">
+        </div>
+
+        <div class="answerField">
+            <p width="20%" class="answerLabel">Sınıfın&ensp;&ensp;&ensp;: </p>
+            <input type="number" class="answer" id="student_grade">
+        </div>
+
+        <div id="login-results">
+            <button type="button" name="button" class="submit" id="submit_login" onclick="login()">Devam Et</button>
+        </div>
 
         <!--------------------------------
         RESULT PAGE
@@ -41,9 +62,9 @@
         </div>
          ----------------------------------->
 
->>>>>>> d36a543bc2c746d42244d8dd87a0a070086c68df
-        <!-- Number of Question  -->
-        <div class="wrapper" id="pages">
+        <!--------------------------------
+            QUESTİON PAGE
+            <div class="wrapper" id="pages">
             <span id="quizNumber"> - </span>
         </div>
 
@@ -51,40 +72,30 @@
 
         <div class="results" id="pages">
             <span id="results"> - </span>
-        </div>
-
-
-
-
-
-        <!-- Quiz Question -->
+        </div> 
+        
+        
         <div class="quiz-questions" id="display-area">
             <p id="kronometre" style="font-size: 20px;">Kronometre</p>
             <p id="question" class="questionText"></p>
             <ul id="answer">
-            </ul>
+            </ul><p id="question" class="questionText">
+                </p>
 
-<<<<<<< HEAD
-          <p id="question" class="questionText"></p>
-
-          <div class="answerField">
-            <p width = "20%" class="answerLabel">Cevap: </p>
-            <input type="number" class="answer" id="studentAnswer">
-          </div>
-          <div id="quiz-results">
-            <button type="button" name="button" class="submit" id="submit" onclick="buttonHandler()">Atla</button>
-          </div>
+                <div class="answerField">
+                    <p width="20%" class="answerLabel">Cevap: </p>
+                    <input type="number" class="answer" id="studentAnswer">
+                </div>
+                <div id="quiz-results">
+                    <button type="button" name="button" class="submit" id="submit" onclick="buttonHandler()">Atla</button>
+                </div>
         </div>
-=======
-            <input type="number" class="answer" id="studentAnswer">
+        <input type="number" class="answer" id="studentAnswer">
 
-
->>>>>>> d36a543bc2c746d42244d8dd87a0a070086c68df
-
-            <div id="quiz-results">
-                <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
-            </div>
-        </div>
+        <div id="quiz-results">
+            <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
+        </div> -->
+    </div>
 
     </div>
 

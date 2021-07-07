@@ -7,9 +7,26 @@ let result = 0,
     falseCount = 0;
 
 let resultRevealed = false;
+let user_name = "";
+let user_surname = "";
+let user_grade = "";
 
 
 /////////////////////////////
+
+function login() {
+    user_name = document.getElementById("student_name").value
+    user_surname = document.getElementById("student_surname").value
+    user_grade = document.getElementById("student_grade").value
+    if (user_name == "") {
+        document.getElementById("bug").innerHTML = "Adınız boş olamaz"
+    } else if (user_surname == "") {
+        document.getElementById("bug").innerHTML = "Soyadınız boş olamaz"
+    } else if (user_grade == "") {
+        document.getElementById("bug").innerHTML = "Sınıfınız boş olamaz"
+    }
+}
+
 function updateCount() {
 
     if (index == totalQuestionCount) {
@@ -29,8 +46,8 @@ function updateResult() {
 }
 
 
-updateCount();
-updateResult();
+// updateCount();
+// updateResult();
 
 
 function getAnswer() {
@@ -139,7 +156,7 @@ let saatText = "00"
 let dakikaText = "00"
 let saniyeText = "00"
 
-let myVar = setInterval(kronometre, 1000);
+// let myVar = setInterval(kronometre, 1000);
 
 function kronometre() {
     document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
@@ -187,23 +204,23 @@ function finishQuiz() {
     document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
 }
 
-document.getElementById("studentAnswer").onkeypress = function(e) {
-    if (!e) e = window.event;
-    var keyCode = e.code || e.key;
-    if (keyCode == 'Enter') {
-        getAnswer();
-    }
-}
+// document.getElementById("studentAnswer").onkeypress = function(e) {
+//     if (!e) e = window.event;
+//     var keyCode = e.code || e.key;
+//     if (keyCode == 'Enter') {
+//         getAnswer();
+//     }
+// }
 
-generateQuestion();
+// generateQuestion();
 
-document.getElementById("studentAnswer").oninput = function() {
-    if (this.value != "") {
-        document.getElementById("submit").innerHTML = "Cevapla";
-    } else {
-        document.getElementById("submit").innerHTML = "Atla";
-    }
-}
+// document.getElementById("studentAnswer").oninput = function() {
+//     if (this.value != "") {
+//         document.getElementById("submit").innerHTML = "Cevapla";
+//     } else {
+//         document.getElementById("submit").innerHTML = "Atla";
+//     }
+// }
 
 async function downloadResult() {
 
