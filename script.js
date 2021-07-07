@@ -8,6 +8,8 @@ let result = 0,
 
 let resultRevealed = false;
 
+
+/////////////////////////////
 function updateCount() {
 
     if (index == totalQuestionCount) {
@@ -178,7 +180,7 @@ function calculateMinuteNumber() {
 
 function finishQuiz() {
     document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="" class="resultText">Puanınız</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU İNDİR</button></div></div>'
-    document.getElementById("submit").innerHTML = "Atla";
+    document.getElementById("submit").innerHTML = "Yeniden Başla";
     document.getElementById("submit").style.background = "#6dce70";
     document.getElementById("questionCard").style.background = "#edfff0";
     clearInterval(myVar);
