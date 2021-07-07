@@ -1,59 +1,77 @@
 /*========================================================
           Sitewide Styles
 ==========================================================*/
+
+
 /*multiple selector*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     margin: 0 auto;
     font-family: 'Lato', sans-serif;
     color: #b3b3b3;
     background-color: #9fe6ef;
     text-align: center;
     margin-top: 0;
-  }
-  
-  /*========================================================
+}
+
+
+/*========================================================
             Quiz Section
   ========================================================*/
-  /*styling quiz area*/
-  .main {
+
+
+/*styling quiz area*/
+
+.main {
     background-color: #edfff0;
     margin: 0 auto;
     width: 60%;
     margin-top: 30px;
     padding: 30px;
     border-radius: 30px;
-    box-shadow: 7px 10px 9px 5px rgba(135,135,135,0.67);
-  }
-  
-  /*Editing the number of questions*/
-  span {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+/*Editing the number of questions*/
+
+span {
     float: left;
-  }
-  
-  /*Editing the number of questions*/
-  span {
+}
+
+
+/*Editing the number of questions*/
+
+span {
     float: left;
-  }
-  
-  /*format text*/
-  p {
+}
+
+
+/*format text*/
+
+p {
     padding: 10px 10px 0;
-  }
-  
-  /*Form area width*/
-  .form-area, ul {
+}
+
+
+/*Form area width*/
+
+.form-area,
+ul {
     margin: 20px auto;
     max-width: 550px;
-  }
-  
-  /*formatting answers*/
-  li {
+}
+
+
+/*formatting answers*/
+
+li {
     list-style-type: none;
     text-align: left;
     background-color: transparent;
@@ -61,72 +79,91 @@
     padding: 5px 10px;
     border: 1px solid lightgray;
     font-weight: normal;
-  }
-  
-  li:hover {
+}
+
+li:hover {
     background: #ECEEF0;
-  }
-  
-  /*Change effect of question when the questions is selected*/
-  .selected, .selected:hover {
+}
+
+
+/*Change effect of question when the questions is selected*/
+
+.selected,
+.selected:hover {
     background: #FFDEAD;
-  }
-  
-  /*change correct answer background*/
-  .correct, .correct:hover {
+}
+
+
+/*change correct answer background*/
+
+.correct,
+.correct:hover {
     background: #9ACD32;
     color: white;
-  }
-  
-  /*change wrong answer background*/
-  .wrong, .wrong:hover {
+}
+
+
+/*change wrong answer background*/
+
+.wrong,
+.wrong:hover {
     background: #db3c3c;
     color: white;
-  }
-  
-  /*========================================================
+}
+
+
+/*========================================================
           Submit Button
   ========================================================*/
-  .main button {
+
+.main button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     width: 20%;
     border: none;
     padding: 15px;
     color: #FFFFFF;
-  }
-  
-  .submit:hover, .submit:active, .submit:focus {
+}
+
+.submit:hover,
+.submit:active,
+.submit:focus {
     background: #4CAF50;
-    transition:all 500ms;
+    transition: all 500ms;
     border-radius: 15px;
-  }
-  
-  .submit {
-    background: #afc3af;
-    transition:all 500ms;
+}
+
+.submit {
+    background: #6dce70;
+    transition: all 500ms;
     border-radius: 0px;
     min-width: 120px;
-  }
-  
-  /*next question button*/
-  .next {
+}
+
+
+/*next question button*/
+
+.next {
     background: #fa994a;
     min-width: 120px;
-  }
-  
-  .next:hover, .next:active, .next:focus {
+}
+
+.next:hover,
+.next:active,
+.next:focus {
     background: #e38a42;
-  }
-  
-  .restart {
-    background-color:#e38a42;
-  }
-  
-  /*========================================================
+}
+
+.restart {
+    background-color: #e38a42;
+}
+
+
+/*========================================================
           Results
   ========================================================*/
-  .circle{
+
+.circle {
     position: relative;
     margin: 0 auto;
     width: 200px;
@@ -136,17 +173,17 @@
     -moz-border-radius: 100px;
     border-radius: 100px;
     overflow: hidden;
-  }
-  
-  .fill{
+}
+
+.fill {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 80%;
     background: #31a2ac;
-  }
-  
-  h3 {
+}
+
+h3 {
     position: absolute;
     width: 100%;
     top: 60px;
@@ -156,61 +193,76 @@
     font-size: 40pt;
     line-height: 0;
     font-weight: normal;
-  }
-  
-  .circle p {
+}
+
+.circle p {
     margin: 400px;
-  }
-  
-  /*========================================================
+}
+
+
+/*========================================================
           Confeeti Effect
   ========================================================*/
-  canvas{
-    position:absolute;
-      left:0;
-      top:0;
-      z-index:0;
-      border:0px solid #000;
-  }
-  
-  /* MANUEL CSS */
 
-  .logo{
-      margin-top: 5%;
-      margin-bottom: 5%;
-  }
-  
-  .questionText{
-      color:#000;
-      font-size: 22px;
+canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    border: 0px solid #000;
+}
 
-  }
 
-  .answer{
+/* MANUEL CSS */
 
+.logo {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.questionText {
+    color: #000;
+    font-size: 28px;
+}
+
+.resultText {
+    color: #000;
+    font-size: 28px;
+}
+
+.resultMiniText {
+    color: #000;
+    font-size: 26px;
+}
+
+.answer {
+    text-align: center;
     width: 30%;
     height: 30px;
     margin: 20px;
     border-radius: 10px;
     font-size: 20px;
+    -moz-appearance: textfield;
+}
 
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 
-
-.results{
+.results {
     margin-bottom: 5%;
     margin-left: 90%;
 }
 
-.answerField{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left:  28%;
+.answerField {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 28%;
 }
 
-.answerLabel{
-  font-weight: 500;
-  color: #000;
+.answerLabel {
+    font-weight: 500;
+    color: #000;
 }
-

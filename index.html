@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,29 +8,63 @@
     <title>A-MEAN Danışmanlık</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/png" href="./images/amean_logo_icon.png" />
 </head>
+
 <body>
-    
+
     <div class="logo">
-        <img src="images/amean_logo_main.png" alt="AMEAN LOGO" width="200px">
+        <img src="images/amean_logo_durmus.png" alt="AMEAN LOGO" width="200px">
     </div>
+<<<<<<< HEAD
 
       <!-- Main page -->
       <div class="main" id="questionCard">
+=======
+    <!-- Main page -->
+    <div class="main" id="questionCard">
+
+        <!--------------------------------
+        RESULT PAGE
+       
+         <div class="quiz-questions" id="display-area">
+
+            <p id="result" class="resultMiniText">Puanınız</p>
+            <p id="" class="resultText">0/100</p>
+            <ul id="answer">
+            </ul>
+
+
+            <div id="quiz-results">
+                <button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button>
+            </div>
+        </div>
+         ----------------------------------->
+
+>>>>>>> d36a543bc2c746d42244d8dd87a0a070086c68df
         <!-- Number of Question  -->
         <div class="wrapper" id="pages">
-          <span id="quizNumber"> - </span>
+            <span id="quizNumber"> - </span>
         </div>
+
+
 
         <div class="results" id="pages">
             <span id="results"> - </span>
         </div>
 
-        
+
+
+
 
         <!-- Quiz Question -->
         <div class="quiz-questions" id="display-area">
+            <p id="kronometre" style="font-size: 20px;">Kronometre</p>
+            <p id="question" class="questionText"></p>
+            <ul id="answer">
+            </ul>
 
+<<<<<<< HEAD
           <p id="question" class="questionText"></p>
 
           <div class="answerField">
@@ -40,16 +75,27 @@
             <button type="button" name="button" class="submit" id="submit" onclick="buttonHandler()">Atla</button>
           </div>
         </div>
-
-      </div>
-
-      <canvas id="canvas"></canvas>
+=======
+            <input type="number" class="answer" id="studentAnswer">
 
 
+>>>>>>> d36a543bc2c746d42244d8dd87a0a070086c68df
+
+            <div id="quiz-results">
+                <button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Cevapla</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <canvas id="canvas"></canvas> -->
 
 
 
-    <script src= "script.js"></script>
+
+    <script src="./html2canvas.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

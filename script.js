@@ -8,6 +8,8 @@ let result = 0,
 
 let resultRevealed = false;
 
+
+/////////////////////////////
 function updateCount() {
 
     if (index == totalQuestionCount) {
@@ -99,6 +101,7 @@ function generateQuestion() {
 function resetFields() {
     document.getElementById("submit").innerHTML = "Atla";
     document.getElementById("submit").style.background = "#6dce70";
+    document.getElementById("questionCard").style.background = "#edfff0";
     document.getElementById("studentAnswer").value = "";
 }
 
@@ -129,8 +132,59 @@ function generateRandomDisivorOfNumber(sayi) {
     return array[random];
 }
 
+let saniye = 0,
+    dakika = 0,
+    saat = 0;
+let saatText = "00"
+let dakikaText = "00"
+let saniyeText = "00"
+
+let myVar = setInterval(kronometre, 1000);
+
+function kronometre() {
+    document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
+
+    if (saniye < 59) {
+        saniye += 1
+    } else {
+        saniye = 0;
+        if (dakika < 59) {
+            dakika += 1;
+        } else {
+            saat += 1;
+        }
+    }
+    if (saniye.toString().length == 2)
+        saniyeText = saniye.toString()
+    else
+        saniyeText = "0" + saniye.toString();
+
+    if (dakika.toString().length == 2)
+        dakikaText = dakika.toString()
+    else
+        dakikaText = "0" + dakika.toString();
+
+    if (saat.toString().length == 2)
+        saatText = saat.toString()
+    else
+        saatText = "0" + saat.toString();
+
+}
+
+function calculateMinuteNumber() {
+    let minutes = 0;
+    minutes += saat * 60
+    minutes += saniye / 60;
+    return minutes;
+}
+
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="" class="resultMiniText">Puanınız</p><p id="" class="resultText">' + (100 / totalQuestionCount) * trueCount + '/100</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)">Tekrarla</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="" class="resultText">Puanınız</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU İNDİR</button></div></div>'
+    document.getElementById("submit").innerHTML = "Yeniden Başla";
+    document.getElementById("submit").style.background = "#6dce70";
+    document.getElementById("questionCard").style.background = "#edfff0";
+    clearInterval(myVar);
+    document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
 }
 
 document.getElementById("studentAnswer").onkeypress = function(e) {
@@ -149,4 +203,21 @@ document.getElementById("studentAnswer").oninput = function() {
     } else {
         document.getElementById("submit").innerHTML = "Atla";
     }
+}
+
+async function downloadResult() {
+
+    html2canvas(document.getElementById("questionCard")).then(async function(canvas) {
+
+        const image = await fetch(canvas.toDataURL("image/png", 0.9))
+        const imageBlog = await image.blob()
+        const imageURL = URL.createObjectURL(imageBlog)
+
+        const link = document.createElement('a')
+        link.href = imageURL
+        link.download = "Result";
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    });
 }
