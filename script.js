@@ -1,4 +1,4 @@
-let questionCount = document.getElementById('quizNumber');
+let questionCount;
 let resultCount = document.getElementById("results");
 let index = 0,
     totalQuestionCount = 10;
@@ -12,19 +12,69 @@ let user_surname = "";
 let user_grade = "";
 
 
+let saniye = 0,
+    dakika = 0,
+    saat = 0;
+let saatText = "00"
+let dakikaText = "00"
+let saniyeText = "00"
+
+let myVar;
+
 /////////////////////////////
 
 function login() {
     user_name = document.getElementById("student_name").value
     user_surname = document.getElementById("student_surname").value
-    user_grade = document.getElementById("student_grade").value
+    user_grade = (document.getElementById("student_grade").value).toString()
+    console.log(user_grade)
     if (user_name == "") {
         document.getElementById("bug").innerHTML = "Adınız boş olamaz"
+        return;
     } else if (user_surname == "") {
         document.getElementById("bug").innerHTML = "Soyadınız boş olamaz"
+        return
     } else if (user_grade == "") {
         document.getElementById("bug").innerHTML = "Sınıfınız boş olamaz"
+        return
     }
+    startQuiz();
+}
+
+function startQuiz() {
+    document.getElementById("questionCard").innerHTML = ""
+
+    document.getElementById("questionCard").innerHTML = '<div class="wrapper" id="pages"><span id="quizNumber"> - </span></div><div class="results" id="pages"><span id="results"> - </span></div> <div class="quiz-questions" id="display-area"><p id="kronometre" style="font-size: 20px;">Kronometre</p><p id="question" class="questionText"></p><ul id="answer"></ul><p id="question" class="questionText"></p><div class="answerField"><p width="20%" class="answerLabel">Cevap: </p><input type="number" class="answer" id="studentAnswer"></div><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Atla</button></div>'
+
+    questionCount = document.getElementById('quizNumber');
+    resultCount = document.getElementById("results");
+
+    updateCount();
+    updateResult();
+
+
+    myVar = setInterval(kronometre, 1000);
+
+    generateQuestion();
+
+
+    document.getElementById("studentAnswer").onkeypress = function(e) {
+        if (!e) e = window.event;
+        var keyCode = e.code || e.key;
+        if (keyCode == 'Enter') {
+            getAnswer();
+        }
+    }
+
+
+    document.getElementById("studentAnswer").oninput = function() {
+        if (this.value != "") {
+            document.getElementById("submit").innerHTML = "Cevapla";
+        } else {
+            document.getElementById("submit").innerHTML = "Atla";
+        }
+    }
+
 }
 
 function updateCount() {
@@ -46,8 +96,6 @@ function updateResult() {
 }
 
 
-// updateCount();
-// updateResult();
 
 
 function getAnswer() {
@@ -149,14 +197,6 @@ function generateRandomDisivorOfNumber(sayi) {
     return array[random];
 }
 
-let saniye = 0,
-    dakika = 0,
-    saat = 0;
-let saatText = "00"
-let dakikaText = "00"
-let saniyeText = "00"
-
-// let myVar = setInterval(kronometre, 1000);
 
 function kronometre() {
     document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
@@ -204,23 +244,6 @@ function finishQuiz() {
     document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
 }
 
-// document.getElementById("studentAnswer").onkeypress = function(e) {
-//     if (!e) e = window.event;
-//     var keyCode = e.code || e.key;
-//     if (keyCode == 'Enter') {
-//         getAnswer();
-//     }
-// }
-
-// generateQuestion();
-
-// document.getElementById("studentAnswer").oninput = function() {
-//     if (this.value != "") {
-//         document.getElementById("submit").innerHTML = "Cevapla";
-//     } else {
-//         document.getElementById("submit").innerHTML = "Atla";
-//     }
-// }
 
 async function downloadResult() {
 
