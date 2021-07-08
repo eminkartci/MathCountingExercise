@@ -14,7 +14,7 @@
 <body>
 
     <div class="logo">
-        <img src="images/amean_logo_durmus.png" alt="AMEAN LOGO" width="200px">
+        <img src="images/amean_logo_durmus.png" alt="AMEAN LOGO" class="logo_img" width="200px">
     </div>
     <!-- Main page -->
     <div class="main" id="questionCard">
@@ -26,23 +26,26 @@
         <p id="" class="resultText" style="color: black;">Hoş Geldiniz</p>
         <p id="bug" class="" style="color:red;font-size:15px"></p>
 
-        <div class="answerField">
-            <p width="20%" class="answerLabel">Adın&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;: </p>
-            <input type="text" class="answer" id="student_name">
-        </div>
+        <div class="login-box">
+            <div class="user-box">
+                <input type="text" name="" required="" id="student_name">
+                <label>Adınız : </label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="" required="" id="student_surname">
+                <label>Soyadınız :</label>
+            </div>
+            <div class="user-box">
+                <input type="number" name="" required="" id="student_grade">
+                <label>Sınıfınız : </label>
+            </div>
 
-        <div class="answerField">
-            <p width="20%" class="answerLabel">Soyadın: </p>
-            <input type="text" class="answer" id="student_surname">
-        </div>
-
-        <div class="answerField">
-            <p width="20%" class="answerLabel">Sınıfın&ensp;&ensp;&ensp;: </p>
-            <input type="number" class="answer" id="student_grade">
-        </div>
-
-        <div id="login-results">
-            <button type="button" name="button" class="submit" id="submit_login" onclick="login()">Devam Et</button>
+            <a href="#" onclick="login()">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span> Devam Et
+            </a>
         </div>
 
         <!--------------------------------
