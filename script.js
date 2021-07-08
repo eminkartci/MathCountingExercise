@@ -4,7 +4,8 @@ let index = 0,
     totalQuestionCount = 10;
 let result = 0,
     trueCount = 0,
-    falseCount = 0;
+    falseCount = 0,
+    solvedCount = 0;
 
 let resultRevealed = false;
 let user_name = "";
@@ -44,7 +45,7 @@ function login() {
 function startQuiz() {
     document.getElementById("questionCard").innerHTML = ""
 
-    document.getElementById("questionCard").innerHTML = '<div class="wrapper" id="pages"><span id="quizNumber"> - </span></div><div class="results" id="pages"><span id="results"> - </span></div> <div class="quiz-questions" id="display-area"><p id="kronometre" style="font-size: 20px;">Kronometre</p><p id="question" class="questionText"></p><ul id="answer"></ul><p id="question" class="questionText"></p><div class="answerField"><p width="20%" class="answerLabel">Cevap: </p><input type="number" class="answer" id="studentAnswer"></div><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Atla</button></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="wrapper" id="pages"><span id="quizNumber"> - </span></div><div class="results" id="pages"><span id="results"> - </span></div> <div class="quiz-questions" id="display-area"><p id="kronometre" style="font-size: 20px;">Kronometre</p><p id="question" class="questionText"></p><ul id="answer"></ul><p id="question" class="questionText"></p><div class="answerField"><input type="number" class="answer" id="studentAnswer" placeholder="Cevap :"></div><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Atla</button></div>'
 
     questionCount = document.getElementById('quizNumber');
     resultCount = document.getElementById("results");
@@ -91,7 +92,7 @@ function updateCount() {
 
 function updateResult() {
 
-    resultCount.innerHTML = trueCount + ' / ' + (falseCount + trueCount);
+    resultCount.innerHTML = trueCount + '/' + solvedCount;
 
 }
 
@@ -110,10 +111,12 @@ function getAnswer() {
             resetFields();
         } else {
             document.getElementById("questionCard").style.background = '#fde7e8';
-            falseCount++;
+            if (studentAnswer != "")
+                falseCount++;
 
             revealResult();
         }
+        solvedCount++;
         updateCount();
         updateResult();
 
@@ -226,6 +229,8 @@ function kronometre() {
     else
         saatText = "0" + saat.toString();
 
+    return saatText + ":" + dakikaText + ":" + saniyeText;
+
 }
 
 function calculateMinuteNumber() {
@@ -236,7 +241,7 @@ function calculateMinuteNumber() {
 }
 
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU İNDİR</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU Kaydet</button></div></div>'
     document.getElementById("submit").innerHTML = "Yeniden Başla";
     document.getElementById("userNameText").innerHTML = user_name + " " + user_surname;
     document.getElementById("sınıf").innerHTML = user_grade + ". Sınıf";
@@ -248,18 +253,23 @@ function finishQuiz() {
 
 
 async function downloadResult() {
+    sendMail(totalQuestionCount, trueCount, falseCount, kronometre(), (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0));
+}
 
-    html2canvas(document.getElementById("questionCard")).then(async function(canvas) {
+function sendMail(sorusayısı, dogrusayısı, yanlıssayısı, sure, puan) {
 
-        const image = await fetch(canvas.toDataURL("image/png", 0.9))
-        const imageBlog = await image.blob()
-        const imageURL = URL.createObjectURL(imageBlog)
-
-        const link = document.createElement('a')
-        link.href = imageURL
-        link.download = "Result";
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
-    });
+    let tempParams = {
+        to_name: "Emin Kartcı",
+        from_name: user_name + " " + user_surname,
+        total_question: sorusayısı,
+        correct_question: dogrusayısı,
+        wrong_question: yanlıssayısı,
+        time: sure,
+        space_question: (sorusayısı - dogrusayısı - yanlıssayısı),
+        score: ((dogrusayısı * 100 / sorusayısı) * 100 / (sorusayısı * 100 / sorusayısı)).toFixed(0) + "/100",
+        puan: puan,
+        to: "emin.kartci@ozu.edu.tr",
+        grade: user_grade
+    }
+    emailjs.send("service_880b6o7", "template_cbjq7pg", tempParams).then(function(res) { console.log("succes : " + res.status) })
 }

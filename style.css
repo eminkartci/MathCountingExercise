@@ -274,7 +274,7 @@ input::-webkit-inner-spin-button {
 
 .login-box {
     position: relative;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 
 .login-box .user-box {
@@ -419,6 +419,29 @@ input::-webkit-inner-spin-button {
     }
 }
 
+.footer-body {
+    width: 800px;
+    height: 10px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.footer {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 10px;
+    color: #000;
+    position: fixed;
+    bottom: 8px;
+}
+
+.footer a {
+    font-size: 11px;
+    color: #000;
+    text-decoration: none;
+}
+
 @media only screen and (max-width: 600px) {
     .main {
         background-color: #edfff0;
@@ -430,6 +453,64 @@ input::-webkit-inner-spin-button {
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
     .logo .logo_img {
-        width: 80px !important;
+        width: 150px !important;
+    }
+    .login-box .user-box input {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 16px;
+        color: #000;
+        margin-bottom: 30px;
+        border: none;
+        border-bottom: 1px solid #000;
+        outline: none;
+        background: transparent;
+    }
+    .login-box .user-box label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 0;
+        font-size: 15px;
+        color: #000;
+        pointer-events: none;
+        transition: .5s;
+    }
+    .login-box .user-box {
+        position: relative;
+        margin: 0 auto;
+        width: 80%;
+    }
+    .questionText {
+        color: #000;
+        font-size: 20px;
+    }
+    .userNameText {
+        color: #000;
+        font-size: 28px;
+    }
+    .resultText {
+        color: rgb(99, 97, 97);
+        font-size: 26px;
+    }
+    .resultMiniText {
+        color: rgb(4, 153, 4);
+        font-size: 24px;
+    }
+    .answer {
+        text-align: center;
+        width: 55%;
+        height: 30px;
+        position: relative;
+        margin: 1.5rem auto;
+        border-radius: 10px;
+        font-size: 20px;
+        -moz-appearance: textfield;
+    }
+    #kronometre {
+        font-size: 17.5px !important;
+    }
+    .answerField {
+        margin: 0;
     }
 }
