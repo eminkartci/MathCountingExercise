@@ -241,7 +241,7 @@ function calculateMinuteNumber() {
 }
 
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="submit" onclick="downloadResult();" style="margin-left:2px;">SONUCU Kaydet</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="download" onclick="downloadResult();" style="margin-left:2px;">SONUCU Kaydet</button></div></div>'
     document.getElementById("submit").innerHTML = "Yeniden Başla";
     document.getElementById("userNameText").innerHTML = user_name + " " + user_surname;
     document.getElementById("sınıf").innerHTML = user_grade + ". Sınıf";
@@ -253,6 +253,7 @@ function finishQuiz() {
 
 
 async function downloadResult() {
+    document.getElementById("download").disabled = true;
     sendMail(totalQuestionCount, trueCount, falseCount, kronometre(), (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0));
 }
 
@@ -268,7 +269,7 @@ function sendMail(sorusayısı, dogrusayısı, yanlıssayısı, sure, puan) {
         space_question: (sorusayısı - dogrusayısı - yanlıssayısı),
         score: ((dogrusayısı * 100 / sorusayısı) * 100 / (sorusayısı * 100 / sorusayısı)).toFixed(0) + "/100",
         puan: puan,
-        to: "emin.kartci@ozu.edu.tr",
+        to: "durmusikartci@gmail.com", //"emin.kartci@ozu.edu.tr",
         grade: user_grade
     }
     emailjs.send("service_880b6o7", "template_cbjq7pg", tempParams).then(function(res) { console.log("succes : " + res.status) })
