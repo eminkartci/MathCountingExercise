@@ -261,10 +261,8 @@ input::-webkit-inner-spin-button {
 }
 
 .answerField {
-    display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 28%;
 }
 
 .answerLabel {
