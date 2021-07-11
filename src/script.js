@@ -50,9 +50,7 @@ function guestLogin() {
 
 
 function startQuiz() {
-    document.getElementById("questionCard").innerHTML = ""
-
-    document.getElementById("questionCard").innerHTML = '<div class="wrapper" id="pages"><span id="quizNumber"> - </span></div><div class="results" id="pages"><span id="results"> - </span></div> <div class="quiz-questions" id="display-area"><p id="kronometre" style="font-size: 20px;">Kronometre</p><p id="question" class="questionText"></p><ul id="answer"></ul><p id="question" class="questionText"></p><div class="answerField"><input type="number" class="answer" id="studentAnswer" placeholder="Cevap :"></div><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Atla</button></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="wrapper" id="pages"><span id="quizNumber"> - </span></div><div class="results" id="pages"><span id="results"> - </span></div> <div class="quiz-questions" id="display-area"><p id="kronometre" style="font-size: 20px;">Kronometre</p><p id="question" class="questionText">-</p><ul id="answer"></ul><p id="question" class="questionText"></p><div class="answerField"><input type="number" class="answer" id="studentAnswer" placeholder="Cevap :"></div><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="getAnswer()">Atla</button></div>'
 
     questionCount = document.getElementById('quizNumber');
     resultCount = document.getElementById("results");
@@ -137,38 +135,13 @@ function getAnswer() {
 
 function generateQuestion() {
     document.getElementById("studentAnswer").disabled = false;
-
-    let number1 = 0,
-        number2 = 0;
-    let operation = '+';
-
-    number1 = Math.floor(Math.random() * 100);
-    number2 = Math.floor(Math.random() * 100);
-
-    let randomOperator = Math.floor(Math.random() * 4);
-
-    if (randomOperator == 0) {
-        operation = '+';
-        result = number1 + number2;
-    } else if (randomOperator == 1) {
-        operation = '-';
-        result = number1 - number2;
-    } else if (randomOperator == 2) {
-        operation = '/';
-        number2 = generateRandomDisivorOfNumber(number1)
-        result = number1 / number2;
-    } else if (randomOperator == 3) {
-        operation = '.';
-        result = number1 * number2;
-    }
-
-
-    let question = number1 + " " + operation + " " + number2 + " = x denklemine göre x'in değeri kaçtır ?";
-
-
+    let index_of_question_types = Math.floor(Math.random() * question_types.length)
+    console.log(index_of_question_types)
+    let question = question_types[index_of_question_types][0]
+    result = question_types[index_of_question_types][1]
 
     document.getElementById("question").innerHTML = question;
-
+    reload_questions();
     resetFields();
 
 }
@@ -240,22 +213,23 @@ function kronometre() {
 
 }
 
-function calculateMinuteNumber() {
-    let minutes = 0;
-    minutes += saat * 60
-    minutes += saniye / 60;
-    return minutes;
+function calculateSecondNumber() {
+    let seconds = 60;
+    seconds += saniye;
+    seconds += dakika * 60;
+    seconds += saat * 3600;
+    return seconds;
 }
 
 function finishQuiz() {
-    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="download" onclick="downloadResult();" style="margin-left:2px;">SONUCU Kaydet</button></div></div>'
+    document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">-</p><p id="sınıf" class="resultText">.Sınıf</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateSecondNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button><button type="button" name="button" class="submit" id="download" onclick="downloadResult();" style="margin-left:2px;">SONUCU Kaydet</button></div></div>'
     document.getElementById("submit").innerHTML = "Yeniden Başla";
     document.getElementById("userNameText").innerHTML = user_name + " " + user_surname;
     document.getElementById("sınıf").innerHTML = user_grade;
     document.getElementById("submit").style.background = "#6dce70";
     document.getElementById("questionCard").style.background = "#edfff0";
     if (user_name == null) {
-        document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">Misafir</p><p id="sınıf" class="resultText">Lise 1</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button></div></div>'
+        document.getElementById("questionCard").innerHTML = '<div class="quiz-questions" id="display-area"><p id="kronometre" class="">Kronometre</p><p id="userNameText" class="userNameText">Misafir</p><p id="sınıf" class="resultText">Lise 1</p><p id="" class="resultMiniText">' + (((trueCount / totalQuestionCount) / calculateSecondNumber()) * 10000).toFixed(0) + '</p><ul id="answer"></ul><div id="quiz-results"><button type="button" name="button" class="submit" id="submit" onclick="window.location.reload(true)" style="margin-right:2px;">Tekrarla</button></div></div>'
     }
     clearInterval(myVar);
     document.getElementById("kronometre").innerHTML = saatText + ":" + dakikaText + ":" + saniyeText;
@@ -265,7 +239,7 @@ function finishQuiz() {
 async function downloadResult() {
     if (user_name != null) {
         document.getElementById("download").disabled = true;
-        sendMail(totalQuestionCount, trueCount, falseCount, kronometre(), (((trueCount / totalQuestionCount) / calculateMinuteNumber()) * 10000).toFixed(0));
+        //sendMail(totalQuestionCount, trueCount, falseCount, kronometre(), (((trueCount / totalQuestionCount) / calculateSecondNumber()) * 10000).toFixed(0));
 
     }
 
