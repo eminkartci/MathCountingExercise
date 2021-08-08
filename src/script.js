@@ -139,8 +139,10 @@ function generateQuestion() {
     console.log(index_of_question_types)
     let question = question_types[index_of_question_types][0]
     result = question_types[index_of_question_types][1]
-
     document.getElementById("question").innerHTML = question;
+    document.getElementById("question").style.opacity = "0"
+    document.getElementById("question").style.transition = "2s";
+    document.getElementById("question").style.opacity = "1"
     reload_questions();
     resetFields();
 

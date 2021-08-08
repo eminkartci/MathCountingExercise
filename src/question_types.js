@@ -1,5 +1,5 @@
 let operators = ["+", "-", ".", "/"]
-let question_types = [question_1(), question_2()]
+let question_types = [question_1()]
 
 function question_1() {
 
@@ -10,7 +10,6 @@ function question_1() {
     number_2 = Math.floor(Math.random() * 100);
 
     let operator = operators[Math.floor(Math.random() * 4)];
-    let question = number_1 + " " + operator + " " + number_2 + " = x denklemine göre x'in değeri kaçtır ?"
     let result = 0;
     if (operator == "+")
         result = number_1 + number_2;
@@ -22,6 +21,10 @@ function question_1() {
         number_2 = generateRandomDisivorOfNumber(number_1)
         result = number_1 / number_2;
     }
+    let question = number_1 + " " + operator + " " + number_2 + " = x denklemine göre x'in değeri kaçtır ?"
+    console.log(question)
+    console.log(number_1 + " " + operator + " " + number_2);
+    console.log(result);
     return [
         question,
         result
@@ -65,5 +68,5 @@ function question_2() {
 }
 
 function reload_questions() {
-    question_types = [question_1(), question_2()]
+    question_types = [question_1()]
 }
