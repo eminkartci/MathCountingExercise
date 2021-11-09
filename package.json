@@ -1,33 +1,33 @@
 {
-  "name": "mathcountingexercise",
-  "version": "1.0.0",
-  "description": "Math Counting Execise",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "nodemon node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eminkartci/MathCountingExercise.git"
-  },
-  "keywords": [
-    "Math",
-    "Counting",
-    "Exercise"
-  ],
-  "author": "Emin Kartci & Durmus Kartci",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/eminkartci/MathCountingExercise/issues"
-  },
-  "homepage": "https://github.com/eminkartci/MathCountingExercise#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "fs": "^0.0.1-security",
-    "node-mac": "^1.0.1",
-    "nodemon": "^2.0.11",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {}
+    "name": "mathcountingexercise",
+    "version": "1.0.0",
+    "description": "Math Counting Execise",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eminkartci/MathCountingExercise.git"
+    },
+    "keywords": [
+        "Math",
+        "Counting",
+        "Exercise"
+    ],
+    "author": "Emin Kartci & Durmus Kartci",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/eminkartci/MathCountingExercise/issues"
+    },
+    "homepage": "https://github.com/eminkartci/MathCountingExercise#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "fs": "^0.0.1-security",
+        "node": "^17.0.1",
+        "node-mac": "^1.0.1",
+        "nodemon": "^2.0.11",
+        "path": "^0.12.7"
+    }
 }
