@@ -18,6 +18,8 @@ jQuery(function($) {
             }
             if (!state.isMovingForward)
                 return true;
+            if(login(student_database_json) == null)
+                return false;
             var inputs = $(this).wizard('state').step.find(':input');
             return !inputs.length || !!inputs.valid();
         }
@@ -53,20 +55,3 @@ $("#wizard_container").wizard({
 });
 
 
-// Input name and email value
-function getVals(formControl, controlType) {
-    switch (controlType) {
-
-        case 'name_field':
-            // Get the value for input
-            var value = $(formControl).val();
-            $("#name_field").text(value);
-            break;
-
-        case 'email_field':
-            // Get the value for input
-            var value = $(formControl).val();
-            $("#email_field").text(value);
-            break;
-    }
-}
