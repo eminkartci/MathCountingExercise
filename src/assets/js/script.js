@@ -3,16 +3,16 @@
 
 let student_database_json = {
 
-    "5082": {
+    "S014877": {
         "name": "Emin",
         "surname": "Kartcı",
-        "password": "emin1415",
+        "password": "4297f44b13955235245b2497399d7a93",
         "grade": "10"
     }, "5081"
         : {
         "name": "Durmuş",
         "surname": "Kartcı",
-        "password": "durmus67512",
+        "password": "6481064b197d9a31c9ab7b604ea1c319",
         "grade": "10"
     },
     "5083": {
@@ -262,18 +262,22 @@ class Matematik {
 
 function login(student_database) {
 
-    let school_no_input = document.getElementById("school_no").value
+    let okul_numarasi = document.getElementById("school_no").value
     let password_input = document.getElementById("password").value
+    var password = CryptoJS.MD5(password_input).toString();
+    console.log("Okul Numarası: " + okul_numarasi);
+    console.log("Şifre : " + password);
 
-    if (school_no_input != "" && password_input != "") {
+    // okul no veya şifre boş mu kontrol
+    if (okul_numarasi != "" || password != "") {
 
-        if (find_student_by_schoolNo(school_no_input, student_database) != null) {
-
-            student_infos = find_student_by_schoolNo(school_no_input, student_database)
+        student_infos = find_student_by_schoolNo(okul_numarasi, student_database)
+        // kullanıcı bizde kayıtlı mı kontrol
+        if (student_infos != null) {
 
             if (password_input == student_infos.password) {
 
-                return new Student(student_infos.name, student_infos.surname, school_no_input, student_infos.password, student_infos.grade)
+                return new Student(student_infos.name, student_infos.surname, okul_numarasi, student_infos.password, student_infos.grade)
 
             } else {
 
@@ -282,20 +286,31 @@ function login(student_database) {
 
             }
 
-        } else {
-            // console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
+        } else { // okul numarası yoksa
+            
+            // Bilgilendir
+            document.getElementById("giris_baslik").innerHTML = "Deneme1"
+            console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
+
+            // Bos Dondur
             return null
         }
+    } else { // Kullanıcı veya şifre alanı boşsa
+
+        document.getElementById("giris_baslik").innerHTML = "Deneme"
+        console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
+        return null
     }
 }
 
-function find_student_by_schoolNo(school_no, json) {
-    for (let i = 0; i < Object.keys(json).length; i++) {
-        if (Object.keys(json)[i] == school_no) {
-            return json[Object.keys(json)[i]]
-        }
+function find_student_by_schoolNo(school_no, student_db) {
+    console.log("OBJECT KEYS ",Object.keys(student_db))
+    if(Object.keys(student_db).includes(school_no)){
+        console.log("TRUE");
+        return student_db[school_no]
+    }else{
+        console.log("FALSE");
     }
-    return null
 }
 
 function generate_question(question_types, lesson, grade) {
@@ -510,46 +525,46 @@ function convert_array_to_html(quiz_array) {
 // let state = 0
 
 
-// document.getElementById("next_button").onclick = function () {
-//     if (state == 0) {
-//         student = login(student_database_json)
-//         if(student!=null)
-//             state+=1
-//     } else if (state == 1) {
+document.getElementById("next_button").onclick = function () {
+    if (state == 0) {
+        student = login(student_database_json)
+        if(student!=null)
+            state+=1
+    } else if (state == 1) {
 
-//         let lessons = []
+        let lessons = []
 
-//         if(document.getElementById("matematik_checkbox").checked){
-//             lessons.push("matematik")
-//         }
+        if(document.getElementById("matematik_checkbox").checked){
+            lessons.push("matematik")
+        }
 
-//         if(document.getElementById("biyoloji_checkbox").checked){
-//             lessons.push("biyoloji")
-//         }
+        if(document.getElementById("biyoloji_checkbox").checked){
+            lessons.push("biyoloji")
+        }
 
-//         if(document.getElementById("kimya_checkbox").checked){
-//             lessons.push("kimya")
-//         }
+        if(document.getElementById("kimya_checkbox").checked){
+            lessons.push("kimya")
+        }
 
-//         if(document.getElementById("fizik_checkbox").checked){
-//             lessons.push("fizik")
-//         }
+        if(document.getElementById("fizik_checkbox").checked){
+            lessons.push("fizik")
+        }
 
-//         if(document.getElementById("turkce_checkbox").checked){
-//             lessons.push("turkce")
-//         }
+        if(document.getElementById("turkce_checkbox").checked){
+            lessons.push("turkce")
+        }
 
-//         if(document.getElementById("tarih_checkbox").checked){
-//             lessons.push("tarih")
-//         }
+        if(document.getElementById("tarih_checkbox").checked){
+            lessons.push("tarih")
+        }
 
-//         console.log(lessons)
+        console.log(lessons)
 
-//         if(lessons.length !=0){
-//             document.getElementById("middle-wizard").innerHTML=convert_array_to_html(generate_quiz(question_types_json, 1, lessons, 10))
-//         }
-//     }
-// }
+        if(lessons.length !=0){
+            document.getElementById("middle-wizard").innerHTML=convert_array_to_html(generate_quiz(question_types_json, 1, lessons, 10))
+        }
+    }
+}
 
 let q = new Matematik(question_types_json,"sayma-siralama",10)
 

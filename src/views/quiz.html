@@ -31,6 +31,11 @@
     <!-- MODERNIZR MENU -->
     <script src="assets/js/modernizr.js"></script>
 
+    <!-- SIFRELEME MD5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+
+
+
 </head>
 
 <body>
@@ -106,7 +111,7 @@
                             <!-- Leave for security protection, read docs for details -->
                             <div id="middle-wizard">
                                 <div class="step">
-                                    <h3 class="main_question"><i class="arrow_right"></i>Giriş Yapmak için gerekli alanları doldurunuz.</h3>
+                                    <h3 class="main_question" id="giris_baslik"><i class="arrow_right"></i>Giriş Yapmak için gerekli alanları doldurunuz.</h3>
                                     <div class="form-group add_top_30">
                                         <label for="name">Okul Numaranız : </label>
                                         <input type="text" name="school_no" id="school_no" class="form-control required" onchange="getVals(this, 'name_field');">
@@ -210,8 +215,8 @@
                             <!-- /middle-wizard -->
                             <div id="bottom-wizard">
                                 <!-- <button type="button" name="backward" class="backward">Prev</button> -->
-                                <button type="button" name="forward" class="forward" id="next_button">Next</button>
-                                <button type="submit" name="process" class="submit" id="submit_button">Submit</button>
+                                <button type="button" name="forward" class="forward" id="next_button">Sonraki</button>
+                                <button type="submit" name="process" class="submit" id="submit_button">Kaydet</button>
                             </div>
                             <!-- /bottom-wizard -->
                         </form>
