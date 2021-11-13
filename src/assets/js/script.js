@@ -81,9 +81,22 @@ let question_types_json = {
                 0: {
                     "question":"Aşağıdaki cümlelerin hangisinde yazım hatası vardır?",
                     "name": ["Ayşe","Ahmet","Can","Hatice","Mehmet"],
-                    "answer": "<name> okula geldiğin de , kardeşininde dondurma yediğini gördü",
+                    "answer": ["<name> okula geldiğin de , kardeşininde dondurma yediğini gördü"],
                     //options_range --> [ {minimum},{maximum},{katsayi}, ]
                     "options": ["<name> , Fatma teyzesinin verdiği harçlığı almadı.","Komşumuz Korkusuz Ahmet'i, dün semt pazarında gördüm.","Yarın sabaha kadar ki bütün feribot seferlerinin iptal edileceği bildirildi","Kendisine mülakata yalnız katılması gerektiği söylendi.","Son Güneş tutulmasını bu şehirde izlemiştik.","<name>, bu yıl 2'nci sınıfa başlamıştı."]
+                }
+            }  
+        }
+
+    },"tarih": {
+        10: {
+            "yazim-kurallari": {
+                0: {
+                    "question":"Aşadıdaki beyliklerden hangisi 1. beyliklerden değildir?",
+                    "name": ["Ayşe","Ahmet","Can","Hatice","Mehmet"],
+                    "answer": ["Karamanoğulları","Osmanoğulları","Karesioğulları"],
+                    //options_range --> [ {minimum},{maximum},{katsayi}, ]
+                    "options": ["Saltuklular","Artuklular","Çaka Beyliği","Danişmentliler","Mengücekliler"]
                 }
             }  
         }
@@ -275,7 +288,7 @@ function login(student_database) {
         // kullanıcı bizde kayıtlı mı kontrol
         if (student_infos != null) {
 
-            if (password_input == student_infos.password) {
+            if (password == student_infos.password) {
 
                 return new Student(student_infos.name, student_infos.surname, okul_numarasi, student_infos.password, student_infos.grade)
 
@@ -304,9 +317,8 @@ function login(student_database) {
 }
 
 function find_student_by_schoolNo(school_no, student_db) {
-    console.log("OBJECT KEYS ",Object.keys(student_db))
     if(Object.keys(student_db).includes(school_no)){
-        console.log("TRUE");
+        console.log(student_db[school_no]);
         return student_db[school_no]
     }else{
         console.log("FALSE");
@@ -366,6 +378,19 @@ function generate_question(question_types, lesson, grade) {
                 let options = question_type.options
                 return [subject, question, answer, options]
             }else if(lesson == "turkce"){
+                let subject = Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]
+                let question_types_array = question_types[lesson][grade][Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]]
+                let question_type = question_types_array[Math.floor(Object.keys(question_types_array).length * Math.random())]
+                // let question_variables = []
+                // for(let x =1 ; x < Object.keys(question_type).length;x++){
+                //     question_variables.push(question_type[Object.keys(question_type)[x]])
+                // }
+                let question = question_type.question
+                let answer = question_type.answer
+                let options = question_type.options
+                return [subject, question, answer, options]
+            }
+            else if(lesson == "tarih"){
                 let subject = Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]
                 let question_types_array = question_types[lesson][grade][Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]]
                 let question_type = question_types_array[Math.floor(Object.keys(question_types_array).length * Math.random())]
@@ -452,7 +477,7 @@ function convert_array_to_html(quiz_array) {
                     }
 
                 }
-                options[Math.floor(Math.random()*options.length)] = quiz_array[a][i][2]
+                options[Math.floor(Math.random()*options.length)] = quiz_array[a][i][2][Math.floor(Math.random()*quiz_array[a][i][2].length)]
                 console.log(options)
                 content = `
                 <div class="step">
@@ -520,13 +545,14 @@ function convert_array_to_html(quiz_array) {
 
 ///// MAIN //////
 
-// let student = null;
-// let quiz_div = document.getElementById("middle-wizard")
-// let state = 0
+let student = null;
+let quiz_div = document.getElementById("middle-wizard")
+let state = 0
 
 
 document.getElementById("next_button").onclick = function () {
     if (state == 0) {
+
         student = login(student_database_json)
         if(student!=null)
             state+=1
@@ -565,7 +591,3 @@ document.getElementById("next_button").onclick = function () {
         }
     }
 }
-
-let q = new Matematik(question_types_json,"sayma-siralama",10)
-
-q.goster();
