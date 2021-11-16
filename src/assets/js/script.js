@@ -329,7 +329,6 @@ function generate_question(question_types, lesson, grade) {
     for (let i = 0; i < Object.keys(question_types).length; i++) {
         if (Object.keys(question_types)[i] == lesson) {
             if (lesson == "matematik") {
-
                 let subject = Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]
                 let question_types_array = question_types[lesson][grade][Object.keys(question_types[lesson][grade])[Math.floor(Math.random() * Object.keys(question_types[lesson][grade]).length)]]
                 let question_type = question_types_array[Math.floor(Object.keys(question_types_array).length * Math.random())]
