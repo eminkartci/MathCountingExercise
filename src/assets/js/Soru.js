@@ -112,6 +112,7 @@ class Soru{
 
 }
 
-// let soru_tipi_1 = new SoruTipi(["Matematik","Fikzik"],)
-// let yas_problemi = new Konu("Matematik","Yaş Problemi",[soru_tipi_1])
-// let matematik_soru = new Soru("Matematik",yas_problemi)
+let yas_problemi = new Konu("Matematik","Yaş Problemi")
+let matematik_soru = new Soru("Matematik",yas_problemi)
+
+console.log(matematik_soru)

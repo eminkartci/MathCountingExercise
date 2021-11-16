@@ -29,9 +29,9 @@ let question_types_json = {
         10: {
             "sayma-siralama": {
                 0: {
-                    "question": "Arkadaşlarıyla dışarıya çıkmak isteyen <name> , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.<name>'in <number1> elbise , <number2> gömlek ve <number3> pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",
+                    "question": "Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",
                     "name": ["Ayşe", "Selin", "Nedim", "İrem", "Zeynep", "Emine"],
-                    "answer": "<number1>+<number2>*<number3>",
+                    "answer": "11",
                     "options": 30
                 }
             }
@@ -40,7 +40,7 @@ let question_types_json = {
         10: {
             "hiz-surat": {
                 0: {
-                    "question": "A şehrinden B şehrine olan uzaklık <number1> kilometredir. <name>, A şehrinden B şehrine <number2> saatte gittiğine göre Ahmet'in ortalama hızı kaçtır ?",
+                    "question": "A şehrinden B şehrine olan uzaklık <number1> kilometredir. Ayşe, A şehrinden B şehrine <number2> saatte gittiğine göre Ahmet'in ortalama hızı kaçtır ?",
                     "name": ["Mehmet", "Arda", "Emir", "Buğra", "Deniz", "Can"],
                     "answer": "<number1>/<number2>",
                     //options_range --> [ {minimum},{maximum},{katsayi}, ]
@@ -53,7 +53,7 @@ let question_types_json = {
         10: {
             "mol": {
                 0: {
-                    "question":"<number1> mol atom içeren <name> molekülü kaç moldür ? ",
+                    "question":"<number1> mol atom içeren Ayşe molekülü kaç moldür ? ",
                     "name": ["H2O"],
                     "answer": "<number>/3",
                     //options_range --> [ {minimum},{maximum},{katsayi}, ]
@@ -81,9 +81,9 @@ let question_types_json = {
                 0: {
                     "question":"Aşağıdaki cümlelerin hangisinde yazım hatası vardır?",
                     "name": ["Ayşe","Ahmet","Can","Hatice","Mehmet"],
-                    "answer": ["<name> okula geldiğin de , kardeşininde dondurma yediğini gördü"],
+                    "answer": ["Ayşe okula geldiğin de , kardeşininde dondurma yediğini gördü"],
                     //options_range --> [ {minimum},{maximum},{katsayi}, ]
-                    "options": ["<name> , Fatma teyzesinin verdiği harçlığı almadı.","Komşumuz Korkusuz Ahmet'i, dün semt pazarında gördüm.","Yarın sabaha kadar ki bütün feribot seferlerinin iptal edileceği bildirildi","Kendisine mülakata yalnız katılması gerektiği söylendi.","Son Güneş tutulmasını bu şehirde izlemiştik.","<name>, bu yıl 2'nci sınıfa başlamıştı."]
+                    "options": ["Ayşe , Fatma teyzesinin verdiği harçlığı almadı.","Komşumuz Korkusuz Ahmet'i, dün semt pazarında gördüm.","Yarın sabaha kadar ki bütün feribot seferlerinin iptal edileceği bildirildi","Kendisine mülakata yalnız katılması gerektiği söylendi.","Son Güneş tutulmasını bu şehirde izlemiştik.","Ayşe, bu yıl 2'nci sınıfa başlamıştı."]
                 }
             }  
         }
@@ -190,83 +190,83 @@ Sınıf Düzeyi : ${this.grade}
     }
 }
 
-class Soru{
-    constructor(soru_tipleri,soru,cevap,secenekler){
-        this.soru_tipleri=soru_tipleri
-        this.soru = soru
-        this.cevap = cevap
-        this.secenekler = secenekler
-    }
+// class Soru{
+//     constructor(soru_tipleri,soru,cevap,secenekler){
+//         this.soru_tipleri=soru_tipleri
+//         this.soru = soru
+//         this.cevap = cevap
+//         this.secenekler = secenekler
+//     }
 
-    goster(){
-        let content = `
-            Soru : ${this.soru}
-            Cevap   : ${this.cevap}
-            Seçenekler  :
-                1.  ${this.secenekler[0]}
-                2.  ${this.secenekler[1]}
-                3.  ${this.secenekler[2]}
-                4.  ${this.secenekler[3]}
-            `
+//     goster(){
+//         let content = `
+//             Soru : ${this.soru}
+//             Cevap   : ${this.cevap}
+//             Seçenekler  :
+//                 1.  ${this.secenekler[0]}
+//                 2.  ${this.secenekler[1]}
+//                 3.  ${this.secenekler[2]}
+//                 4.  ${this.secenekler[3]}
+//             `
         
-        console.log(content)
-    }   
+//         console.log(content)
+//     }   
 
-}
+// }
 
-class Matematik {
-    constructor(soru_tipleri,konu,sinif){
-        this.soru_tipleri = soru_tipleri
-        this.konu = konu
-        this.sinif = sinif
-        this.soru_tipi = this.jsondan_soru_tipi_sec()
+// class Matematik {
+//     constructor(soru_tipleri,konu,sinif){
+//         this.soru_tipleri = soru_tipleri
+//         this.konu = konu
+//         this.sinif = sinif
+//         this.soru_tipi = this.jsondan_soru_tipi_sec()
 
-        this.soru = this.soru_getir()
-        this.cevap = this.cevap_getir()
-        this.secenekler = this.secenekler_getir()
-    }
+//         this.soru = this.soru_getir()
+//         this.cevap = this.cevap_getir()
+//         this.secenekler = this.secenekler_getir()
+//     }
 
-    jsondan_soru_tipi_sec(){
-        for(let a = 0;a < Object.keys(this.soru_tipleri).length;a++){
-            if(Object.keys(this.soru_tipleri)[a] == "matematik"){
-                for(let b = 0;b < Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][this.sinif]).length;b++){
-                    console.log(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]))//[Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])
+//     jsondan_soru_tipi_sec(){
+//         for(let a = 0;a < Object.keys(this.soru_tipleri).length;a++){
+//             if(Object.keys(this.soru_tipleri)[a] == "matematik"){
+//                 for(let b = 0;b < Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][this.sinif]).length;b++){
+//                     console.log(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]))//[Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])
 
-                    if(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]) == this.konu){
-                        console.log(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])])[this.konu]
-                        return this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]
-                    }
-                }
-            }
-        }
-    }
+//                     if(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]) == this.konu){
+//                         console.log(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])])[this.konu]
+//                         return this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
-    soru_getir(){
-        return this.jsondan_soru_tipi_sec().question
-    }
+//     soru_getir(){
+//         return this.jsondan_soru_tipi_sec().question
+//     }
 
-    cevap_getir(){
-        return this.jsondan_soru_tipi_sec().answer
-    }
+//     cevap_getir(){
+//         return this.jsondan_soru_tipi_sec().answer
+//     }
 
-    secenekler_getir(){
-        return this.jsondan_soru_tipi_sec().options
-    }
+//     secenekler_getir(){
+//         return this.jsondan_soru_tipi_sec().options
+//     }
 
-    goster(){
-        let content = `
-            Soru : ${this.soru}
-            Cevap   : ${this.cevap}
-            Seçenekler  :
-                1.  ${this.secenekler[0]}
-                2.  ${this.secenekler[1]}
-                3.  ${this.secenekler[2]}
-                4.  ${this.secenekler[3]}
-            `
+//     goster(){
+//         let content = `
+//             Soru : ${this.soru}
+//             Cevap   : ${this.cevap}
+//             Seçenekler  :
+//                 1.  ${this.secenekler[0]}
+//                 2.  ${this.secenekler[1]}
+//                 3.  ${this.secenekler[2]}
+//                 4.  ${this.secenekler[3]}
+//             `
         
-        console.log(content)
-    }  
-}
+//         console.log(content)
+//     }  
+// }
 // class Question{
 //     constructor(question_types){
 //         this.question_types_array = 
