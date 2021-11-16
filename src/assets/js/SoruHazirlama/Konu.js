@@ -12,7 +12,7 @@ class Konu{
     }
 
     /// DAVRANISLARI
-    
+
     soru_tipi_ver(){
 
     }
@@ -20,15 +20,15 @@ class Konu{
     /// GETTER
 
     get_Ders(){
-        return Ders
+        return this.Ders
     }
     
     get_KonuAdi(){
-        return KonuAdi
+        return this.KonuAdi
     }
 
     get_SoruTipleri(){
-        return SoruTipleri
+        return this.SoruTipleri
     }
 
     /// SETTER
