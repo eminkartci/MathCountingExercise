@@ -1,17 +1,13 @@
 class Soru{
 
     /// OZELLİKLERİ
-    DersAdi; // String
-    Konu; // Konu
-    SoruTipi ; // SoruTipi
-    Siklar  = []
-    Degiskenler = []
-    Cevap = ""
+    private SoruTipi    : SoruTipi ; // SoruTipi
+    private Siklar      : string[];
+    private Degiskenler : string[]
+    private Cevap       : string
     /// YAPILANDIRICI
 
-    constructor(DersAdi , Konu){
-        this.DersAdi = DersAdi;
-        this.Konu = Konu;
+    constructor(private DersAdi:string,private Konu:Konu){
         this.soru_hazirla();
     }
 
@@ -58,51 +54,61 @@ class Soru{
 
     }
     /// GETTER
-    get_DersAdi(){
+    get_DersAdi() : string{
         return this.DersAdi;
     }
 
-    get_Konu(){
+    get_Konu() : Konu{
         return this.Konu;
     }
 
-    get_SoruTipi(){
+    get_SoruTipi() : SoruTipi{
         return this.SoruTipi;
     }
 
-    get_Siklar(){
+    get_Siklar() : string[]{
         return this.Siklar;
     }
 
-    get_Degiskenler(){
+    get_Degiskenler() : string[]{
         return this.Degiskenler;
     }
 
-    get_Cevap(){
+    get_Cevap() : string{
         return this.Cevap;
     }
+
+
     /// SETTER
-    set_DersAdi(DersAdi){
+    set_DersAdi(DersAdi : string){
         this.DersAdi = DersAdi;
     }
 
-    set_Konu(Konu){
+    set_Konu(Konu : Konu){
         this.Konu = Konu;
     }
 
-    set_SoruTipi(SoruTipi){
+    set_SoruTipi(SoruTipi : SoruTipi){
         this.SoruTipi = SoruTipi;
     }
 
-    set_Siklar(Siklar){
+    set_Siklar(Siklar : string[]){
         this.Siklar = Siklar;
     }
 
-    set_Degiskenler(Degiskenler){
+    add_Sik(Sik : string){
+        this.Siklar.push(Sik)
+    }
+
+    set_Degiskenler(Degiskenler : string[]){
         this.Degiskenler = Degiskenler;
     }
 
-    set_Cevap(Cevap){
+    add_Degisken(Degisken : string){
+        this.Degiskenler.push(Degisken)
+    }
+
+    set_Cevap(Cevap : string){
         this.Cevap = Cevap;
     }
 
@@ -111,6 +117,3 @@ class Soru{
 
 
 }
-
-let soru = new Soru(`Matematik`,`Yaş Problemi`)
-console.log("Soru: ",soru)
