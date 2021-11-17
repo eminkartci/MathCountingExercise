@@ -6,9 +6,10 @@ export class Soru{
 
     /// OZELLİKLERİ
     private SoruTipi    : SoruTipi ; // SoruTipi
-    private Siklar      : string[];
-    private Degiskenler : string[]
-    private Cevap       : string
+    private Siklar      : string[] = [];
+    private Degiskenler  = []
+    private 
+    private Cevap       : string = ""
     /// YAPILANDIRICI
 
     constructor(private Ders:Ders,private Konu:Konu){
@@ -17,31 +18,43 @@ export class Soru{
 
     /// DAVRANIŞLARI
 
-    soru_tipi_al(){
-
+    // Sorutipini alır
+    soru_tipi_al(SoruTipi : SoruTipi){
+        this.SoruTipi = SoruTipi
     }
 
-    siklari_al(){
-
+    // Şıkları alır
+    siklari_al(Siklar : string[]){
+        this.Siklar = Siklar
     }
 
-    degiskenleri_al(){
-
+    // Değişkenleri alır
+    degiskenleri_al(Degiskenler : string[]){
+        this.Degiskenler = Degiskenler
     }
 
+    //Sorunun cevabını hesaplar
+        // Şimdilik cevap hesaplanmıyor
     cevabi_hesapla(){
-
+        this.Cevap = "hello world : cevap"
     }
     
+    //Cevabı şıkların içine rastgele yerleştirir
     cevabi_siklara_yerlestir(){
-
+        this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap
     }
 
     soru_hazirla(){
-        this.soru_tipi_al();
-        this.siklari_al();
-        this.degiskenleri_al();
+
+        // Soru tipi şimdilik rastgele alınıyor
+        this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
+        // Şıkları sorutipinden al
+        this.siklari_al(this.SoruTipi.siklari_ver());
+        // Değişkenleri sorutipinden al
+        this.degiskenleri_al(this.SoruTipi.degiskenleri_ver());
+        //Cevabı hesaplar
         this.cevabi_hesapla();
+        //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
     }
 

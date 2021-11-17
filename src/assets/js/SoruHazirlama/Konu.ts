@@ -4,22 +4,31 @@ import {SoruTipi} from './SoruTipi';
 
 export class Konu{
 
+
+
     /// OZELLIKLER
-    private SoruTipleri : SoruTipi[]; // SoruTipi Array
+    private SoruTipleri : SoruTipi[] = []
 
     /// YAPILANDIRICI
     constructor(private Ders:Ders , private KonuAdi : string){
-        this.soru_tipi_olustur();
     }
 
     /// DAVRANISLARI
 
-    soru_tipi_ver() : SoruTipi[]{
+    // Bu konuya ait olan bütün soru tiplerini döndür
+    soru_tipleri_ver() : SoruTipi[]{
         return this.SoruTipleri
     }
 
-    soru_tipi_olustur(){
-        this.SoruTipleri = [new SoruTipi([this.Ders],[this],"Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Ayşe"],["10","11","8","7"])]
+    // Bu konuya ait olan soru tiplerinden, indexe ait olan soru tipini döndür
+    soru_tipi_ver(index) : SoruTipi{
+        return this.SoruTipleri[index]
+    }
+
+    // Şimdilik tek bir soru tipi oluşturuluyor
+    // Soru tipi oluştur ve sorutipleri arrayine ekle
+    soru_tipi_olustur(SoruYazisi : string,SoruDegiskenleri : string[],Siklar : string[]){
+        this.SoruTipleri = [new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar)]
     }
 
     /// GETTER
@@ -36,6 +45,10 @@ export class Konu{
         return this.SoruTipleri
     }
 
+    get_SoruTipleri_index(index:number) : SoruTipi{
+        return this.SoruTipleri[index]
+    }
+
     /// SETTER
 
     set_Ders(Ders:Ders){
@@ -50,7 +63,7 @@ export class Konu{
         this.SoruTipleri = SoruTipleri
     }
 
-    add_SoruTipleri(SoruTipi:SoruTipi){
+    add_SoruTipi(SoruTipi:SoruTipi){
         this.SoruTipleri.push(SoruTipi)
     }
     

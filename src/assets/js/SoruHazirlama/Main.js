@@ -39,15 +39,21 @@ var Konu = /** @class */ (function () {
         this.Ders = Ders;
         this.KonuAdi = KonuAdi;
         /// OZELLIKLER
-        this.SoruTipleri = []; // SoruTipi Array
-        this.soru_tipi_olustur();
+        this.SoruTipleri = [];
     }
     /// DAVRANISLARI
-    Konu.prototype.soru_tipi_ver = function () {
+    // Bu konuya ait olan bütün soru tiplerini döndür
+    Konu.prototype.soru_tipleri_ver = function () {
         return this.SoruTipleri;
     };
-    Konu.prototype.soru_tipi_olustur = function () {
-        this.SoruTipleri = [new SoruTipi([this.Ders], [this], "Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Ayşe"], ["10", "11", "8", "7"])];
+    // Bu konuya ait olan soru tiplerinden, indexe ait olan soru tipini döndür
+    Konu.prototype.soru_tipi_ver = function (index) {
+        return this.SoruTipleri[index];
+    };
+    // Şimdilik tek bir soru tipi oluşturuluyor
+    // Soru tipi oluştur ve sorutipleri arrayine ekle
+    Konu.prototype.soru_tipi_olustur = function (SoruYazisi, SoruDegiskenleri, Siklar) {
+        this.SoruTipleri = [new SoruTipi([this.Ders], [this], SoruYazisi, SoruDegiskenleri, Siklar)];
     };
     /// GETTER
     Konu.prototype.get_Ders = function () {
@@ -59,6 +65,9 @@ var Konu = /** @class */ (function () {
     Konu.prototype.get_SoruTipleri = function () {
         return this.SoruTipleri;
     };
+    Konu.prototype.get_SoruTipleri_index = function (index) {
+        return this.SoruTipleri[index];
+    };
     /// SETTER
     Konu.prototype.set_Ders = function (Ders) {
         this.Ders = Ders;
@@ -69,7 +78,7 @@ var Konu = /** @class */ (function () {
     Konu.prototype.set_SoruTipleri = function (SoruTipleri) {
         this.SoruTipleri = SoruTipleri;
     };
-    Konu.prototype.add_SoruTipleri = function (SoruTipi) {
+    Konu.prototype.add_SoruTipi = function (SoruTipi) {
         this.SoruTipleri.push(SoruTipi);
     };
     return Konu;
@@ -79,27 +88,40 @@ var Soru = /** @class */ (function () {
     function Soru(Ders, Konu) {
         this.Ders = Ders;
         this.Konu = Konu;
-        this.Siklar = [];
-        this.Degiskenler = [];
-        this.Cevap = "";
         this.soru_hazirla();
     }
     /// DAVRANIŞLARI
-    Soru.prototype.soru_tipi_al = function () {
+    // Sorutipini alır
+    Soru.prototype.soru_tipi_al = function (SoruTipi) {
+        this.SoruTipi = SoruTipi;
     };
-    Soru.prototype.siklari_al = function () {
+    // Şıkları alır
+    Soru.prototype.siklari_al = function (Siklar) {
+        this.Siklar = Siklar;
     };
-    Soru.prototype.degiskenleri_al = function () {
+    // Değişkenleri alır
+    Soru.prototype.degiskenleri_al = function (Degiskenler) {
+        this.Degiskenler = Degiskenler;
     };
+    //Sorunun cevabını hesaplar
+    // Şimdilik cevap hesaplanmıyor
     Soru.prototype.cevabi_hesapla = function () {
+        this.Cevap = "hello world : cevap";
     };
+    //Cevabı şıkların içine rastgele yerleştirir
     Soru.prototype.cevabi_siklara_yerlestir = function () {
+        this.Siklar[Math.floor(this.Siklar.length * Math.random())] = this.Cevap;
     };
     Soru.prototype.soru_hazirla = function () {
-        this.soru_tipi_al();
-        this.siklari_al();
-        this.degiskenleri_al();
+        // Soru tipi şimdilik rastgele alınıyor
+        this.soru_tipi_al(this.Konu.soru_tipi_ver(Math.floor(Math.random() * this.Konu.get_SoruTipleri.length)));
+        // Şıkları sorutipinden al
+        this.siklari_al(this.SoruTipi.siklari_ver());
+        // Değişkenleri sorutipinden al
+        this.degiskenleri_al(this.SoruTipi.degiskenleri_ver());
+        //Cevabı hesaplar
         this.cevabi_hesapla();
+        //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
     };
     Soru.prototype.toCSV = function () {
@@ -166,9 +188,13 @@ var SoruTipi = /** @class */ (function () {
         this.Siklar = Siklar;
     }
     /// DAVRANISLARI
+    // Şıkları döndürür
     SoruTipi.prototype.siklari_ver = function () {
+        return this.Siklar;
     };
+    // Soru değişkenlerini döndürür
     SoruTipi.prototype.degiskenleri_ver = function () {
+        return this.SoruDegiskenleri;
     };
     SoruTipi.prototype.soru_tipi_cozumu = function () {
     };
@@ -213,8 +239,8 @@ var SoruTipi = /** @class */ (function () {
     SoruTipi.prototype.set_Siklar = function (Siklar) {
         this.Siklar = Siklar;
     };
-    SoruTipi.prototype.add_Sik = function (Sik) {
-        this.Siklar.push(Sik);
+    SoruTipi.prototype.add_Option = function (option) {
+        this.Siklar.push(option);
     };
     return SoruTipi;
 }());
@@ -227,16 +253,22 @@ var biyoloji = new Ders("Biyoloji");
 var tarih = new Ders("Tarih");
 /////////////// KONULAR ///////////////
 var yas_problemi = new Konu(matematik, "Yaş Problemi");
+yas_problemi.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen |isim| , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in |sayi1| elbise , |sayi2| gömlek ve |sayi3| pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["isim", "sayi1", "sayi2", "sayi3"], ["10", "11", "8", "7"]);
 matematik.add_Konu(yas_problemi);
 var yazim_kurallari = new Konu(turkce, "Yazım Kuralları");
+yazim_kurallari.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Emin"], ["10", "11", "8", "7"]);
 turkce.add_Konu(yazim_kurallari);
 var hareket_hiz = new Konu(fizik, "Hareket-Hız");
+hareket_hiz.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Muhammed"], ["10", "11", "8", "7"]);
 fizik.add_Konu(hareket_hiz);
 var sabit_oranlar_kanunu = new Konu(kimya, "Sabit Oranlar Kanunu");
+sabit_oranlar_kanunu.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Büşra"], ["10", "11", "8", "7"]);
 kimya.add_Konu(sabit_oranlar_kanunu);
 var mitoz_bolunme = new Konu(biyoloji, "Mitoz Bölünme");
+mitoz_bolunme.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Mehmet"], ["10", "11", "8", "7"]);
 biyoloji.add_Konu(mitoz_bolunme);
 var ilk_turk_beylikleri = new Konu(tarih, "İlk Türk Beylikleri");
+ilk_turk_beylikleri.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?", ["Hatice"], ["10", "11", "8", "7"]);
 tarih.add_Konu(ilk_turk_beylikleri);
 /////////////// SORULAR ///////////////
 var matematik_sorusu = new Soru(matematik, yas_problemi);
@@ -245,23 +277,24 @@ var fizik_sorusu = new Soru(fizik, hareket_hiz);
 var kimya_sorusu = new Soru(kimya, sabit_oranlar_kanunu);
 var biyoloji_sorusu = new Soru(biyoloji, mitoz_bolunme);
 var tarih_sorusu = new Soru(tarih, ilk_turk_beylikleri);
-// console.log("/*-------------------------------------*\\")
-// console.log("")
+console.log("/*-------------------------------------*\\");
+console.log("");
 // console.log("MATEMATİK KONULAR : " , matematik.get_Konular())
 // console.log("TÜRKÇE    KONULAR : " , turkce.get_Konular())
 // console.log("FİZİK     KONULAR : " , fizik.get_Konular())
 // console.log("KİMYA     KONULAR : " , kimya.get_Konular())
 // console.log("BİYOLOJİ  KONULAR : " , biyoloji.get_Konular())
 // console.log("TARİH     KONULAR : " , tarih.get_Konular())
-// console.log("")
-// console.log("/*-------------------------------------*\\")
+console.log("");
+console.log("/*-------------------------------------*\\");
+console.log("");
 console.log("/*-------------------------------------*\\");
 console.log("");
 console.log("MATEMATİK SORUSU : ", matematik_sorusu);
-console.log("TÜRKÇE    SORUSU : ", turkce_sorusu);
-console.log("FİZİK     SORUSU : ", fizik_sorusu);
-console.log("KİMYA     SORUSU : ", kimya_sorusu);
-console.log("BİYOLOJİ  SORUSU : ", biyoloji_sorusu);
-console.log("TARİH     SORUSU : ", tarih_sorusu);
+// console.log("TÜRKÇE    SORUSU : " , turkce_sorusu)
+// console.log("FİZİK     SORUSU : " , fizik_sorusu)
+// console.log("KİMYA     SORUSU : " , kimya_sorusu)
+// console.log("BİYOLOJİ  SORUSU : " , biyoloji_sorusu)
+// console.log("TARİH     SORUSU : " , tarih_sorusu)
 console.log("");
 console.log("/*-------------------------------------*\\");

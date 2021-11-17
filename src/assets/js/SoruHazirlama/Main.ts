@@ -8,7 +8,7 @@
 class Ders{
 
     /// OZELLİKLERİ
-    private Konular :Konu[] = []
+    private Konular : Konu[] = [];
     /// YAPILANDIRICI
 
     constructor(private DersAdi:string){
@@ -47,22 +47,31 @@ class Ders{
 
 class Konu{
 
+
+
     /// OZELLIKLER
-    private SoruTipleri : SoruTipi[] = []; // SoruTipi Array
+    private SoruTipleri : SoruTipi[] = []
 
     /// YAPILANDIRICI
     constructor(private Ders:Ders , private KonuAdi : string){
-        this.soru_tipi_olustur();
     }
 
     /// DAVRANISLARI
 
-    soru_tipi_ver() : SoruTipi[]{
+    // Bu konuya ait olan bütün soru tiplerini döndür
+    soru_tipleri_ver() : SoruTipi[]{
         return this.SoruTipleri
     }
 
-    soru_tipi_olustur(){
-        this.SoruTipleri = [new SoruTipi([this.Ders],[this],"Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Ayşe"],["10","11","8","7"])]
+    // Bu konuya ait olan soru tiplerinden, indexe ait olan soru tipini döndür
+    soru_tipi_ver(index) : SoruTipi{
+        return this.SoruTipleri[index]
+    }
+
+    // Şimdilik tek bir soru tipi oluşturuluyor
+    // Soru tipi oluştur ve sorutipleri arrayine ekle
+    soru_tipi_olustur(SoruYazisi : string,SoruDegiskenleri : string[],Siklar : string[]){
+        this.SoruTipleri = [new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar)]
     }
 
     /// GETTER
@@ -79,6 +88,10 @@ class Konu{
         return this.SoruTipleri
     }
 
+    get_SoruTipleri_index(index:number) : SoruTipi{
+        return this.SoruTipleri[index]
+    }
+
     /// SETTER
 
     set_Ders(Ders:Ders){
@@ -93,7 +106,7 @@ class Konu{
         this.SoruTipleri = SoruTipleri
     }
 
-    add_SoruTipleri(SoruTipi:SoruTipi){
+    add_SoruTipi(SoruTipi:SoruTipi){
         this.SoruTipleri.push(SoruTipi)
     }
     
@@ -103,10 +116,10 @@ class Konu{
 class Soru{
 
     /// OZELLİKLERİ
-    private SoruTipi    : SoruTipi; // SoruTipi
+    private SoruTipi    : SoruTipi ; // SoruTipi
     private Siklar      : string[] = [];
-    private Degiskenler : string[] = [];
-    private Cevap       : string   = ""
+    private Degiskenler : string[] = []
+    private Cevap       : string = ""
     /// YAPILANDIRICI
 
     constructor(private Ders:Ders,private Konu:Konu){
@@ -115,31 +128,43 @@ class Soru{
 
     /// DAVRANIŞLARI
 
-    soru_tipi_al(){
-
+    // Sorutipini alır
+    soru_tipi_al(SoruTipi : SoruTipi){
+        this.SoruTipi = SoruTipi
     }
 
-    siklari_al(){
-
+    // Şıkları alır
+    siklari_al(Siklar : string[]){
+        this.Siklar = Siklar
     }
 
-    degiskenleri_al(){
-
+    // Değişkenleri alır
+    degiskenleri_al(Degiskenler : string[]){
+        this.Degiskenler = Degiskenler
     }
 
+    //Sorunun cevabını hesaplar
+        // Şimdilik cevap hesaplanmıyor
     cevabi_hesapla(){
-
+        this.Cevap = "hello world : cevap"
     }
     
+    //Cevabı şıkların içine rastgele yerleştirir
     cevabi_siklara_yerlestir(){
-
+        this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap
     }
 
     soru_hazirla(){
-        this.soru_tipi_al();
-        this.siklari_al();
-        this.degiskenleri_al();
+
+        // Soru tipi şimdilik rastgele alınıyor
+        this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
+        // Şıkları sorutipinden al
+        this.siklari_al(this.SoruTipi.siklari_ver());
+        // Değişkenleri sorutipinden al
+        this.degiskenleri_al(this.SoruTipi.degiskenleri_ver());
+        //Cevabı hesaplar
         this.cevabi_hesapla();
+        //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
     }
 
@@ -219,6 +244,7 @@ class Soru{
 
 
 }
+
 class SoruTipi{
 
     /// OZELLIKLER
@@ -229,12 +255,14 @@ class SoruTipi{
 
     /// DAVRANISLARI
     
-    siklari_ver(){
+    // Şıkları döndürür
+    siklari_ver() : string[]{
+        return this.Siklar
+    }   
 
-    }
-
-    degiskenleri_ver(){
-
+    // Soru değişkenlerini döndürür
+    degiskenleri_ver() : string[]{
+        return this.SoruDegiskenleri
     }
 
     soru_tipi_cozumu(){
@@ -298,13 +326,14 @@ class SoruTipi{
         this.Siklar = Siklar
     }
 
-    add_Sik(Sik : string){
-        this.Siklar.push(Sik)
+    add_Option(option : string){
+        this.Siklar.push(option)
 
     }
     
     
-}
+}  
+
 
 /////////////// DERSLER ///////////////
 let matematik   = new Ders("Matematik")
@@ -318,21 +347,27 @@ let tarih       = new Ders("Tarih")
 /////////////// KONULAR ///////////////
 
 let yas_problemi    = new Konu(matematik,"Yaş Problemi")
+yas_problemi.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen |isim| , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in |sayi1| elbise , |sayi2| gömlek ve |sayi3| pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["isim","sayi1","sayi2","sayi3"],["10","11","8","7"])
 matematik.add_Konu(yas_problemi)
 
 let yazim_kurallari = new Konu(turkce,"Yazım Kuralları")
+yazim_kurallari.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Emin"],["10","11","8","7"])
 turkce.add_Konu(yazim_kurallari)
 
 let hareket_hiz     = new Konu(fizik,"Hareket-Hız")
+hareket_hiz.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Muhammed"],["10","11","8","7"])
 fizik.add_Konu(hareket_hiz)
 
 let sabit_oranlar_kanunu = new Konu(kimya,"Sabit Oranlar Kanunu")
+sabit_oranlar_kanunu.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Büşra"],["10","11","8","7"])
 kimya.add_Konu(sabit_oranlar_kanunu)
 
 let mitoz_bolunme = new Konu(biyoloji,"Mitoz Bölünme")
+mitoz_bolunme.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Mehmet"],["10","11","8","7"])
 biyoloji.add_Konu(mitoz_bolunme)
 
 let ilk_turk_beylikleri = new Konu(tarih,"İlk Türk Beylikleri")
+ilk_turk_beylikleri.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Hatice"],["10","11","8","7"])
 tarih.add_Konu(ilk_turk_beylikleri)
 
 
@@ -347,24 +382,24 @@ let tarih_sorusu        = new Soru(tarih,ilk_turk_beylikleri)
 
 
 
-// console.log("/*-------------------------------------*\\")
-// console.log("")
+console.log("/*-------------------------------------*\\")
+console.log("")
 // console.log("MATEMATİK KONULAR : " , matematik.get_Konular())
 // console.log("TÜRKÇE    KONULAR : " , turkce.get_Konular())
 // console.log("FİZİK     KONULAR : " , fizik.get_Konular())
 // console.log("KİMYA     KONULAR : " , kimya.get_Konular())
 // console.log("BİYOLOJİ  KONULAR : " , biyoloji.get_Konular())
 // console.log("TARİH     KONULAR : " , tarih.get_Konular())
-// console.log("")
-// console.log("/*-------------------------------------*\\")
-
+console.log("")
+console.log("/*-------------------------------------*\\")
+console.log("")
 console.log("/*-------------------------------------*\\")
 console.log("")
 console.log("MATEMATİK SORUSU : " , matematik_sorusu)
-console.log("TÜRKÇE    SORUSU : " , turkce_sorusu)
-console.log("FİZİK     SORUSU : " , fizik_sorusu)
-console.log("KİMYA     SORUSU : " , kimya_sorusu)
-console.log("BİYOLOJİ  SORUSU : " , biyoloji_sorusu)
-console.log("TARİH     SORUSU : " , tarih_sorusu)
+// console.log("TÜRKÇE    SORUSU : " , turkce_sorusu)
+// console.log("FİZİK     SORUSU : " , fizik_sorusu)
+// console.log("KİMYA     SORUSU : " , kimya_sorusu)
+// console.log("BİYOLOJİ  SORUSU : " , biyoloji_sorusu)
+// console.log("TARİH     SORUSU : " , tarih_sorusu)
 console.log("")
 console.log("/*-------------------------------------*\\")

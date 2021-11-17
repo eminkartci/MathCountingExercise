@@ -12,12 +12,14 @@ export class SoruTipi{
 
     /// DAVRANISLARI
     
-    siklari_ver(){
+    // Şıkları döndürür
+    siklari_ver() : string[]{
+        return this.Siklar
+    }   
 
-    }
-
-    degiskenleri_ver(){
-
+    // Soru değişkenlerini döndürür
+    degiskenleri_ver() : string[]{
+        return this.SoruDegiskenleri
     }
 
     soru_tipi_cozumu(){
@@ -81,8 +83,8 @@ export class SoruTipi{
         this.Siklar = Siklar
     }
 
-    add_Sik(Sik : string){
-        this.Siklar.push(Sik)
+    add_Option(option : string){
+        this.Siklar.push(option)
 
     }
     

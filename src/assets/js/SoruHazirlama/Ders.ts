@@ -5,7 +5,7 @@ import {SoruTipi} from './SoruTipi';
 export class Ders{
 
     /// OZELLİKLERİ
-    private Konular : Konu[]
+    private Konular : Konu[] = [];
     /// YAPILANDIRICI
 
     constructor(private DersAdi:string){
