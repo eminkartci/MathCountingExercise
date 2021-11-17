@@ -7,7 +7,7 @@ class Soru{
     private Cevap       : string
     /// YAPILANDIRICI
 
-    constructor(private DersAdi:string,private Konu:Konu){
+    constructor(private Ders:Ders,private Konu:Konu){
         this.soru_hazirla();
     }
 
@@ -54,8 +54,8 @@ class Soru{
 
     }
     /// GETTER
-    get_DersAdi() : string{
-        return this.DersAdi;
+    get_Ders() : Ders{
+        return this.Ders;
     }
 
     get_Konu() : Konu{
@@ -80,8 +80,8 @@ class Soru{
 
 
     /// SETTER
-    set_DersAdi(DersAdi : string){
-        this.DersAdi = DersAdi;
+    set_Ders(Ders : Ders){
+        this.Ders = Ders;
     }
 
     set_Konu(Konu : Konu){

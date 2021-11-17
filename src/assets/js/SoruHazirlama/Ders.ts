@@ -1,10 +1,10 @@
 class Ders{
 
     /// OZELLİKLERİ
-    
+    private Konular : Konu[]
     /// YAPILANDIRICI
 
-    constructor(private DersAdi:string,private Konular:Konu[]){
+    constructor(private DersAdi:string){
     }
 
     /// DAVRANIŞLARI
@@ -13,6 +13,14 @@ class Ders{
     /// GETTER
     get_DersAdi() : string{
         return this.DersAdi;
+    }
+
+    get_Konular() : Konu[]{
+        return this.Konular
+    }
+    
+    get_Konular_index(index) : Konu{
+        return this.Konular[index]
     }
     
     /// SETTER
@@ -24,7 +32,7 @@ class Ders{
         this.Konular = Konular;
     }
 
-    add_Konular(Konu : Konu){
+    add_Konu(Konu : Konu){
         this.Konular.push(Konu)
     }
 
