@@ -30,14 +30,14 @@ tarih.add_Konu(ilk_turk_beylikleri)
 
 
 console.log("/*-------------------------------------*\\")
-
+console.log("")
 console.log("MATEMATİK KONULAR : " , matematik.get_Konular())
 console.log("TÜRKÇE    KONULAR : " , turkce.get_Konular())
 console.log("FİZİK     KONULAR : " , fizik.get_Konular())
 console.log("KİMYA     KONULAR : " , kimya.get_Konular())
 console.log("BİYOLOJİ  KONULAR : " , biyoloji.get_Konular())
 console.log("TARİH     KONULAR : " , tarih.get_Konular())
-
+console.log("")
 console.log("/*-------------------------------------*\\")
 
 /////////////// SORULAR ///////////////
@@ -51,12 +51,12 @@ let tarih_sorusu        = new Soru(tarih,ilk_turk_beylikleri)
 
 
 console.log("/*-------------------------------------*\\")
-
+console.log("")
 console.log("MATEMATİK SORUSU : " , matematik_sorusu)
 console.log("TÜRKÇE    SORUSU : " , turkce_sorusu)
 console.log("FİZİK     SORUSU : " , fizik_sorusu)
 console.log("KİMYA     SORUSU : " , kimya_sorusu)
 console.log("BİYOLOJİ  SORUSU : " , biyoloji_sorusu)
 console.log("TARİH     SORUSU : " , tarih_sorusu)
-
+console.log("")
 console.log("/*-------------------------------------*\\")
