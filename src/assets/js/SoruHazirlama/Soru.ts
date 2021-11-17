@@ -6,9 +6,9 @@ export class Soru{
 
     /// OZELLİKLERİ
     private SoruTipi    : SoruTipi ; // SoruTipi
+    private SoruYazisi  : string = ""
     private Siklar      : string[] = [];
     private Degiskenler  = []
-    private 
     private Cevap       : string = ""
     /// YAPILANDIRICI
 
@@ -23,13 +23,18 @@ export class Soru{
         this.SoruTipi = SoruTipi
     }
 
+    // Soru Yazısı alır
+    soru_yazisi_al(SoruYazisi : string){
+        this.SoruYazisi = SoruYazisi
+    }
+
     // Şıkları alır
     siklari_al(Siklar : string[]){
         this.Siklar = Siklar
     }
 
     // Değişkenleri alır
-    degiskenleri_al(Degiskenler : string[]){
+    degiskenleri_al(Degiskenler){
         this.Degiskenler = Degiskenler
     }
 
@@ -44,19 +49,30 @@ export class Soru{
         this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap
     }
 
+    //Soru içindeki değişkenlere değerler verir
+    degiskenlere_deger_ver(){
+        console.log(this.Degiskenler)
+    }
+
     soru_hazirla(){
 
         // Soru tipi şimdilik rastgele alınıyor
         this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
+        // Soru yazısını sorutipinden al
+        this.soru_yazisi_al(this.SoruTipi.get_SoruYazisi());
         // Şıkları sorutipinden al
-        this.siklari_al(this.SoruTipi.siklari_ver());
+        this.siklari_al(this.SoruTipi.get_Siklar());
         // Değişkenleri sorutipinden al
-        this.degiskenleri_al(this.SoruTipi.degiskenleri_ver());
+        this.degiskenleri_al(this.SoruTipi.get_SoruDegiskenleri());
         //Cevabı hesaplar
         this.cevabi_hesapla();
         //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
+
+        this.degiskenlere_deger_ver();
     }
+
+    
 
     toCSV(){
 
@@ -117,11 +133,11 @@ export class Soru{
         this.Siklar.push(Sik)
     }
 
-    set_Degiskenler(Degiskenler : string[]){
+    set_Degiskenler(Degiskenler){
         this.Degiskenler = Degiskenler;
     }
 
-    add_Degisken(Degisken : string){
+    add_Degisken(Degisken){
         this.Degiskenler.push(Degisken)
     }
 

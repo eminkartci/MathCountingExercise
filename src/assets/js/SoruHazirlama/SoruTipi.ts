@@ -1,29 +1,17 @@
 import {Ders} from './Ders';
 import {Konu} from './Konu';
-import {Soru} from './Soru';
 
 export class SoruTipi{
 
     /// OZELLIKLER
     /// YAPILANDIRICI
-    constructor(private Dersler : Ders[],private Konular:Konu[],private SoruYazisi:string,private SoruDegiskenleri:string[],private Siklar:string[]){
+    constructor(private Dersler : Ders[],private Konular:Konu[],private SoruYazisi:string,private SoruDegiskenleri,private Siklar:string[],private CevapFormulu : string){
 
     }
 
     /// DAVRANISLARI
-    
-    // Şıkları döndürür
-    siklari_ver() : string[]{
-        return this.Siklar
-    }   
-
-    // Soru değişkenlerini döndürür
-    degiskenleri_ver() : string[]{
-        return this.SoruDegiskenleri
-    }
-
     soru_tipi_cozumu(){
-
+        return this.CevapFormulu;
     }
 
     /// GETTER
@@ -40,12 +28,16 @@ export class SoruTipi{
         return this.SoruYazisi
     }
 
-    get_SoruDegiskenleri() : string[]{
+    get_SoruDegiskenleri(){
         return this.SoruDegiskenleri
     }
 
     get_Siklar() : string[]{
         return this.Siklar
+    }
+
+    get_CevapFormulu():string{
+        return this.CevapFormulu
     }
 
     /// SETTER
@@ -70,11 +62,11 @@ export class SoruTipi{
         this.SoruYazisi = SoruYazisi
     }
     
-    set_SoruDegiskenleri(SoruDegiskenleri : string[]){
+    set_SoruDegiskenleri(SoruDegiskenleri){
         this.SoruDegiskenleri = SoruDegiskenleri
     }
 
-    add_SoruDegiskeni(add_SoruDegiskeni : string){
+    add_SoruDegiskeni(add_SoruDegiskeni){
         this.SoruDegiskenleri.push(add_SoruDegiskeni)
 
     }

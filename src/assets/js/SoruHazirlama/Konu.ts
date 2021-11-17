@@ -27,8 +27,8 @@ export class Konu{
 
     // Şimdilik tek bir soru tipi oluşturuluyor
     // Soru tipi oluştur ve sorutipleri arrayine ekle
-    soru_tipi_olustur(SoruYazisi : string,SoruDegiskenleri : string[],Siklar : string[]){
-        this.SoruTipleri = [new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar)]
+    soru_tipi_olustur(SoruYazisi : string,SoruDegiskenleri,Siklar : string[],CevapFormulu:string){
+        this.SoruTipleri = [new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar,CevapFormulu)]
     }
 
     /// GETTER
