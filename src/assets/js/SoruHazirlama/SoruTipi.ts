@@ -1,4 +1,8 @@
-class SoruTipi{
+import {Ders} from './Ders';
+import {Konu} from './Konu';
+import {Soru} from './Soru';
+
+export class SoruTipi{
 
     /// OZELLIKLER
     /// YAPILANDIRICI

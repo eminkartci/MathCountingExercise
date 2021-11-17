@@ -1,4 +1,8 @@
-class Ders{
+import {Konu} from './Konu';
+import {Soru} from './Soru';
+import {SoruTipi} from './SoruTipi';
+
+export class Ders{
 
     /// OZELLİKLERİ
     private Konular : Konu[]

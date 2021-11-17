@@ -1,4 +1,8 @@
-class Konu{
+import {Ders} from './Ders';
+import {Soru} from './Soru';
+import {SoruTipi} from './SoruTipi';
+
+export class Konu{
 
     /// OZELLIKLER
     private SoruTipleri : SoruTipi[]; // SoruTipi Array
