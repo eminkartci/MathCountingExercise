@@ -4,7 +4,11 @@
 // import {Soru} from './Soru';
 // import {SoruTipi} from './SoruTipi';
 let kiz_ismi    = ["Elif","Açelya","Elvan","Selen","Emin","Eda","Melis","Ceylin","Zeynep","Pelin","Özlem"]
-let erkek_ismi  = ["Can","yiğit","Türkdoğan","Ferhat","Emir","Buğra","Eren","Ertuğrul","Deniz","Durmuş","Arda","Ali","Burak","Sidar","Ömer"]
+let erkek_ismi  = ["Can","Yiğit","Türkdoğan","Ferhat","Emir","Buğra","Eren","Ertuğrul","Deniz","Durmuş","Arda","Ali","Burak","Sidar","Ömer"]
+let sehirler    = ['Adana', 'Adıyaman', 'Afyon', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin', 'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale', 'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir', 'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkari', 'Hatay', 'Isparta', 'Mersin', 'İstanbul', 'İzmir', 'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya', 'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak', 'Van', 'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kırıkkale', 'Batman', 'Şırnak', 'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce']
+let ince_isimler = ["Ahmet","Yiğit"]
+let kalın_isimler = ["Can","Ferhat"]
+let elementler = ["H","He","Li","Be","B","C","N"]
 interface String {
     /**
      * Replace all instances of a substring in a string, using a regular expression or search string.
@@ -174,18 +178,74 @@ class Soru{
         this.CevapFormulu = CevapFormulu
     }
 
+    //Şıkları oluştur
+    siklari_oluştur(){
+        // sıkları tutan bir liste yap
+        let new_Siklar = []
+
+        // 5 tane şık olana kadar döndür
+        while(new_Siklar.length < 5){
+
+            
+            let degisken_ismi = ""
+            let degisken_verisi // double
+            let new_option = this.CevapFormulu // cevap formulu string tutuyor
+
+            // butun degisken isimlerini dondur
+            for(let i = 0 ;i < this.degisken_isimleri.length;i++){
+
+                //Değişken ismini ve veri type'ını bul
+                degisken_ismi = this.degisken_isimleri[i]
+                degisken_verisi = this.Degiskenler[degisken_ismi]
+
+                //Değişken verisini ver
+                    // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
+                    // 0 --> minimum sayı
+                    // 1 --> maksimum sayi
+                    // 2 --> katsayı
+                if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+
+                    degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                    new_option = new_option.replaceAll("|"+degisken_ismi+"|",degisken_verisi)
+                }
+
+            }
+            new_option = eval(new_option).toString()
+            if(new_Siklar.length == 0){
+                new_Siklar.push(new_option)
+            }
+            // Option ekle
+            let onceden_eklenmis_mi = false
+            for(let j = 0;j < new_Siklar.length;j++){
+                if(new_option == new_Siklar[j]){
+                    onceden_eklenmis_mi = true
+                }
+            }
+            if(onceden_eklenmis_mi==false){
+                new_Siklar.push(new_option)
+            }
+
+        }
+    this.Siklar = new_Siklar
+    }
+
     //Sorunun cevabını hesaplar
         // Şimdilik cevap sadece formülle hesaplanabilir sorular için geçerli
-    cevabi_hesapla(){
+    cevabi_hesapla(CevapFormulu){
         //cevap formülünü degisken verileri ile değiştir
         for(let i =0 ;i < this.degisken_isimleri.length;i++){
-            this.CevapFormulu = this.CevapFormulu.replaceAll("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
+            CevapFormulu = CevapFormulu.replaceAll("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
         }
-        this.Cevap = eval(this.CevapFormulu)
+        this.Cevap = eval(CevapFormulu)
     }
     
     //Cevabı şıkların içine rastgele yerleştirir
     cevabi_siklara_yerlestir(){
+        for(let i = 0;i<this.Siklar.length;i++){
+            if(this.Siklar[i] == this.Cevap.toString()){
+                return
+            }
+        }
         this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap.toString()
     }
 
@@ -209,8 +269,19 @@ class Soru{
             if(degisken_verisi == "name-kiz"){
                 degisken_verisi = kiz_ismi[Math.floor(Math.random()*kiz_ismi.length)]
             }else if(degisken_verisi == "name-erkek"){
-                degisken_verisi = erkek_ismi[Math.floor(Math.random()*kiz_ismi.length)]
-            }else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+                degisken_verisi = erkek_ismi[Math.floor(Math.random()*erkek_ismi.length)]
+            }else if(degisken_verisi == "sehir"){
+                degisken_verisi = sehirler[Math.floor(Math.random()*sehirler.length)]
+            }else if(degisken_verisi == "name-kalin"){
+                degisken_verisi = kalın_isimler[Math.floor(Math.random()*kalın_isimler.length)]
+            }else if(degisken_verisi == "name-ince"){
+                degisken_verisi = ince_isimler[Math.floor(Math.random()*ince_isimler.length)]
+            }
+                // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
+                // 0 --> minimum sayı
+                // 1 --> maksimum sayi
+                // 2 --> katsayı
+            else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
                 degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
             }
 
@@ -221,10 +292,6 @@ class Soru{
             // Soru yazısını güncelle
             this.SoruYazisi = this.SoruYazisi.replaceAll("|"+degisken_ismi+"|",degisken_verisi)
         }
-
-        // console.log("Soru Yazısı : \n",this.SoruYazisi)
-        // console.log("Değişken İsimleri : ",this.degisken_isimleri)
-        // console.log("Değişken Verileri : ",this.degisken_verileri)
     }
 
     soru_hazirla(){
@@ -233,16 +300,18 @@ class Soru{
         this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
         // Soru yazısını sorutipinden al
         this.soru_yazisi_al(this.SoruTipi.get_SoruYazisi());
-        // Şıkları sorutipinden al
-        this.siklari_al(this.SoruTipi.get_Siklar());
         // Değişkenleri sorutipinden al
         this.degiskenleri_al(this.SoruTipi.get_SoruDegiskenleri());
-        //Soru yazısını günceller ve değiken arraylerini doldurur
-        this.degiskenlere_deger_ver();
         // Cevap Formülünü sorutipinden al
         this.cevapFormulu_al(this.SoruTipi.get_CevapFormulu());
+        //Soru yazısını günceller ve değiken arraylerini doldurur
+        this.degiskenlere_deger_ver();
+        // Şıkları sorutipinden al
+        this.siklari_al(this.SoruTipi.get_Siklar());
+        // Şıkları Oluştur
+        this.siklari_oluştur()
         //Cevabı hesaplar
-        this.cevabi_hesapla();
+        this.cevabi_hesapla(this.CevapFormulu);
         //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
 
@@ -260,7 +329,20 @@ class Soru{
 
     /// TO_STRING()
     toString(){
+        let content = `
+Soru :
+${this.get_SoruYazisi()}
 
+A) ${this.get_Siklar_index(0)}
+B) ${this.get_Siklar_index(1)}
+C) ${this.get_Siklar_index(2)}
+D) ${this.get_Siklar_index(3)}
+E) ${this.get_Siklar_index(4)}
+
+CEVAP: ${this.get_Cevap()}
+        `
+
+        return content
     }
     /// GETTER
     get_Ders() : Ders{
@@ -440,11 +522,11 @@ matematik.add_Konu(yas_problemi)
 // turkce.add_Konu(yazim_kurallari)
 
 let hareket_hiz     = new Konu(fizik,"Hareket-Hız")
-hareket_hiz.soru_tipi_olustur("Doğu yönünde |sayi1|km/h hızla giden |isim1|, batı yönünden |sayi2|km/h hızla ile gelen |isim2| ile karşılaşıyor. Buna göre |isim2|'ye göre |isim1|'in hıcı kaç km/h'tir?",{"isim1":"name-erkek","isim2":"name-kiz","sayi1":[1,10,10],"sayi2":[5,15,10]},["30","28","15","1"],"|sayi1|+|sayi2|")
+hareket_hiz.soru_tipi_olustur("Doğu yönünde |sayi1|km/h hızla giden |isim1|, batı yönünden |sayi2|km/h hızla ile gelen |isim2| ile karşılaşıyor. Buna göre |isim2|'ye göre |isim1|'in hızı kaç km/h'tir?",{"isim1":"name-erkek","isim2":"name-ince","sayi1":[1,10,10],"sayi2":[5,15,10]},["30","28","15","1"],"|sayi1|+|sayi2|")
 fizik.add_Konu(hareket_hiz)
 
 // let sabit_oranlar_kanunu = new Konu(kimya,"Sabit Oranlar Kanunu")
-// sabit_oranlar_kanunu.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Büşra"],["10","11","8","7"])
+// sabit_oranlar_kanunu.soru_tipi_olustur("Doğu yönünde |sayi1|km/h hızla giden |isim1|, batı yönünden |sayi2|km/h hızla ile gelen |isim2| ile karşılaşıyor. Buna göre |isim2|'ye göre |isim1|'in hızı kaç km/h'tir?",{"isim1":"name-erkek","isim2":"name-ince","sayi1":[1,10,10],"sayi2":[5,15,10]},["30","28","15","1"],"|sayi1|+|sayi2|")
 // kimya.add_Konu(sabit_oranlar_kanunu)
 
 // let mitoz_bolunme = new Konu(biyoloji,"Mitoz Bölünme")
@@ -479,13 +561,21 @@ let fizik_sorusu        = new Soru(fizik,hareket_hiz)
 // console.log("/*-------------------------------------*\\")
 // console.log("")
 // console.log("/*-------------------------------------*\\")
-// console.log("")
-console.log("Soru: \n" , fizik_sorusu.get_SoruYazisi())
-console.log("A) " , fizik_sorusu.get_Siklar_index(0))
-console.log("B) " , fizik_sorusu.get_Siklar_index(1))
-console.log("C) " , fizik_sorusu.get_Siklar_index(2))
-console.log("D) " , fizik_sorusu.get_Siklar_index(3))
-console.log("Cevap : \n",fizik_sorusu.get_Cevap())
+
+console.log("")
+console.log("-----------MATEMATİK------------")
+console.log(matematik_sorusu.toString())
+console.log("")
+console.log("-----------FİZİK ------------")
+console.log(fizik_sorusu.toString())
+
+// console.log("-----------KİMYA ------------")
+// console.log("Soru: \n" , fizik_sorusu.get_SoruYazisi())
+// console.log("A) " , fizik_sorusu.get_Siklar_index(0))
+// console.log("B) " , fizik_sorusu.get_Siklar_index(1))
+// console.log("C) " , fizik_sorusu.get_Siklar_index(2))
+// console.log("D) " , fizik_sorusu.get_Siklar_index(3))
+// console.log("Cevap : \n",fizik_sorusu.get_Cevap())
 // console.log("TÜRKÇE    SORUSU : " , turkce_sorusu)
 // console.log("FİZİK     SORUSU : " , fizik_sorusu)
 // console.log("KİMYA     SORUSU : " , kimya_sorusu)
