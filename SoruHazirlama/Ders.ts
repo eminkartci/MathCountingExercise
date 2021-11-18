@@ -1,6 +1,9 @@
-import {Konu} from './Konu';
-import {Soru} from './Soru';
-import {SoruTipi} from './SoruTipi';
+
+import {Konu} from './Konu.js';
+import {Soru} from './Soru.js';
+import {SoruTipi} from './SoruTipi.js';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './database.js';
+
 
 export class Ders{
 
@@ -23,7 +26,7 @@ export class Ders{
         return this.Konular
     }
     
-    get_Konular_index(index:number) : Konu{
+    get_Konular_index(index) : Konu{
         return this.Konular[index]
     }
     

@@ -1,6 +1,9 @@
-import {Ders} from './Ders';
-import {Soru} from './Soru';
-import {SoruTipi} from './SoruTipi';
+
+import {Ders} from './Ders.js';
+import {Soru} from './Soru.js';
+import {SoruTipi} from './SoruTipi.js';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './database.js';
+
 
 export class Konu{
 
@@ -69,4 +72,3 @@ export class Konu{
     
     
 }
-

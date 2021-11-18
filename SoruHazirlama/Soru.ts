@@ -1,15 +1,21 @@
-import {Ders} from './Ders';
-import {Konu} from './Konu';
-import {SoruTipi} from './SoruTipi';
+
+import {Ders} from './Ders.js';
+import {Konu} from './Konu.js';
+import {SoruTipi} from './SoruTipi.js';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './database.js';
 
 export class Soru{
 
     /// OZELLİKLERİ
     private SoruTipi    : SoruTipi ; // SoruTipi
-    private SoruYazisi  : string = ""
-    private Siklar      : string[] = [];
+    private SoruYazisi  : string    = ""
+    private Siklar      : string[]  = [];
     private Degiskenler  = []
-    private Cevap       : string = ""
+    private Cevap       : string    = ""
+    private CevapFormulu : string
+
+    private degisken_isimleri : string[] ;
+    private degisken_verileri;
     /// YAPILANDIRICI
 
     constructor(private Ders:Ders,private Konu:Konu){
@@ -23,14 +29,14 @@ export class Soru{
         this.SoruTipi = SoruTipi
     }
 
-    // Soru Yazısı alır
-    soru_yazisi_al(SoruYazisi : string){
-        this.SoruYazisi = SoruYazisi
-    }
-
     // Şıkları alır
     siklari_al(Siklar : string[]){
         this.Siklar = Siklar
+    }
+
+    // Soru Yazısı alır
+    soru_yazisi_al(SoruYazisi : string){
+        this.SoruYazisi = SoruYazisi
     }
 
     // Değişkenleri alır
@@ -38,20 +44,128 @@ export class Soru{
         this.Degiskenler = Degiskenler
     }
 
+    //Cevap Formülünü al
+    cevapFormulu_al(CevapFormulu:string){
+        this.CevapFormulu = CevapFormulu
+    }
+
+    //Şıkları oluştur
+    siklari_oluştur(){
+        // sıkları tutan bir liste yap
+        let new_Siklar = []
+
+        // 5 tane şık olana kadar döndür
+        while(new_Siklar.length < 5){
+
+            
+            let degisken_ismi = ""
+            let degisken_verisi // double
+            let new_option = this.CevapFormulu // cevap formulu string tutuyor
+
+            // butun degisken isimlerini dondur
+            for(let i = 0 ;i < this.degisken_isimleri.length;i++){
+
+                //Değişken ismini ve veri type'ını bul
+                degisken_ismi = this.degisken_isimleri[i]
+                degisken_verisi = this.Degiskenler[degisken_ismi]
+
+                //Değişken verisini ver
+                    // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
+                    // 0 --> minimum sayı
+                    // 1 --> maksimum sayi
+                    // 2 --> katsayı
+                if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+
+                    degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                    // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
+                    new_option= new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                }
+
+            }
+            new_option = eval(new_option).toString()
+            if(new_Siklar.length == 0){
+                new_Siklar.push(new_option)
+            }
+            // Option ekle
+            let onceden_eklenmis_mi = false
+            for(let j = 0;j < new_Siklar.length;j++){
+                if(new_option == new_Siklar[j]){
+                    onceden_eklenmis_mi = true
+                }
+            }
+            if(onceden_eklenmis_mi==false){
+                new_Siklar.push(new_option)
+            }
+
+        }
+    this.Siklar = new_Siklar
+    }
+
     //Sorunun cevabını hesaplar
-        // Şimdilik cevap hesaplanmıyor
-    cevabi_hesapla(){
-        this.Cevap = "hello world : cevap"
+        // Şimdilik cevap sadece formülle hesaplanabilir sorular için geçerli
+    cevabi_hesapla(CevapFormulu){
+        //cevap formülünü degisken verileri ile değiştir
+        for(let i =0 ;i < this.degisken_isimleri.length;i++){
+            // CevapFormulu = CevapFormulu.replace("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
+            CevapFormulu = CevapFormulu.split("|"+this.degisken_isimleri[i]+"|").join(this.degisken_verileri[i])            
+        }
+        this.Cevap = eval(CevapFormulu)
     }
     
     //Cevabı şıkların içine rastgele yerleştirir
     cevabi_siklara_yerlestir(){
-        this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap
+        for(let i = 0;i<this.Siklar.length;i++){
+            if(this.Siklar[i] == this.Cevap.toString()){
+                return
+            }
+        }
+        this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap.toString()
     }
 
     //Soru içindeki değişkenlere değerler verir
     degiskenlere_deger_ver(){
-        console.log(this.Degiskenler)
+
+        // Değişiken isimlerini ve verilerini diğer fonksiyonlarda kullanabilmek için arraye ekliyoruz
+        this.degisken_isimleri = []
+        this.degisken_verileri = []
+
+        let degisken_ismi = ""
+        let degisken_verisi
+
+        for(let i = 0 ;i< Object.keys(this.Degiskenler).length;i++){
+
+            //Değişken ismini ve veri type'ını bul
+            degisken_ismi = Object.keys(this.Degiskenler)[i]
+            degisken_verisi = this.Degiskenler[degisken_ismi]
+
+            //Değişken verisini ver
+            if(degisken_verisi == "name-kiz"){
+                degisken_verisi = kiz_ismi[Math.floor(Math.random()*kiz_ismi.length)]
+            }else if(degisken_verisi == "name-erkek"){
+                degisken_verisi = erkek_ismi[Math.floor(Math.random()*erkek_ismi.length)]
+            }else if(degisken_verisi == "sehir"){
+                degisken_verisi = sehirler[Math.floor(Math.random()*sehirler.length)]
+            }else if(degisken_verisi == "name-kalin"){
+                degisken_verisi = kalin_isimler[Math.floor(Math.random()*kalin_isimler.length)]
+            }else if(degisken_verisi == "name-ince"){
+                degisken_verisi = ince_isimler[Math.floor(Math.random()*ince_isimler.length)]
+            }
+                // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
+                // 0 --> minimum sayı
+                // 1 --> maksimum sayi
+                // 2 --> katsayı
+            else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+                degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+            }
+
+            //değişken ismini ve verisini arraye ekle
+            this.degisken_isimleri.push(degisken_ismi)
+            this.degisken_verileri.push(degisken_verisi)
+
+            // Soru yazısını güncelle
+            // this.SoruYazisi = this.SoruYazisi.replace("|"+degisken_ismi+"|",degisken_verisi)
+            this.SoruYazisi = this.SoruYazisi.split("|"+degisken_ismi+"|").join(degisken_verisi)
+        }
     }
 
     soru_hazirla(){
@@ -60,16 +174,21 @@ export class Soru{
         this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
         // Soru yazısını sorutipinden al
         this.soru_yazisi_al(this.SoruTipi.get_SoruYazisi());
-        // Şıkları sorutipinden al
-        this.siklari_al(this.SoruTipi.get_Siklar());
         // Değişkenleri sorutipinden al
         this.degiskenleri_al(this.SoruTipi.get_SoruDegiskenleri());
+        // Cevap Formülünü sorutipinden al
+        this.cevapFormulu_al(this.SoruTipi.get_CevapFormulu());
+        //Soru yazısını günceller ve değiken arraylerini doldurur
+        this.degiskenlere_deger_ver();
+        // Şıkları sorutipinden al
+        this.siklari_al(this.SoruTipi.get_Siklar());
+        // Şıkları Oluştur
+        this.siklari_oluştur()
         //Cevabı hesaplar
-        this.cevabi_hesapla();
+        this.cevabi_hesapla(this.CevapFormulu);
         //Cevabı Şıklara yerleştirir
         this.cevabi_siklara_yerlestir();
 
-        this.degiskenlere_deger_ver();
     }
 
     
@@ -84,7 +203,20 @@ export class Soru{
 
     /// TO_STRING()
     toString(){
+        let content = `
+Soru :
+${this.get_SoruYazisi()}
 
+A) ${this.get_Siklar_index(0)}
+B) ${this.get_Siklar_index(1)}
+C) ${this.get_Siklar_index(2)}
+D) ${this.get_Siklar_index(3)}
+E) ${this.get_Siklar_index(4)}
+
+CEVAP: ${this.get_Cevap()}
+        `
+
+        return content
     }
     /// GETTER
     get_Ders() : Ders{
@@ -103,6 +235,10 @@ export class Soru{
         return this.Siklar;
     }
 
+    get_Siklar_index(index : number):string{
+        return this.Siklar[index]
+    }
+
     get_Degiskenler() : string[]{
         return this.Degiskenler;
     }
@@ -110,6 +246,11 @@ export class Soru{
     get_Cevap() : string{
         return this.Cevap;
     }
+
+    get_SoruYazisi(){
+        return this.SoruYazisi
+    }
+
 
 
     /// SETTER

@@ -1,7 +1,12 @@
-import {Ders} from './Ders';
-import {Konu} from './Konu';
 
-export class SoruTipi{
+import {Ders} from './Ders.js';
+import {Konu} from './Konu.js';
+import {Soru} from './Soru.js';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './database.js';
+
+
+export 
+class SoruTipi{
 
     /// OZELLIKLER
     /// YAPILANDIRICI
