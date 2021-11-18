@@ -16,7 +16,7 @@ try {
 } catch (_) {}
 
 //* CONSTANTS
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5006;
 
 //* APP
 const app = express();
@@ -89,53 +89,13 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
 
 app.get("/",(req, res) => {
-    res.render('index.html')
+    res.render('quiz.html')
 });
 
 app.get("/anasayfa",(req, res) => {
-    res.render('index.html')
+    res.render('quiz.html')
 });
 
-app.get("/hakkimda",(req, res) => {
-	return res.render("hakkimda");
-});
-
-app.get("/analiz",(req, res) => {
-	return res.render("analiz");
-});
-
-app.get("/hizmet",(req, res) => {
-	return res.render("hizmet");
-});
-
-app.get("/egitim",(req, res) => {
-	return res.render("egitim");
-});
-
-app.get("/characterix",(req, res) => {
-	return res.render("characterix");
-});
-
-app.get("/blog",(req, res) => {
-	return res.render("blog");
-});
-
-app.get("/iletisim",(req, res) => {
-	return res.render("iletisim");
-});
-
-app.get("/deneme",(req, res) => {
-	return res.render("hello-mahmut");
-});
-
-//The 404 Route (ALWAYS Keep this as the last route)
-app.get('*', function(req, res){
-    res.render('404.html')
-  });
-
-app.get("/index", protect,(req, res) => {
-	return res.render("index", { user: JSON.stringify(req.user) });
-});
 
 app.use((err: Error, req: any, res: any, next: any) => {
 	console.error(err);
