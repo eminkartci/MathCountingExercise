@@ -124,7 +124,7 @@ Sınıf Düzeyi : ${this.grade}
 
 ---------------------------------------------
             `
-        console.log(content)
+        //console.log(content)
     }
 
     /////// GETTER ///////
@@ -153,7 +153,7 @@ Sınıf Düzeyi : ${this.grade}
         if (name != "") {
             this.name = name
         } else {
-            console.log("Öğrenci Adı Değiştirilemedi")
+            //console.log("Öğrenci Adı Değiştirilemedi")
         }
     }
 
@@ -161,7 +161,7 @@ Sınıf Düzeyi : ${this.grade}
         if (surname != "") {
             this.surname = surname
         } else {
-            console.log("Öğrenci Soyadı Değiştirilemedi")
+            //console.log("Öğrenci Soyadı Değiştirilemedi")
         }
     }
 
@@ -169,7 +169,7 @@ Sınıf Düzeyi : ${this.grade}
         if (school_no != "") {
             this.school_no = school_no
         } else {
-            console.log("Öğrenci Okul Numarası Değiştirilemedi")
+            //console.log("Öğrenci Okul Numarası Değiştirilemedi")
         }
     }
 
@@ -177,7 +177,7 @@ Sınıf Düzeyi : ${this.grade}
         if (password != "") {
             this.password = password
         } else {
-            console.log("Öğrenci Şifresi Değiştirilemedi")
+            //console.log("Öğrenci Şifresi Değiştirilemedi")
         }
     }
 
@@ -185,7 +185,7 @@ Sınıf Düzeyi : ${this.grade}
         if (grade >= 0) {
             this.grade = grade
         } else {
-            console.log("Öğrenci Sınıf Düzeyi Değiştirilemedi")
+            //console.log("Öğrenci Sınıf Düzeyi Değiştirilemedi")
         }
     }
 }
@@ -209,7 +209,7 @@ Sınıf Düzeyi : ${this.grade}
 //                 4.  ${this.secenekler[3]}
 //             `
         
-//         console.log(content)
+//         //console.log(content)
 //     }   
 
 // }
@@ -230,10 +230,10 @@ Sınıf Düzeyi : ${this.grade}
 //         for(let a = 0;a < Object.keys(this.soru_tipleri).length;a++){
 //             if(Object.keys(this.soru_tipleri)[a] == "matematik"){
 //                 for(let b = 0;b < Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][this.sinif]).length;b++){
-//                     console.log(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]))//[Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])
+//                     //console.log(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]))//[Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])
 
 //                     if(Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]) == this.konu){
-//                         console.log(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])])[this.konu]
+//                         //console.log(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])])[this.konu]
 //                         return this.soru_tipleri[Object.keys(this.soru_tipleri)[a]][Object.keys(this.soru_tipleri[Object.keys(this.soru_tipleri)[a]])]
 //                     }
 //                 }
@@ -264,7 +264,7 @@ Sınıf Düzeyi : ${this.grade}
 //                 4.  ${this.secenekler[3]}
 //             `
         
-//         console.log(content)
+//         //console.log(content)
 //     }  
 // }
 // class Question{
@@ -278,8 +278,8 @@ function login(student_database) {
     let okul_numarasi = document.getElementById("school_no").value
     let password_input = document.getElementById("password").value
     var password = CryptoJS.MD5(password_input).toString();
-    console.log("Okul Numarası: " + okul_numarasi);
-    console.log("Şifre : " + password);
+    //console.log("Okul Numarası: " + okul_numarasi);
+    //console.log("Şifre : " + password);
 
     // okul no veya şifre boş mu kontrol
     if (okul_numarasi != "" || password != "") {
@@ -294,7 +294,7 @@ function login(student_database) {
 
             } else {
 
-                // console.log("Şifre Yanlış")
+                // //console.log("Şifre Yanlış")
                 return null
 
             }
@@ -303,7 +303,7 @@ function login(student_database) {
             
             // Bilgilendir
             document.getElementById("giris_baslik").innerHTML = "Deneme1"
-            console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
+            //console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
 
             // Bos Dondur
             return null
@@ -311,17 +311,17 @@ function login(student_database) {
     } else { // Kullanıcı veya şifre alanı boşsa
 
         document.getElementById("giris_baslik").innerHTML = "Deneme"
-        console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
+        //console.log("Böyle bir okul numarasına sahip öğrenci bulunamadı")
         return null
     }
 }
 
 function find_student_by_schoolNo(school_no, student_db) {
     if(Object.keys(student_db).includes(school_no)){
-        console.log(student_db[school_no]);
+        //console.log(student_db[school_no]);
         return student_db[school_no]
     }else{
-        console.log("FALSE");
+        //console.log("FALSE");
     }
 }
 
@@ -402,7 +402,7 @@ function generate_question(question_types, lesson, grade) {
                 let options = question_type.options
                 return [subject, question, answer, options]
             }else {
-                console.log("Ders bulunamadı")
+                //console.log("Ders bulunamadı")
                 return null
             }
         }   
@@ -469,7 +469,7 @@ function convert_array_to_html(quiz_array) {
                         if(current_option == options[j]){
                             options_already_exist = true
                         }
-                        console.log(options.length)
+                        //console.log(options.length)
                     }
                     if(options.length == 0 || options_already_exist == false){
                         options.push(current_option)
@@ -477,7 +477,7 @@ function convert_array_to_html(quiz_array) {
 
                 }
                 options[Math.floor(Math.random()*options.length)] = quiz_array[a][i][2][Math.floor(Math.random()*quiz_array[a][i][2].length)]
-                console.log(options)
+                //console.log(options)
                 content = `
                 <div class="step">
                     <h3 class="main_question"><i class="arrow_right"></i>${quiz_array[a][i][1]}</h3>
@@ -535,7 +535,7 @@ function convert_array_to_html(quiz_array) {
         }
     }
 
-    console.log(content)
+    //console.log(content)
     return content;
 
 }
@@ -583,7 +583,7 @@ document.getElementById("next_button").onclick = function () {
             lessons.push("tarih")
         }
 
-        console.log(lessons)
+        //console.log(lessons)
 
         if(lessons.length !=0){
             document.getElementById("middle-wizard").innerHTML=convert_array_to_html(generate_quiz(question_types_json, 1, lessons, 10))
