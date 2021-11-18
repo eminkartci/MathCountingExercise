@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.Soru = void 0;
-var database_js_1 = require("./database.js");
+var Database_js_1 = require("./Database.js");
 var Soru = /** @class */ (function () {
     /// YAPILANDIRICI
     function Soru(Ders, Konu) {
@@ -108,19 +108,19 @@ var Soru = /** @class */ (function () {
             degisken_verisi = this.Degiskenler[degisken_ismi];
             //Değişken verisini ver
             if (degisken_verisi == "name-kiz") {
-                degisken_verisi = database_js_1.kiz_ismi[Math.floor(Math.random() * database_js_1.kiz_ismi.length)];
+                degisken_verisi = Database_js_1.kiz_ismi[Math.floor(Math.random() * Database_js_1.kiz_ismi.length)];
             }
             else if (degisken_verisi == "name-erkek") {
-                degisken_verisi = database_js_1.erkek_ismi[Math.floor(Math.random() * database_js_1.erkek_ismi.length)];
+                degisken_verisi = Database_js_1.erkek_ismi[Math.floor(Math.random() * Database_js_1.erkek_ismi.length)];
             }
             else if (degisken_verisi == "sehir") {
-                degisken_verisi = database_js_1.sehirler[Math.floor(Math.random() * database_js_1.sehirler.length)];
+                degisken_verisi = Database_js_1.sehirler[Math.floor(Math.random() * Database_js_1.sehirler.length)];
             }
             else if (degisken_verisi == "name-kalin") {
-                degisken_verisi = database_js_1.kalin_isimler[Math.floor(Math.random() * database_js_1.kalin_isimler.length)];
+                degisken_verisi = Database_js_1.kalin_isimler[Math.floor(Math.random() * Database_js_1.kalin_isimler.length)];
             }
             else if (degisken_verisi == "name-ince") {
-                degisken_verisi = database_js_1.ince_isimler[Math.floor(Math.random() * database_js_1.ince_isimler.length)];
+                degisken_verisi = Database_js_1.ince_isimler[Math.floor(Math.random() * Database_js_1.ince_isimler.length)];
             }
             // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
             // 0 --> minimum sayı

@@ -5,7 +5,7 @@ import {Ders} from './Ders.js';
 import {Konu} from './Konu.js';
 import {Soru} from './Soru.js';
 import {SoruTipi} from './SoruTipi.js';
-import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './database.js';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './Database.js';
 
 
 /////////////// DERSLER ///////////////
