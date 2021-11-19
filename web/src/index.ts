@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 5006;
 //* APP
 const app = express();
 var engines = require('consolidate');
+
 app.set("trust proxy", 1);
 app.set("views", path.join(__dirname, "views"));
 app.engine('html', engines.mustache);
@@ -94,6 +95,11 @@ app.get("/",(req, res) => {
 
 app.get("/anasayfa",(req, res) => {
     res.render('quiz.html')
+});
+
+app.get("/hello",(req, res) => {
+	let name = "Durmuş"
+    res.render('hello.html',{name:name})
 });
 
 
