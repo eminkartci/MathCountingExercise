@@ -119,19 +119,28 @@ app.post('/quiz', urlencodedParser, function (req, res) {
   })
 
 
-//   for(let i = 0;i<Main.)
-  app.get('/matematik', function (req, res) {
-	 	let matematik_sorusu    = new Soru(Main.matematik,Main.yas_problemi)
-	  	// console.log(matematik_sorusu.toHTML())
-		res.send(matematik_sorusu.toHTML())
-  })
+  for(let i = 0;i<Main.dersler.length;i++){
+	for(let j = 0;j<Main.dersler[i].get_Konular().length;j++){
+		console.log("URL : ",'/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi())
+		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
+			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
+		   res.send(temp_soru.toHTML())
+	 })
+	}
+  }
 
-  app.get('/fizik', function (req, res) {
-	let fizik_sorusu    = new Soru(Main.fizik,Main.hareket_hiz)
-	// console.log(matematik_sorusu.toHTML())
-	res.send(res.send(fizik_sorusu.toHTML())
-	)
-  })
+//   app.get('/matematik', function (req, res) {
+// 	 	let matematik_sorusu    = new Soru(Main.matematik,Main.yas_problemi)
+// 	  	// console.log(matematik_sorusu.toHTML())
+// 		res.send(matematik_sorusu.toHTML())
+//   })
+
+//   app.get('/fizik', function (req, res) {
+// 	let fizik_sorusu    = new Soru(Main.fizik,Main.hareket_hiz)
+// 	// console.log(matematik_sorusu.toHTML())
+// 	res.send(res.send(fizik_sorusu.toHTML())
+// 	)
+//   })
 
 app.use((err: Error, req: any, res: any, next: any) => {
 	console.error(err);

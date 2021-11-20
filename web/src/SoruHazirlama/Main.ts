@@ -9,19 +9,19 @@ import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from
 
 
 /////////////// DERSLER ///////////////
-export let matematik   = new Ders("Matematik")
-export let turkce      = new Ders("Türkçe")
-export let fizik       = new Ders("Fizik")
-export let kimya       = new Ders("Kimya")
-export let biyoloji    = new Ders("Biyoloji")
-export let tarih       = new Ders("Tarih")
+export let matematik   = new Ders("matematik")
+export let turkce      = new Ders("turkce")
+export let fizik       = new Ders("fizik")
+export let kimya       = new Ders("kimya")
+export let biyoloji    = new Ders("biyoloji")
+export let tarih       = new Ders("tarih")
 
 export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]
 
 
 /////////////// KONULAR ///////////////
 
-export  let yas_problemi    = new Konu(matematik,"Yaş Problemi")
+export  let yas_problemi    = new Konu(matematik,"yas-problemi")
 yas_problemi.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen |isim| , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.|isim| 'in |sayi1| elbise , |sayi2| gömlek ve |sayi3| pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",{"isim":"name-kiz","sayi1":[1,5,1],"sayi2":[1,5,1],"sayi3":[1,5,1]},["30","28","15","1"],"|sayi1|+|sayi2|*|sayi3|")
 matematik.add_Konu(yas_problemi)
 
@@ -29,7 +29,7 @@ matematik.add_Konu(yas_problemi)
 // yazim_kurallari.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Emin"],["10","11","8","7"])
 // turkce.add_Konu(yazim_kurallari)
 
-export  let hareket_hiz     = new Konu(fizik,"Hareket-Hız")
+export  let hareket_hiz     = new Konu(fizik,"hareket-hiz")
 hareket_hiz.soru_tipi_olustur("Doğu yönünde |sayi1|km/h hızla giden |isim1|, batı yönünden |sayi2|km/h hızla ile gelen |isim2| ile karşılaşıyor. Buna göre |isim2|'ye göre |isim1|'in hızı kaç km/h'tir?",{"isim1":"name-erkek","isim2":"name-ince","sayi1":[1,10,10],"sayi2":[5,15,10]},["30","28","15","1"],"|sayi1|+|sayi2|")
 fizik.add_Konu(hareket_hiz)
 
