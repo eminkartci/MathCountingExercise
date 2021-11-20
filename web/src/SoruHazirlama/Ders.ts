@@ -11,13 +11,14 @@ export class Ders{
     private Konular : Konu[] = [];
     /// YAPILANDIRICI
 
-    constructor(private DersAdi:string){
+    constructor(private DersAdi:string,private DersYazisi:string){
     }
 
     /// DAVRANIŞLARI
     toJSON(){
         let Ders_json : any= {}
         Ders_json["DersAdi"] = this.DersAdi
+        Ders_json["DersYazisi"] = this.DersYazisi
 
         let Konular_json : any = {}
         for(let i = 0;i<this.Konular.length;i++){
@@ -32,6 +33,10 @@ export class Ders{
         return this.DersAdi;
     }
 
+    get_DersYazisi() : string{
+        return this.DersYazisi;
+    }
+
     get_Konular() : Konu[]{
         return this.Konular
     }
@@ -43,6 +48,10 @@ export class Ders{
     /// SETTER
     set_DersAdi(DersAdi : string){
         this.DersAdi = DersAdi;
+    }
+
+    set_DersYazisi(DersYazisi : string){
+        this.DersYazisi = DersYazisi;
     }
 
     set_Konular(Konular : Konu[]){

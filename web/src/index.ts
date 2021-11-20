@@ -113,10 +113,14 @@ app.get("/hello",(req, res) => {
     res.render('hello',{name:name})
 });
 
+app.get("/soru/matematik",(req, res) => {
+    res.render('soru')
+});
+
 app.post('/quiz', urlencodedParser, function (req, res) {
 	console.log(req.body)
 	res.render('hello', {data : req.body})
-  })
+})
 
 
   for(let i = 0;i<Main.dersler.length;i++){
@@ -124,7 +128,7 @@ app.post('/quiz', urlencodedParser, function (req, res) {
 		console.log("URL : ",'/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi())
 		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
-		   res.send(temp_soru.toHTML())
+		   res.send(temp_soru.toJSON())
 	 })
 	}
   }
