@@ -101,7 +101,7 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
 
 app.get("/",(req, res) => {
-    res.render('quiz')
+    res.render('login')
 });
 
 app.get("/anasayfa",(req, res) => {
