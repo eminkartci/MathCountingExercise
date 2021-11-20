@@ -122,6 +122,11 @@ app.post('/quiz', urlencodedParser, function (req, res) {
 	res.render('hello', {data : req.body})
 })
 
+app.post('/danisan/ekle', urlencodedParser, function (req, res) {
+	console.log(req)
+	res.render('profil')
+})
+
 
   for(let i = 0;i<Main.dersler.length;i++){
 	for(let j = 0;j<Main.dersler[i].get_Konular().length;j++){
