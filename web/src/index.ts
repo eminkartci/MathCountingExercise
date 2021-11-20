@@ -10,6 +10,17 @@ import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 
+var bodyParser = require('body-parser')
+
+var jsonParser = bodyParser.json()
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+import * as Main from './SoruHazirlama/Main'
+import {Soru} from './SoruHazirlama/Soru'
+
+
+
 
 try {
 	require("dotenv").config();
@@ -90,18 +101,37 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
 
 app.get("/",(req, res) => {
-    res.render('quiz.html')
+    res.render('quiz')
 });
 
 app.get("/anasayfa",(req, res) => {
-    res.render('quiz.html')
+    res.render('quiz')
 });
 
 app.get("/hello",(req, res) => {
 	let name = "Durmuş"
-    res.render('hello.html',{name:name})
+    res.render('hello',{name:name})
 });
 
+app.post('/quiz', urlencodedParser, function (req, res) {
+	console.log(req.body)
+	res.render('hello', {data : req.body})
+  })
+
+
+//   for(let i = 0;i<Main.)
+  app.get('/matematik', function (req, res) {
+	 	let matematik_sorusu    = new Soru(Main.matematik,Main.yas_problemi)
+	  	// console.log(matematik_sorusu.toHTML())
+		res.send(matematik_sorusu.toHTML())
+  })
+
+  app.get('/fizik', function (req, res) {
+	let fizik_sorusu    = new Soru(Main.fizik,Main.hareket_hiz)
+	// console.log(matematik_sorusu.toHTML())
+	res.send(res.send(fizik_sorusu.toHTML())
+	)
+  })
 
 app.use((err: Error, req: any, res: any, next: any) => {
 	console.error(err);

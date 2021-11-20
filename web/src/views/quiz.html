@@ -40,74 +40,10 @@
 
 <body>
 
-    <div id="preloader">
-        <div data-loader="circle-side"></div>
-    </div>
-    <!-- /Preload -->
-
-    <div id="loader_form">
-        <div data-loader="circle-side-2"></div>
-    </div>
-    <!-- /loader_form -->
-
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-3">
-                    <a href="index.html"><img src="assets/images/logo.svg" alt="" width="178" height="45" class="d-none d-md-block"><img src="assets/images/logo_mobile.svg" alt="" width="62" height="45" class="d-block d-md-none"></a>
-                </div>
-                <div class="col-9">
-                    <div id="social">
-                        <ul>
-                            <li><a href="#0"><i class="icon-facebook"></i></a></li>
-                            <li><a href="#0"><i class="icon-twitter"></i></a></li>
-                            <li><a href="#0"><i class="icon-google"></i></a></li>
-                            <li><a href="#0"><i class="icon-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- /social -->
-                    <a href="#0" class="cd-nav-trigger">Menu<span class="cd-icon"></span></a>
-                    <!-- /menu button -->
-                    <nav>
-                        <ul class="cd-primary-nav">
-                            <li><a href="without_branch_layout_2.html" class="animated_link">Questionnaire without branch</a></li>
-                            <li><a href="with_branch_layout_2.html" class="animated_link">Questionnaire with branch</a></li>
-                            <li><a href="prevention.html" class="animated_link">Prevention Tips</a></li>
-                            <li><a href="faq.html" class="animated_link">Faq</a></li>
-                            <li><a href="contacts.html" class="animated_link">Contact Us</a></li>
-                            <li><a href="#0" class="animated_link">Purchase Template</a></li>
-                        </ul>
-                    </nav>
-                    <!-- /menu -->
-                </div>
-            </div>
-        </div>
-        <!-- /container -->
-    </header>
-    <!-- /Header -->
-
-    <div class="container">
-        <div id="form_container">
-            <div class="row no-gutters">
-                <div class="col-lg-4">
-                    <div id="left_form">
-                        <figure><img src="assets/images/info_graphic_1.svg" alt="" width="100" height="100"></figure>
-                        <h2>CORONAVIRUS <span>Questionnaire with Branch</span></h2>
-                        <p>Help yourself in decision-making whether to seek professional medical advice or not.</p>
-                        <a href="" class="btn_1 rounded yellow purchase" target="_parent">Purchase this template</a>
-                        <a href="#wizard_container" class="btn_1 rounded mobile_btn yellow">Start Now!</a>
-                        <a href="#0" id="more_info" data-toggle="modal" data-target="#more-info"><i class="pe-7s-info"></i></a>
-                    </div>
-                </div>
                 <div class="col-lg-8">
                     <div id="wizard_container">
-                        <div id="top-wizard">
-                            <div id="progressbar"></div>
-                            <span id="location"></span>
-                        </div>
                         <!-- /top-wizard -->
-                        <form id="wrapped" method="post">
-                            <input id="website" name="website" type="text" value="">
+                        <form id="wrapped" method="POST" action="/quiz">
                             <!-- Leave for security protection, read docs for details -->
                             <div id="middle-wizard">
                                 <div class="step">
@@ -152,19 +88,19 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="container_check version_2">Matematik
-                                                    <input type="checkbox" name="question_1[]" id="matematik_checkbox" value="matematik" class="required">
+                                                    <input type="checkbox" name="lessons" id="matematik_checkbox" value="matematik" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="container_check version_2">Fizik
-                                                    <input type="checkbox" name="question_1[]" id="fizik_checkbox" value="fizik" class="required">
+                                                    <input type="checkbox" name="lessons" id="fizik_checkbox" value="fizik" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="container_check version_2">Biyoloji
-                                                    <input type="checkbox" name="question_1[]" id="biyoloji_checkbox" value="biyoloji" class="required">
+                                                    <input type="checkbox" name="lessons" id="biyoloji_checkbox" value="biyoloji" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>                                            
@@ -172,19 +108,19 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label class="container_check version_2">Kimya
-                                                    <input type="checkbox" name="question_1[]" id="kimya_checkbox" value="kimya" class="required">
+                                                    <input type="checkbox" name="lessons" id="kimya_checkbox" value="kimya" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="container_check version_2">Türkçe
-                                                    <input type="checkbox" name="question_1[]" id="turkce_checkbox" value="tukce" class="required">
+                                                    <input type="checkbox" name="lessons" id="turkce_checkbox" value="turkce" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label class="container_check version_2">Tarih
-                                                    <input type="checkbox" name="question_1[]" id="tarih_checkbox" value="tarih" class="required">
+                                                    <input type="checkbox" name="lessons" id="tarih_checkbox" value="tarih" class="required">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>   
@@ -194,27 +130,13 @@
                                 </div>
                                 <!-- /step-->
 
-                                <div class="step">
-                                    <h3 class="main_question"><i class="arrow_right"></i>Have you recently been in contact with a person with Coronavirus?</h3>
-                                    <div class="form-group">
-                                        <label class="container_radio version_2">Yes
-                                        <input type="radio" name="question_2" value="Yes" class="required">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                        <label class="container_radio version_2">No
-                                        <input type="radio" name="question_2" value="No" class="required">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    </div>
-                                </div>
-                                <!-- /step-->
 
                                 
 
                             </div>
                             <!-- /middle-wizard -->
                             <div id="bottom-wizard">
-                                <!-- <button type="button" name="backward" class="backward">Prev</button> -->
+                                <button type="button" name="backward" class="backward">Prev</button>
                                 <button type="button" name="forward" class="forward" id="next_button">Sonraki</button>
                                 <button type="submit" name="process" class="submit" id="submit_button">Kaydet</button>
                             </div>
@@ -223,92 +145,16 @@
                     </div>
                     <!-- /Wizard container -->
                 </div>
-            </div>
-            <!-- /Row -->
-        </div>
-        <!-- /Form_container -->
-    </div>
-    <!-- /container -->
-
-    <div class="container">
-        <footer id="home" class="clearfix">
-            <p>© 2021 Magnifica</p>
-            <ul>
-                <li><a href="#0" class="animated_link">Purchase this template</a></li>
-                <li><a href="index-2.html" class="animated_link">Layout 1</a></li>
-                <li><a href="faq.html" class="animated_link">Faq</a></li>
-                <li><a href="prevention.html" class="animated_link">Prevention Tips</a></li>
-            </ul>
-        </footer>
-        <!-- end footer-->
-    </div>
-    <!-- /container -->
-
-    <div class="cd-overlay-nav">
-        <span></span>
-    </div>
-    <!-- /cd-overlay-nav -->
-    <div class="cd-overlay-content">
-        <span></span>
-    </div>
-    <!-- /cd-overlay-content -->
-
-    <!-- Modal terms -->
-    <div class="modal fade" id="terms-txt" tabindex="-1" role="dialog" aria-labelledby="termsLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="termsLabel">Terms and conditions</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in <strong>nec quod novum accumsan</strong>, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus. Lorem ipsum dolor sit amet,
-                        <strong>in porro albucius qui</strong>, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn_1" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- Modal info -->
-    <div class="modal fade" id="more-info" tabindex="-1" role="dialog" aria-labelledby="more-infoLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="more-infoLabel">Frequently asked questions</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in <strong>nec quod novum accumsan</strong>, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus. Lorem ipsum dolor sit amet,
-                        <strong>in porro albucius qui</strong>, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                    <p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn_1" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+           
 
     <!-- COMMON SCRIPTS -->
     <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/common_scripts.js"></script>
+    <script src="assets/js/common_scripts.min.js"></script>
     <script src="assets/js/velocity.min.js"></script>
     <script src="assets/js/common_functions.js"></script>
 
     <!-- Wizard script with branch -->
-    <script src="assets/js/wizard_with_branch.js"></script>
+    <script src="assets/js/wizard_without_branch.js"></script>
 
     <script src="assets/js/script.js"></script>
 
