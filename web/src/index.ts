@@ -18,6 +18,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 import * as Main from './SoruHazirlama/Main'
 import {Soru} from './SoruHazirlama/Soru'
+import {User} from './SoruHazirlama/User'
 
 try {
 	require("dotenv").config();
@@ -120,13 +121,16 @@ app.get("/soru/matematik",(req, res) => {
 app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 	let new_user_data = req.query
 
+	let id_index = 0;
 	let isim_index = 0;
 	let soyisim_index = 0;
 	let okul_no_index = 0;
 	let sifre_index = 0;
 	let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 	for(let i = 0;i< danisanlar[0].length ;i++){
-		if(danisanlar[0][i] == "isim"){
+		if(danisanlar[0][i] == "id"){
+			id_index = i
+		}else if(danisanlar[0][i] == "isim"){
 			isim_index = i
 		}else if(danisanlar[0][i] == "soyisim"){
 			soyisim_index = i
@@ -144,6 +148,10 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 		}
 	}
 		let new_user_csv_data : any []= []
+		let new_user_id = danisanlar.length
+		console.log(typeof new_user_id)
+		console.log(typeof new_user_id.toString())
+		new_user_csv_data[id_index] = new_user_id.toString()
 		new_user_csv_data[isim_index] = new_user_data.isim
 		new_user_csv_data[soyisim_index] = new_user_data.soyisim
 		new_user_csv_data[okul_no_index] = new_user_data.okul_no
@@ -158,33 +166,120 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 })
 
 app.post('/danisan/bul', urlencodedParser, function (req, res) {
-	console.log(req.query)
-	res.send({user:req.body})
+	let alinan_user  : any= req.query
+
+	let id_index = 0;
+	let isim_index = 0;
+	let soyisim_index = 0;
+	let okul_no_index = 0;
+	let sifre_index = 0;
+	let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	for(let i = 0;i< danisanlar[0].length ;i++){
+		if(danisanlar[0][i] == "id"){
+			id_index = i
+		}else if(danisanlar[0][i] == "isim"){
+			isim_index = i
+		}else if(danisanlar[0][i] == "soyisim"){
+			soyisim_index = i
+		}else if(danisanlar[0][i] == "okul_no"){
+			okul_no_index = i
+		}else if(danisanlar[0][i] == "sifre"){
+			sifre_index = i
+		}
+	}
+
+	for(let i =0;i<danisanlar.length;i++){
+		console.log("DANIŞAN OKUL NO : ",danisanlar[i][okul_no_index])
+		console.log("ALINAN  OKUL NO : ",alinan_user.okul_no)
+		console.log("DANIŞAN ŞİFRE   : ",danisanlar[i][sifre_index])
+		console.log("ALINAN  ŞİFRE   : ",alinan_user.sifre)
+		if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
+			res.send((new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index]).toJSON()))
+			return
+		}
+	}
+	console.log("Kullanıcı bulunamadı")
+	res.send(null)
+	
+	
 })
 
 
 
-  for(let i = 0;i<Main.dersler.length;i++){
+for(let i = 0;i<Main.dersler.length;i++){
 	for(let j = 0;j<Main.dersler[i].get_Konular().length;j++){
 		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
-		   res.send(temp_soru.toJSON())
-	 })
+			res.send(temp_soru.toJSON())
+		})
 	}
-  }
+}
 
-//   app.get('/matematik', function (req, res) {
-// 	 	let matematik_sorusu    = new Soru(Main.matematik,Main.yas_problemi)
-// 	  	// console.log(matematik_sorusu.toHTML())
-// 		res.send(matematik_sorusu.toHTML())
-//   })
+// Bütün danışanları idlerine göre json olarak döndürür
+{
+	let id_index = 0;
+	let isim_index = 0;
+	let soyisim_index = 0;
+	let okul_no_index = 0;
+	let sifre_index = 0;
+	let danisanlar = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	for(let i = 0;i< danisanlar[0].length;i++){
+		
+		if(danisanlar[0][i] == "id"){
+			id_index = i
+		}else if(danisanlar[0][i] == "isim"){
+			isim_index = i
+		}else if(danisanlar[0][i] == "soyisim"){
+			soyisim_index = i
+		}else if(danisanlar[0][i] == "okul_no"){
+			okul_no_index = i
+		}else if(danisanlar[0][i] == "sifre"){
+			sifre_index = i
+		}
+	}
 
-//   app.get('/fizik', function (req, res) {
-// 	let fizik_sorusu    = new Soru(Main.fizik,Main.hareket_hiz)
-// 	// console.log(matematik_sorusu.toHTML())
-// 	res.send(res.send(fizik_sorusu.toHTML())
-// 	)
-//   })
+
+	for(let i = 1;i<danisanlar.length;i++){
+		let danisan = danisanlar[i]
+		app.get('/danisan/'+danisan[id_index], function (req, res) {
+			let temp_user = new User(danisan[isim_index],danisan[soyisim_index],danisan[okul_no_index],danisan[sifre_index])
+			res.send(temp_user.toJSON())
+		})
+	
+	}
+
+}
+
+// Bütün dabışanları json olarak döndürür
+app.get("/danisanlar",(req,res)=>{
+	let danisanlar = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	let id_index = 0;
+	let isim_index = 0;
+	let soyisim_index = 0;
+	let okul_no_index = 0;
+	let sifre_index = 0;
+	for(let i = 0;i< danisanlar[0].length;i++){
+		
+		if(danisanlar[0][i] == "id"){
+			id_index = i
+		}else if(danisanlar[0][i] == "isim"){
+			isim_index = i
+		}else if(danisanlar[0][i] == "soyisim"){
+			soyisim_index = i
+		}else if(danisanlar[0][i] == "okul_no"){
+			okul_no_index = i
+		}else if(danisanlar[0][i] == "sifre"){
+			sifre_index = i
+		}
+	}
+	let danisanlar_json : any= {}
+	for(let i = 1;i<danisanlar.length;i++){
+		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
+		danisanlar_json[i-1] = temp_user.toJSON()
+	}
+	console.log(danisanlar_json)
+	res.send(danisanlar_json)	
+})
 
 app.use((err: Error, req: any, res: any, next: any) => {
 	console.error(err);
