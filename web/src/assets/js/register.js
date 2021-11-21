@@ -33,12 +33,11 @@ document.getElementById("register_button").onclick = () =>{
     soyisim = document.getElementById("surname_input").value
     okul_no = document.getElementById("school_no_input").value
     sifre = CryptoJS.MD5(document.getElementById("password_input").value).toString()
-
-    // console.log("İSİM    : ", isim)
-    // console.log("SOYİSİM : ", soyisim)
-    // console.log("OKUL NO : ", okul_no)
-    // console.log("SİFRE   : ", sifre)
     if(isim !=""&&soyisim !=""&&okul_no !=""&&sifre !=""){
         user_POST(isim,soyisim,okul_no,sifre)
+    }else{
+        console.log("\n%cİnput alanlarının hepsi dolu olması lazım !!!\n","color:red;")
+        alert("İnput alanlarının hepsi dolu olması lazım !!!")
     }
 }
+

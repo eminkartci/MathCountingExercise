@@ -5,6 +5,7 @@ import cors from "cors";
 import path from "path";
 import redis from "redis";
 import fs from "fs";
+import chalk from "chalk"
 
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
@@ -107,6 +108,7 @@ app.get("/register",(req, res) => {
 });
 
 app.get("/profil",(req, res) => {
+	console.log(chalk.blue("PROFIL REQUEST\n"),req.query)
     res.render('profil')
 });
 
@@ -119,7 +121,7 @@ app.get("/soru/matematik",(req, res) => {
 });
 
 app.post('/danisan/ekle', urlencodedParser, function (req, res) {
-	let new_user_data = req.query
+	let new_user_data : any= req.query
 
 	let id_index = 0;
 	let isim_index = 0;
@@ -143,7 +145,7 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 
 	for(let i =0;i<danisanlar.length;i++){
 		if(danisanlar[i][okul_no_index] == new_user_data.okul_no){
-			console.log("\nKullanıcı zaten mevcut...")
+			console.log(chalk.red("\nKullanıcı zaten mevcut...:\n"))
 			return
 		}
 	}
@@ -158,14 +160,13 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 		new_user_csv_data[sifre_index] = new_user_data.sifre
 
 		danisanlar[danisanlar.length] = new_user_csv_data
-
+		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
+		console.log(chalk.yellow("\nEKLENEN KULLANICI:\n"),temp_user)
 		array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 
-		console.log("NEW USER    : ",new_user_csv_data)
-	
 })
 
-app.post('/danisan/bul', urlencodedParser, function (req, res) {
+app.get('/danisan/bul', urlencodedParser, function (req, res) {
 	let alinan_user  : any= req.query
 
 	let id_index = 0;
@@ -189,18 +190,16 @@ app.post('/danisan/bul', urlencodedParser, function (req, res) {
 	}
 
 	for(let i =0;i<danisanlar.length;i++){
-		console.log("DANIŞAN OKUL NO : ",danisanlar[i][okul_no_index])
-		console.log("ALINAN  OKUL NO : ",alinan_user.okul_no)
-		console.log("DANIŞAN ŞİFRE   : ",danisanlar[i][sifre_index])
-		console.log("ALINAN  ŞİFRE   : ",alinan_user.sifre)
+		
 		if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
-			res.send((new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index]).toJSON()))
+			let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
+			res.send(temp_user.toJSON())
+			console.log(chalk.yellow("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
 		}
 	}
 	console.log("Kullanıcı bulunamadı")
-	res.send(null)
-	
+	res.send(null)	
 	
 })
 
@@ -211,6 +210,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
 			res.send(temp_soru.toJSON())
+			console.log(chalk.yellow("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
 	}
 }
@@ -244,6 +244,8 @@ for(let i = 0;i<Main.dersler.length;i++){
 		app.get('/danisan/'+danisan[id_index], function (req, res) {
 			let temp_user = new User(danisan[isim_index],danisan[soyisim_index],danisan[okul_no_index],danisan[sifre_index])
 			res.send(temp_user.toJSON())
+			console.log(chalk.yellow("\nID : ",danisan[id_index]," GÖRE DANIŞAN :\n"),temp_user)
+			
 		})
 	
 	}
@@ -277,7 +279,7 @@ app.get("/danisanlar",(req,res)=>{
 		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
 		danisanlar_json[i-1] = temp_user.toJSON()
 	}
-	console.log(danisanlar_json)
+	console.log(chalk.yellow("\nDANIŞANLAR :\n"),danisanlar_json)
 	res.send(danisanlar_json)	
 })
 

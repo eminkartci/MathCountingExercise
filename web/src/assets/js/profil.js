@@ -1,8 +1,8 @@
 function kullanici_getir(){
-    let endpoint = "http://localhost:5006/danisan/ekle";
-
+    let endpoint = "http://localhost:5006/profil";
+    console.log(endpoint)
     fetch(endpoint).then(res => res.json()).then(data => {
-        console.log("user: ", data.user)
+        console.log("user: ", data)
         kullanici_yazdir(data.user)
     })
 }
