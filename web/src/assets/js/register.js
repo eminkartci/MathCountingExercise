@@ -35,6 +35,7 @@ document.getElementById("register_button").onclick = () =>{
     sifre = CryptoJS.MD5(document.getElementById("password_input").value).toString()
     if(isim !=""&&soyisim !=""&&okul_no !=""&&sifre !=""){
         user_POST(isim,soyisim,okul_no,sifre)
+        window.open('./login')
     }else{
         console.log("\n%cİnput alanlarının hepsi dolu olması lazım !!!\n","color:red;")
         alert("İnput alanlarının hepsi dolu olması lazım !!!")

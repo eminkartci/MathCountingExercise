@@ -120,6 +120,10 @@ app.get("/soru/matematik",(req, res) => {
     res.render('soru')
 });
 
+app.get("/re",(req, res) => {
+    res.redirect('/login')
+});
+
 app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 	let new_user_data : any= req.query
 
@@ -145,14 +149,12 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 
 	for(let i =0;i<danisanlar.length;i++){
 		if(danisanlar[i][okul_no_index] == new_user_data.okul_no){
-			console.log(chalk.red("\nKullanıcı zaten mevcut...:\n"))
+			console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
 			return
 		}
 	}
 		let new_user_csv_data : any []= []
 		let new_user_id = danisanlar.length
-		console.log(typeof new_user_id)
-		console.log(typeof new_user_id.toString())
 		new_user_csv_data[id_index] = new_user_id.toString()
 		new_user_csv_data[isim_index] = new_user_data.isim
 		new_user_csv_data[soyisim_index] = new_user_data.soyisim
@@ -161,9 +163,8 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 
 		danisanlar[danisanlar.length] = new_user_csv_data
 		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
-		console.log(chalk.yellow("\nEKLENEN KULLANICI:\n"),temp_user)
+		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
 		array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-
 })
 
 app.get('/danisan/bul', urlencodedParser, function (req, res) {
@@ -194,7 +195,7 @@ app.get('/danisan/bul', urlencodedParser, function (req, res) {
 		if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
 			let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
 			res.send(temp_user.toJSON())
-			console.log(chalk.yellow("\nBULUNAN KULLANICI:\n"),temp_user)
+			console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
 		}
 	}
@@ -210,7 +211,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
 			res.send(temp_soru.toJSON())
-			console.log(chalk.yellow("\nOLUŞTURULAN SORU :\n"),temp_soru)
+			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
 	}
 }
@@ -244,7 +245,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 		app.get('/danisan/'+danisan[id_index], function (req, res) {
 			let temp_user = new User(danisan[isim_index],danisan[soyisim_index],danisan[okul_no_index],danisan[sifre_index])
 			res.send(temp_user.toJSON())
-			console.log(chalk.yellow("\nID : ",danisan[id_index]," GÖRE DANIŞAN :\n"),temp_user)
+			console.log(chalk.hex('#FFF01F').bold.underline("\nID : ",danisan[id_index]," GÖRE DANIŞAN :\n"),temp_user)
 			
 		})
 	
@@ -279,7 +280,7 @@ app.get("/danisanlar",(req,res)=>{
 		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
 		danisanlar_json[i-1] = temp_user.toJSON()
 	}
-	console.log(chalk.yellow("\nDANIŞANLAR :\n"),danisanlar_json)
+	console.log(chalk.hex('#FFF01F').bold.underline("\nDANIŞANLAR :\n"),danisanlar_json)
 	res.send(danisanlar_json)	
 })
 
