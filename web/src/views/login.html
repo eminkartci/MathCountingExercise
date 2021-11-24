@@ -1,158 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Options Admin - Responsive Web Application Kit</title>
+  <head>
+  	<title>Login 08</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- ========== COMMON STYLES ========== -->
-        <link rel="stylesheet" href="assets/css/bootstrap.css" media="screen" >
-        <link rel="stylesheet" href="assets/css/font-awesome.css" media="screen" >
-        <link rel="stylesheet" href="assets/css/animate-css/animate.min.css" media="screen" >
-        <link rel="stylesheet" href="assets/css/lobipanel/lobipanel.css" media="screen" >
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-        <!-- ========== PAGE STYLES ========== -->
-        <link rel="stylesheet" href="assets/css/prism/prism.css" media="screen" > <!-- USED FOR DEMO HELP - YOU CAN REMOVE IT -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="assets/css/login-register/css/style.css">
 
-        <!-- ========== THEME CSS ========== -->
-        <link rel="stylesheet" href="assets/css/main.css" media="screen" >
+    <!-- CRPYTO JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 
-        <!-- ========== MODERNIZR ========== -->
-        <script src="assets/js/modernizr/modernizr.js"></script>
-    </head>
-    <body class="top-navbar-fixed">
-        <div class="main-wrapper">
+	</head>
+	<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-5">
+					<div class="login-wrap p-4 p-md-5">
+		      	<div class="icon d-flex align-items-center justify-content-center">
+		      		<span class="fa fa-user-o"></span>
+		      	</div>
+		      	<h3 class="text-center mb-4">A-mean Academy</h3>
+		      		<div class="form-group">
+		      			<input type="text" class="form-control rounded-left" placeholder="Okul Numaranız" required  id="school_no_input">
+		      		</div>
+	            <div class="form-group d-flex">
+	              <input type="password" class="form-control rounded-left" placeholder="Şifreniz" required  id="password_input">
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+	            		<label class="checkbox-wrap checkbox-primary">Beni Hatırla
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="/register">Hesap Oluştur</a>
+								</div>
+	            </div>
+	            <div class="form-group">
+	            	<button type="button" class="btn btn-primary rounded p-3 px-5 " id="login_button">Giriş Yap</button>
+	            </div>
+	        </div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            <!-- ========== TOP NAVBAR ========== -->
-            <nav class="navbar top-navbar bg-white box-shadow">
-            	<div class="container-fluid">
-                    <div class="row">
-                        <div class="navbar-header no-padding">
-                			<a class="navbar-brand" href="index.html">
-                			    <img src="assets/images/logo-dark.svg" alt="Options - Admin Template" class="logo">
-                			</a>
-                		</div>
-                        <!-- /.navbar-header -->
+	<script src="assets/css/login-register/js/jquery.min.js"></script>
+  <script src="assets/css/login-register/js/popper.js"></script>
+  <script src="assets/css/login-register/js/bootstrap.min.js"></script>
+  <script src="assets/js/login.js"></script>
 
-                		<div class="collapse navbar-collapse" id="navbar-collapse-1">
-                            <!-- /.nav navbar-nav -->
-
-                			
-                            <!-- /.nav navbar-nav navbar-right -->
-                		</div>
-                		<!-- /.navbar-collapse -->
-                    </div>
-                    <!-- /.row -->
-            	</div>
-            	<!-- /.container-fluid -->
-            </nav>
-
-            <!-- ========== WRAPPER FOR BOTH SIDEBARS & MAIN CONTENT ========== -->
-            <div class="content-wrapper">
-                <div class="content-container">
-
-                    <div class="main-page">
-
-                        <section class="section">
-                            <div class="container-fluid">
-
-                                <div class="row" style="margin-top: 10%;">
-                                    
-                                    <div class="col-md-6 col-sm-offset-3">
-                                        <div class="panel">
-                                            <div class="panel-heading">
-                                                <div class="panel-title">
-                                                    <h5>Giriş Yap</h5>
-                                                </div>
-                                            </div>
-                                            <div class="panel-body" id="main_div">
-
-                                                <div class="form-horizontal">
-                                                	<div class="form-group">
-                                                		<label for="school_no" class="col-sm-2 control-label">Okul Numaranız </label>
-                                                		<div class="col-sm-10">
-                                                			<input type="text" class="form-control" id="school_no_input" placeholder="Okul Numrası..." name="school_no">
-                                                		</div>
-                                                	</div>
-                                                	<div class="form-group">
-                                                		<label for="password" class="col-sm-2 control-label">Şifre </label>
-                                                		<div class="col-sm-10">
-                                                			<input type="password" class="form-control" id="password_input" placeholder="Şifre..." name="sifre">
-                                                		</div>
-                                                	</div>
-                                                	<div class="form-group">
-                                                		<div class="col-sm-offset-8 col-sm-10">
-                                                			<button type="next" class="btn btn-primary" id="login_button">Giriş Yap</button>
-                                                		</div>
-                                                	</div>
-                                                </div>
-                                                <!-- /.col-md-12 -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.col-md-6 -->
-
-                                </div>
-                                <!-- /.row -->
-
-                                
-                    </div>
-                    <!-- /.main-page -->
-
-                    <div class="right-sidebar bg-white fixed-sidebar">
-                        <div class="sidebar-content">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>Useful Sidebar <i class="fa fa-times close-icon"></i></h4>
-                                        <p>Code for help is added within the main page. Check for code below the example.</p>
-                                        <p>You can use this sidebar to help your end-users. You can enter any HTML in this sidebar.</p>
-                                        <p>This sidebar can be a 'fixed to top' or you can unpin it to scroll with main page.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    </div>
-                                    <!-- /.col-md-12 -->
-
-                                    <div class="text-center mt-20">
-                                        <button type="next" class="btn btn-success btn-labeled">Purchase Now<span class="btn-label btn-label-right"><i class="fa fa-check"></i></span></button>
-                                    </div>
-                                    <!-- /.text-center -->
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.container-fluid -->
-                        </div>
-                        <!-- /.sidebar-content -->
-                    </div>
-                    <!-- /.right-sidebar -->
-
-                </div>
-                <!-- /.content-container -->
-            </div>
-            <!-- /.content-wrapper -->
-
-        </div>
-        <!-- /.main-wrapper -->
-
-        <!-- ========== COMMON JS FILES ========== -->
-        <script src="assets/js/jquery/jquery-2.2.4.js"></script>
-        <script src="assets/js/jquery-ui/jquery-ui.js"></script>
-        <script src="assets/js/bootstrap/bootstrap.js"></script>
-        <script src="assets/js/pace/pace.min.js"></script>
-        <script src="assets/js/lobipanel/lobipanel.js"></script>
-        <script src="assets/js/iscroll/iscroll.js"></script>
-
-        <!-- ========== PAGE JS FILES ========== -->
-        <script src="assets/js/prism/prism.js"></script>
-
-        <!-- ========== THEME JS ========== -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
-
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/login.js"></script>
-
-
-
-        <!-- ========== ADD custom.js FILE BELOW WITH YOUR CHANGES ========== -->
-    </body>
+	</body>
 </html>
+

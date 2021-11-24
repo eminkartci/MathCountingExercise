@@ -1,4 +1,3 @@
-
 function user_POST(okul_no,sifre){
 
     var form = new FormData();
@@ -22,9 +21,10 @@ function user_POST(okul_no,sifre){
 
     $.ajax(settings).done(function (response) {
 
-        let user_json = JSON.parse(response)
+        console.log(response)
+        // let user_json = JSON.parse(response)
         // window.location.replace("http://localhost:5006/profil?isim="+user_json.İsim+"&"+"soyisim="+user_json.Soyİsim+"&"+"okul_no="+user_json.OkulNo+"&"+"sifre="+user_json.Sifre);
-        kullanici_yazdir(user_json.İsim,user_json.Soyİsim,user_json.OkulNo,user_json.Sifre)
+        // kullanici_yazdir(user_json.İsim,user_json.Soyİsim,user_json.OkulNo,user_json.Sifre)
     });
 
 
@@ -47,7 +47,8 @@ function kullanici_yazdir(isim,soyisim,okul_no,sifre){
 document.getElementById("login_button").onclick = () =>{
     okul_no = document.getElementById("school_no_input").value
     sifre = CryptoJS.MD5(document.getElementById("password_input").value).toString()
-
+    console.log("OKUL NO ",okul_no)
+    console.log("ŞİFRE ",sifre)
     if(okul_no !=""&&sifre !=""){
         user_POST(okul_no,sifre)
     }else{

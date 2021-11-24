@@ -64,7 +64,7 @@ const Kullanici = sequelize.define(
 		soyisim: {
 			type: DataTypes.STRING,
 		},
-		email: {
+		okul_no: {
 			type: DataTypes.STRING,
 		},
 		sifre: {

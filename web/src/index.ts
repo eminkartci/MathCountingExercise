@@ -81,7 +81,7 @@ if (dev) {
 }
 
 //* App Start
-import sequelize from "./db";
+import sequelize, { Kullanici } from "./db";
 import authRouter, { passport, protect } from "./core/auth";
 import kayitRouter from "./core/kayit"
 import apiRouter from "./core/api";
@@ -165,10 +165,22 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
 		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
 		array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+
+		Kullanici.create({
+			isim: temp_user.get_İsim(),
+			soyisim: temp_user.get_Soyİsim(),
+			okul_no: temp_user.get_okulNo(),
+			sifre: temp_user.get_Sifre(),
+			rol: "danisan"
+		})
 })
 
-app.get('/danisan/bul', urlencodedParser, function (req, res) {
+app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 	let alinan_user  : any= req.query
+
+	let kullanici = await Kullanici.findOne({ where: { okul_no: alinan_user.okul_no } })
+	
+	console.log("KULLANICI: ",kullanici?.getDataValue("sifre"))
 
 	let id_index = 0;
 	let isim_index = 0;
