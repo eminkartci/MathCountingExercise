@@ -124,47 +124,14 @@ app.get("/re",(req, res) => {
     res.redirect('/login')
 });
 
-app.post('/danisan/ekle', urlencodedParser, function (req, res) {
+app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	let new_user_data : any= req.query
 
-	let id_index = 0;
-	let isim_index = 0;
-	let soyisim_index = 0;
-	let okul_no_index = 0;
-	let sifre_index = 0;
-	let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	for(let i = 0;i< danisanlar[0].length ;i++){
-		if(danisanlar[0][i] == "id"){
-			id_index = i
-		}else if(danisanlar[0][i] == "isim"){
-			isim_index = i
-		}else if(danisanlar[0][i] == "soyisim"){
-			soyisim_index = i
-		}else if(danisanlar[0][i] == "okul_no"){
-			okul_no_index = i
-		}else if(danisanlar[0][i] == "sifre"){
-			sifre_index = i
-		}
-	}
+	let kullanici_var_mi = await Kullanici.findOne({ where: { okul_no: new_user_data.okul_no } })
 
-	for(let i =0;i<danisanlar.length;i++){
-		if(danisanlar[i][okul_no_index] == new_user_data.okul_no){
-			console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
-			return
-		}
-	}
-		let new_user_csv_data : any []= []
-		let new_user_id = danisanlar.length
-		new_user_csv_data[id_index] = new_user_id.toString()
-		new_user_csv_data[isim_index] = new_user_data.isim
-		new_user_csv_data[soyisim_index] = new_user_data.soyisim
-		new_user_csv_data[okul_no_index] = new_user_data.okul_no
-		new_user_csv_data[sifre_index] = new_user_data.sifre
-
-		danisanlar[danisanlar.length] = new_user_csv_data
+	if(kullanici_var_mi == undefined){
 		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
 		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
-		array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 
 		Kullanici.create({
 			isim: temp_user.get_İsim(),
@@ -173,6 +140,50 @@ app.post('/danisan/ekle', urlencodedParser, function (req, res) {
 			sifre: temp_user.get_Sifre(),
 			rol: "danisan"
 		})
+	}
+	else{
+		console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
+	}
+
+
+	// let id_index = 0;
+	// let isim_index = 0;
+	// let soyisim_index = 0;
+	// let okul_no_index = 0;
+	// let sifre_index = 0;
+	// let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	// for(let i = 0;i< danisanlar[0].length ;i++){
+	// 	if(danisanlar[0][i] == "id"){
+	// 		id_index = i
+	// 	}else if(danisanlar[0][i] == "isim"){
+	// 		isim_index = i
+	// 	}else if(danisanlar[0][i] == "soyisim"){
+	// 		soyisim_index = i
+	// 	}else if(danisanlar[0][i] == "okul_no"){
+	// 		okul_no_index = i
+	// 	}else if(danisanlar[0][i] == "sifre"){
+	// 		sifre_index = i
+	// 	}
+	// }
+
+	// for(let i =0;i<danisanlar.length;i++){
+	// 	if(danisanlar[i][okul_no_index] == new_user_data.okul_no){
+	// 		console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
+	// 		return
+	// 	}
+	// }
+	// 	let new_user_csv_data : any []= []
+	// 	let new_user_id = danisanlar.length
+	// 	new_user_csv_data[id_index] = new_user_id.toString()
+	// 	new_user_csv_data[isim_index] = new_user_data.isim
+	// 	new_user_csv_data[soyisim_index] = new_user_data.soyisim
+	// 	new_user_csv_data[okul_no_index] = new_user_data.okul_no
+	// 	new_user_csv_data[sifre_index] = new_user_data.sifre
+
+	// 	danisanlar[danisanlar.length] = new_user_csv_data
+	// 	let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
+	// 	console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
+	// 	array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 })
 
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
@@ -180,39 +191,52 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 
 	let kullanici = await Kullanici.findOne({ where: { okul_no: alinan_user.okul_no } })
 	
-	console.log("KULLANICI: ",kullanici?.getDataValue("sifre"))
-
-	let id_index = 0;
-	let isim_index = 0;
-	let soyisim_index = 0;
-	let okul_no_index = 0;
-	let sifre_index = 0;
-	let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	for(let i = 0;i< danisanlar[0].length ;i++){
-		if(danisanlar[0][i] == "id"){
-			id_index = i
-		}else if(danisanlar[0][i] == "isim"){
-			isim_index = i
-		}else if(danisanlar[0][i] == "soyisim"){
-			soyisim_index = i
-		}else if(danisanlar[0][i] == "okul_no"){
-			okul_no_index = i
-		}else if(danisanlar[0][i] == "sifre"){
-			sifre_index = i
-		}
-	}
-
-	for(let i =0;i<danisanlar.length;i++){
-		
-		if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
-			let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
+	if(kullanici != undefined){
+		if(kullanici?.getDataValue("sifre")==alinan_user.sifre){
+			let temp_user = new User(kullanici.getDataValue("isim"),kullanici.getDataValue("soyisim"),kullanici.getDataValue("okul_no"),kullanici.getDataValue("sifre"))
 			res.send(temp_user.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
+		}else{
+			console.log(chalk.red.bold("Kullanıcı şifresi yanlış"))
+			res.send(null)
 		}
+		
+	}else{
+		console.log(chalk.red.bold("Kullanıcı bulunamadı"))
+		res.send(null)
 	}
-	console.log("Kullanıcı bulunamadı")
-	res.send(null)	
+
+	//ESKİ YONTEM
+	// let id_index = 0;
+	// let isim_index = 0;
+	// let soyisim_index = 0;
+	// let okul_no_index = 0;
+	// let sifre_index = 0;
+	// let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	// for(let i = 0;i< danisanlar[0].length ;i++){
+	// 	if(danisanlar[0][i] == "id"){
+	// 		id_index = i
+	// 	}else if(danisanlar[0][i] == "isim"){
+	// 		isim_index = i
+	// 	}else if(danisanlar[0][i] == "soyisim"){
+	// 		soyisim_index = i
+	// 	}else if(danisanlar[0][i] == "okul_no"){
+	// 		okul_no_index = i
+	// 	}else if(danisanlar[0][i] == "sifre"){
+	// 		sifre_index = i
+	// 	}
+	// }
+
+	// for(let i =0;i<danisanlar.length;i++){
+		
+	// 	if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
+	// 		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
+	// 		res.send(temp_user.toJSON())
+	// 		console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
+	// 		return
+	// 	}
+	// }	
 	
 })
 
