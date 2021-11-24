@@ -21,7 +21,7 @@ if (process.env.NODE_ENV == "production") {
 		});
 	}
 } else {
-	sequelize = new Sequelize("postgres://admin:root@localhost:5432/sukocluk", {
+	sequelize = new Sequelize("postgres://admin:root@localhost:5432/ameanacademy", {
 		dialect: "postgres",
 	});
 }
