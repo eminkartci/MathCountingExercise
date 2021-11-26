@@ -34,8 +34,8 @@ var engines = require('consolidate');
 
 app.set("trust proxy", 1);
 app.set("views", path.join(__dirname, "views"));
-app.engine('html', engines.mustache);
-app.set('view engine', 'html');
+// app.engine('html', engines.mustache);
+app.set('view engine', 'ejs');
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 //* Basic protection
@@ -100,28 +100,28 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
 
 app.get("/login",(req, res) => {
-    res.render('login')
+    res.render('login.ejs')
 });
 
 app.get("/register",(req, res) => {
-    res.render('register')
+    res.render('register.ejs')
 });
 
 app.get("/profil",(req, res) => {
 	console.log(chalk.blue("PROFIL REQUEST\n"),req.query)
-    res.render('profil')
+    res.render('profil.ejs')
 });
 
 app.get("/quiz",(req, res) => {
-    res.render('quiz')
+    res.render('quiz.ejs')
 });
 
 app.get("/soru/matematik",(req, res) => {
-    res.render('soru')
+    res.render('soru.ejs')
 });
 
 app.get("/re",(req, res) => {
-    res.redirect('/login')
+    res.redirect('/login.ejs')
 });
 
 app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
@@ -198,12 +198,12 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 			console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
 		}else{
-			console.log(chalk.red.bold("Kullanıcı şifresi yanlış"))
+			console.log(chalk.hex('#FF3131').bold.underline("Kullanıcı şifresi yanlış"))
 			res.send(null)
 		}
 		
 	}else{
-		console.log(chalk.red.bold("Kullanıcı bulunamadı"))
+		console.log(chalk.hex('#FF3131').bold.underline("Kullanıcı bulunamadı"))
 		res.send(null)
 	}
 
