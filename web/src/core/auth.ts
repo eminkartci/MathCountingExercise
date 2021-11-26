@@ -14,13 +14,15 @@ const protect = require("connect-ensure-login").ensureLoggedIn();
 
 // username stünunu içerisinde arama yap
 					// username parametresi al
-const findByUsername = async (email: any, fn: any) => {
+const findByOkulNo = async (okul_no: any, fn: any) => {
 	// Bulmaya Çalış
 	try {
 		// "findOne" ile username olan satırı bul
 		const kullanici = await Kullanici.findOne({
-			where: { email:email },
+			where: { okul_no:okul_no },
 		});
+
+		console.log(kullanici)
 
 		// Eğer bulunduysa o bilgiyi geri gönder
 		if (kullanici) return fn(null, kullanici);
@@ -37,12 +39,12 @@ const findByUsername = async (email: any, fn: any) => {
 
 
 passport.serializeUser((kullanici: any, done: any) => {
-	done(null, kullanici.email);
+	done(null, kullanici.okul_no);
 });
 
-passport.deserializeUser(async (email: any, done: any) => {
+passport.deserializeUser(async (okul_no: any, done: any) => {
 	try {
-		await findByUsername(email, (error: any, kullanici: any) => {
+		await findByOkulNo(okul_no, (error: any, kullanici: any) => {
 			if (error) {
 				done(error, null);
 			} else {
@@ -56,18 +58,17 @@ passport.deserializeUser(async (email: any, done: any) => {
 });
 
 passport.use(
-	new LocalStrategy(async (email, password, done) => {
+	new LocalStrategy(async (okul_no, password, done) => {
 		try {
-			const kullanici: any = await Kullanici.findOne({ where: { email:email } });
-
+			const kullanici: any = await Kullanici.findOne({ where: { okul_no:okul_no } });
 			if (!kullanici) {
-				//console.log("Kullanici Bulunamadi!")
+				console.log("Kullanici Bulunamadi!")
 				return done(null, false);
 			}
 
 			//! HIGHLY DANGEROUS
 			if (kullanici.sifre !== password) {
-				//console.log("Kullanici Bilgileri Eşleşmedi!")
+				console.log("Kullanici Bilgileri Eşleşmedi!")
 				return done(null, false);
 			}
 
@@ -77,10 +78,6 @@ passport.use(
 		}
 	})
 );
-
-router.get("/", (req, res) => {
-	return res.render("anasayfa");
-});
 
 router.get("/exit", (req, res) => {
 	req.logout();
@@ -94,16 +91,16 @@ router.post("/", (req, res, next) => {
 
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
-			return res.redirect("/hata");
+			return res.redirect("/login");
 		} else if (!kullanici) {
-			return res.redirect("./anasayfa");
+			return res.redirect("./login");
 		} else {
 			return req.login(kullanici, function (err) {
 				if (err) {
 					return next(err);
 				}
 				//console.log("Giriş Başarılı!")
-				return res.redirect("/ogrenci_paneli");
+				return res.redirect("/profil");
 			});
 		}
 	})(req, res);

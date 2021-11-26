@@ -10,6 +10,7 @@ import chalk from "chalk"
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import flash from "express-flash"
 
 var bodyParser = require('body-parser')
 
@@ -32,7 +33,6 @@ const PORT = process.env.PORT || 5006;
 const app = express();
 var engines = require('consolidate');
 
-app.set("trust proxy", 1);
 app.set("views", path.join(__dirname, "views"));
 // app.engine('html', engines.mustache);
 app.set('view engine', 'ejs');
@@ -48,8 +48,11 @@ app.use(cors());
 app.use(methodOverride());
 app.use(cookieParser());
 
+app.use(express.urlencoded({extended:false}))
+
 const dev = process.env.NODE_ENV !== "production";
 
+app.use(flash())
 //* Manage Session
 if (dev) {
 	app.use(
@@ -88,41 +91,46 @@ import apiRouter from "./core/api";
 import ogrenciPaneliRouter from "./core/ogrenci_paneli";
 import adminPaneliRouter from "./core/admin_paneli";
 import { DATE } from "sequelize/types";
+import { urlencoded } from "body-parser";
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/giris_yap", express.urlencoded({ extended: true }), authRouter);
+
+
+app.use("/login", express.urlencoded({ extended: true }), authRouter);
 app.use("/kayit_ol",express.urlencoded({ extended: true }), kayitRouter);
 app.use("/api",express.urlencoded({ extended: true }), apiRouter);
 app.use("/ogrenci_paneli",express.urlencoded({ extended: true }), ogrenciPaneliRouter);
 app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
+app.use(authRouter)
 
 app.get("/login",(req, res) => {
     res.render('login.ejs')
 });
 
+app.get("/redirect",(req, res) => {
+    res.redirect('login')
+});
+
+app.post("/login",passport.authenticate("local",{
+	successRedirect:"/profil",
+	failureRedirect:"/login",
+	failureFlash: true
+}));
+
 app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 
+
 app.get("/profil",(req, res) => {
-	console.log(chalk.blue("PROFIL REQUEST\n"),req.query)
-    res.render('profil.ejs')
+	let temp_user_json = {isim:"Durmuş",soyisim:"Kartcı",okul_no:"5081",sifre:"ıhwrowhgıwegtıwuı"}
+    res.render('profil.ejs',{user:temp_user_json})
 });
 
-app.get("/quiz",(req, res) => {
-    res.render('quiz.ejs')
-});
 
-app.get("/soru/matematik",(req, res) => {
-    res.render('soru.ejs')
-});
-
-app.get("/re",(req, res) => {
-    res.redirect('/login.ejs')
-});
 
 app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	let new_user_data : any= req.query
@@ -140,6 +148,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 			sifre: temp_user.get_Sifre(),
 			rol: "danisan"
 		})
+
 	}
 	else{
 		console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
@@ -354,4 +363,3 @@ function array_to_csv(array:any,file_path:string){
 	}
     fs.writeFileSync(file_path, csv_content);
 }
-
