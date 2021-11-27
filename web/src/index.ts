@@ -160,7 +160,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	// let soyisim_index = 0;
 	// let okul_no_index = 0;
 	// let sifre_index = 0;
-	// let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	// let danisanlar : any[] = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 	// for(let i = 0;i< danisanlar[0].length ;i++){
 	// 	if(danisanlar[0][i] == "id"){
 	// 		id_index = i
@@ -192,7 +192,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	// 	danisanlar[danisanlar.length] = new_user_csv_data
 	// 	let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
 	// 	console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
-	// 	array_to_csv(danisanlar,"/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	// 	array_to_csv(danisanlar,"/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 })
 
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
@@ -222,7 +222,7 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 	// let soyisim_index = 0;
 	// let okul_no_index = 0;
 	// let sifre_index = 0;
-	// let danisanlar : any[] = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	// let danisanlar : any[] = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 	// for(let i = 0;i< danisanlar[0].length ;i++){
 	// 	if(danisanlar[0][i] == "id"){
 	// 		id_index = i
@@ -273,7 +273,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 	let soyisim_index = 0;
 	let okul_no_index = 0;
 	let sifre_index = 0;
-	let danisanlar = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	let danisanlar = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 	for(let i = 0;i< danisanlar[0].length;i++){
 		
 		if(danisanlar[0][i] == "id"){
@@ -305,7 +305,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 
 // Bütün dabışanları json olarak döndürür
 app.get("/danisanlar",(req,res)=>{
-	let danisanlar = csv_to_array("/Users/durmuskartci/Desktop/Softwares/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	let danisanlar = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
 	let id_index = 0;
 	let isim_index = 0;
 	let soyisim_index = 0;
