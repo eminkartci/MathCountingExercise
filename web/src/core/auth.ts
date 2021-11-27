@@ -85,7 +85,7 @@ router.get("/exit", (req, res) => {
 });
 
 
-router.post("/", (req, res, next) => {
+router.post("/bul", (req, res, next) => {
 
 	//console.log("Form Verileri:",req.body);
 

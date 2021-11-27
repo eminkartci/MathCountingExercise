@@ -98,7 +98,7 @@ app.use(passport.session());
 
 
 
-app.use("/login", express.urlencoded({ extended: true }), authRouter);
+app.use("/danisan", express.urlencoded({ extended: true }), authRouter);
 app.use("/kayit_ol",express.urlencoded({ extended: true }), kayitRouter);
 app.use("/api",express.urlencoded({ extended: true }), apiRouter);
 app.use("/ogrenci_paneli",express.urlencoded({ extended: true }), ogrenciPaneliRouter);
@@ -258,6 +258,11 @@ for(let i = 0;i<Main.dersler.length;i++){
 			res.send(temp_soru.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
+		app.get('/soru/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
+			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
+			res.send(temp_soru.toHTML())
+			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
+		})
 	}
 }
 
@@ -337,8 +342,7 @@ app.use((err: Error, req: any, res: any, next: any) => {
 	});
 });
 
-sequelize
-.sync({ force: process.env.NODE_ENV != "production" && false })
+sequelize.sync({ force: process.env.NODE_ENV != "production" && false })
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 	});

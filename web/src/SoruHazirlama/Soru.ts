@@ -2,7 +2,7 @@
 import {Ders} from './Ders';
 import {Konu} from './Konu';
 import {SoruTipi} from './SoruTipi';
-import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './Database';
+import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler,yazim_hatali_cumle,yazim_hatasiz_cumle,mitoz_evre,katli_oranlar_uygulanabilir_bilesikleri} from './Database';
 
 export class Soru{
 
@@ -54,6 +54,8 @@ export class Soru{
         // sıkları tutan bir liste yap
         let new_Siklar = []
 
+        console.log("ŞIKLAR ÖNEMLİ",this.Siklar)
+
         // 5 tane şık olana kadar döndür
         while(new_Siklar.length < 5){
 
@@ -62,29 +64,72 @@ export class Soru{
             let degisken_verisi : any // double
             let new_option = this.CevapFormulu // cevap formulu string tutuyor
 
-            // butun degisken isimlerini dondur
-            for(let i = 0 ;i < this.degisken_isimleri.length;i++){
+            //Bütün şıkları döndürür
+            for(let x = 0;x<this.Siklar.length;x++){
 
-                //Değişken ismini ve veri type'ını bul
-                degisken_ismi = this.degisken_isimleri[i]
-                degisken_verisi = this.Degiskenler[degisken_ismi]
+                // butun degisken isimlerini dondur
+                for(let i = 0 ;i < this.degisken_isimleri.length;i++){
 
-                //Değişken verisini ver
-                    // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
-                    // 0 --> minimum sayı
-                    // 1 --> maksimum sayi
-                    // 2 --> katsayı
-                if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+                    //Değişken ismini ve veri type'ını bul
+                    degisken_ismi = this.degisken_isimleri[i]
+                    degisken_verisi = this.Degiskenler[degisken_ismi]
 
-                    degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
-                    // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
-                    new_option= new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    // console.log("DĞEİŞKEN İSMİ  :",degisken_ismi)
+                    // console.log("DĞEİŞKEN VERİSİ:",degisken_verisi)
+
+
+                    //Değişken verisini ver
+                        // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
+                        // 0 --> minimum sayı
+                        // 1 --> maksimum sayi
+                        // 2 --> katsayı
+                    if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
+
+                        degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                        // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
+                        new_option= new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "name-kiz"){
+                        degisken_verisi = kiz_ismi[Math.floor(Math.random()*kiz_ismi.length)]
+
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "name-erkek"){
+                        degisken_verisi = erkek_ismi[Math.floor(Math.random()*erkek_ismi.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "sehir"){
+                        degisken_verisi = sehirler[Math.floor(Math.random()*sehirler.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "name-kalin"){
+                        degisken_verisi = kalin_isimler[Math.floor(Math.random()*kalin_isimler.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "name-ince"){
+                        degisken_verisi = ince_isimler[Math.floor(Math.random()*ince_isimler.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "yazim-hatasiz-cumle"){
+                        degisken_verisi = yazim_hatasiz_cumle[Math.floor(Math.random()*yazim_hatasiz_cumle.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "yazim-hatali-cumle"){
+                        degisken_verisi = yazim_hatali_cumle[Math.floor(Math.random()*yazim_hatali_cumle.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "mitoz-evre"){
+                        degisken_verisi = mitoz_evre[Math.floor(Math.random()*mitoz_evre.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }else if(this.Siklar[x] == "katli-oranlar-uygulanabilir-bilesikleri"){
+                        degisken_verisi = katli_oranlar_uygulanabilir_bilesikleri[Math.floor(Math.random()*katli_oranlar_uygulanabilir_bilesikleri.length)]
+                        new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
+                    }
+
+
                 }
-
             }
-            new_option = eval(new_option).toString()
+            try{
+                new_option = eval(new_option).toString()
+            }catch(e){
+                // console.log("HATA",e)
+            }
             if(new_Siklar.length == 0){
                 new_Siklar.push(new_option)
+                console.log(new_Siklar)
+
             }
             // Option ekle
             let onceden_eklenmis_mi = false
@@ -97,6 +142,8 @@ export class Soru{
                 new_Siklar.push(new_option)
             }
 
+
+
         }
     this.Siklar = new_Siklar
     }
@@ -107,9 +154,15 @@ export class Soru{
         //cevap formülünü degisken verileri ile değiştir
         for(let i =0 ;i < this.degisken_isimleri.length;i++){
             // CevapFormulu = CevapFormulu.replace("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
-            CevapFormulu = CevapFormulu.split("|"+this.degisken_isimleri[i]+"|").join(this.degisken_verileri[i])            
+            console.log("Degisken İsmi",this.degisken_isimleri[i])
+            console.log("Degisken verisi",this.degisken_verileri[i])
+            CevapFormulu = CevapFormulu.split("|"+this.degisken_isimleri[i]+"|").join(this.degisken_verileri[i])  
         }
-        this.Cevap = eval(CevapFormulu)
+        try {
+            this.Cevap = eval(CevapFormulu)
+        } catch (e) {
+            this.Cevap =CevapFormulu
+        }
     }
     
     //Cevabı şıkların içine rastgele yerleştirir
@@ -146,13 +199,24 @@ export class Soru{
                 degisken_verisi = kalin_isimler[Math.floor(Math.random()*kalin_isimler.length)]
             }else if(degisken_verisi == "name-ince"){
                 degisken_verisi = ince_isimler[Math.floor(Math.random()*ince_isimler.length)]
+            }else if(degisken_verisi == "yazim-hatasiz-cumle"){
+                degisken_verisi = yazim_hatasiz_cumle[Math.floor(Math.random()*yazim_hatasiz_cumle.length)]
+            }else if(degisken_verisi == "yazim-hatali-cumle"){
+                degisken_verisi = yazim_hatali_cumle[Math.floor(Math.random()*yazim_hatali_cumle.length)]
+            }else if(degisken_verisi == "mitoz-evre"){
+                degisken_verisi = mitoz_evre[Math.floor(Math.random()*mitoz_evre.length)]
+            }else if(degisken_verisi == "katli-oranlar-uygulanabilir-bilesikleri"){
+                degisken_verisi = katli_oranlar_uygulanabilir_bilesikleri[Math.floor(Math.random()*katli_oranlar_uygulanabilir_bilesikleri.length)]
             }
+
                 // degisken_verisi arrayinin 3 verisi olmasının nedeni , option range tutması
                 // 0 --> minimum sayı
                 // 1 --> maksimum sayi
                 // 2 --> katsayı
             else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
                 degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+            }else{
+                degisken_verisi == degisken_verisi
             }
 
             //değişken ismini ve verisini arraye ekle
