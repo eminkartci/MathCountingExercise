@@ -268,38 +268,22 @@ for(let i = 0;i<Main.dersler.length;i++){
 
 // Bütün danışanları idlerine göre json olarak döndürür
 {
-	let id_index = 0;
-	let isim_index = 0;
-	let soyisim_index = 0;
-	let okul_no_index = 0;
-	let sifre_index = 0;
-	let danisanlar = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	for(let i = 0;i< danisanlar[0].length;i++){
-		
-		if(danisanlar[0][i] == "id"){
-			id_index = i
-		}else if(danisanlar[0][i] == "isim"){
-			isim_index = i
-		}else if(danisanlar[0][i] == "soyisim"){
-			soyisim_index = i
-		}else if(danisanlar[0][i] == "okul_no"){
-			okul_no_index = i
-		}else if(danisanlar[0][i] == "sifre"){
-			sifre_index = i
+
+
+app.get('/danisan/:danisan_id', async (req, res) => {
+
+	let danisan_id = req.params.danisan_id;
+	let kullaniciDB = await Kullanici.findOne({
+		where: {
+			kullanici_id: danisan_id,
 		}
-	}
-
-
-	for(let i = 1;i<danisanlar.length;i++){
-		let danisan = danisanlar[i]
-		app.get('/danisan/'+danisan[id_index], function (req, res) {
-			let temp_user = new User(danisan[isim_index],danisan[soyisim_index],danisan[okul_no_index],danisan[sifre_index])
-			res.send(temp_user.toJSON())
-			console.log(chalk.hex('#FFF01F').bold.underline("\nID : ",danisan[id_index]," GÖRE DANIŞAN :\n"),temp_user)
-			
-		})
+	})
+	let tempUser = new User(kullaniciDB?.getDataValue("isim"),kullaniciDB?.getDataValue("soyisim"),kullaniciDB?.getDataValue("okul_no"),kullaniciDB?.getDataValue("sifre"))
+	res.send(tempUser.toJSON())
+	console.log(chalk.hex('#FFF01F').bold.underline("\nID : "),danisan_id,chalk.hex('#FFF01F').bold.underline(" DANIŞAN :\n"),tempUser)
 	
-	}
+})
+	
 
 }
 

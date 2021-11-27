@@ -7,10 +7,10 @@ export class User{
 
     toJSON(){
         let user_json : any = {}
-        user_json["İsim"] = this.İsim
-        user_json["Soyİsim"] = this.Soyİsim
-        user_json["OkulNo"] = this.OkulNo
-        user_json["Sifre"] = this.Sifre
+        user_json["isim"] = this.İsim
+        user_json["soyisim"] = this.Soyİsim
+        user_json["okul_no"] = this.OkulNo
+        user_json["sifre"] = this.Sifre
         return user_json
 
     }
