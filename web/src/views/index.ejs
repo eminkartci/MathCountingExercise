@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dore jQuery</title>
+    <title>A-MEAN Academy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="assets/fonts/iconsmind-s/css/iconsminds.css" />
@@ -48,25 +48,46 @@
                 <div class="card mb-4">
                     <div id="smartWizardValidation">
                         <ul class="card-header" style="justify-content: space-around;">
-                            <li><a href="#step-0">Step 1<br /><small>First step description</small></a></li>
-                            <li><a href="#step-1">Step 2<br /><small>Second step description</small></a></li>
-                            <li><a href="#step-2">Step 3<br /><small>Third step description</small></a></li>
+                            <li id="step_name_0"><a href="#step-0">Adım 1<br /><small>Dersleri Seç</small></a></li>
+                            <li id="step_name_1"><a href="#step-1">Adım 2<br /><small>Konuları Seç</small></a></li>
+                            <li id="step_name_2"><a href="#step-2">Adım 3<br /><small>Test Ayarları</small></a></li>
                         </ul>
 
                         <div class="card-body">
                             <div id="step-0">
-                                <form id="form-step-0" class="tooltip-label-right" novalidate>
-                                    <div class="form-group position-relative error-l-100">
-                                        <label for="email">Email address</label>
-                                        <input type="email" class="form-control" name="emailValidation"
-                                            id="emailValidation" placeholder="Your email address" required>
+                                <div id="form-step-0" class="tooltip-label-right" novalidate>
+                                    <h2 style="margin-left:12.5%;color:var(--theme-color-1);">Hangi dersleri çözmek istersin ?</h2>
+                                    <div class="row">
+                                        <div class="mb-4 col-6" style="font-size:20px;color:#555">
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="matematik_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="matematik_checkbox">Matematik</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="fizik_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="fizik_checkbox">Fizik</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="biyoloji_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="biyoloji_checkbox">Biyoloji</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-4 col-6" style="font-size:20px;color:#555">
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="kimya_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="kimya_checkbox">Kimya</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="turkce_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="turkce_checkbox">Türkçe</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+                                                <input type="checkbox" id="tarih_checkbox" name="lessons"class="custom-control-input">
+                                                <label class="custom-control-label" for="tarih_checkbox">Tarih</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group position-relative error-l-100">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" name="passwordValidation"
-                                            id="passwordValidation" placeholder="Your password" required>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                             <div id="step-1">
                                 <form id="form-step-1" class="tooltip-label-right" novalidate>
@@ -91,44 +112,23 @@
                                     start-up mentality.
                                 </p>
                             </div>
+                            <p id="hata_text" style="color:#d31616;font-size:17.5px;text-align:center"></p>
                         </div>
 
                         <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
-                            <button class="btn btn-secondary prev-btn" type="button">Previous</button>
-                            <button class="btn btn-secondary next-btn" type="button">Next</button>
-                            <button class="btn btn-secondary finish-btn" type="submit">Finish</button>
+                            <button class="btn btn-secondary" type="button" id="prev_button">Geri</button>
+                            <button class="btn btn-secondary" type="button" id="next_button">İleri</button>
+                            <button class="btn btn-secondary" type="button" id="submit_button">Gönder</button>
                         </div>
                     </div>
+                </div>
+                <div style="padding-top: 10px;text-align:center;color:rgb(180, 180, 180)">
+                    <p>AMEAN Consultancy - Versiyon 1.0.0</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="page-footer" style="position: fixed;bottom:0">
-        <div class="footer-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-sm-6">
-                        <p class="mb-0 text-muted">A-MEAN Danışmanlık</p>
-                    </div>
-                    <div class="col-sm-6 d-none d-sm-block">
-                        <ul class="breadcrumb pt-0 pr-0 float-right">
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Review</a>
-                            </li>
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Purchase</a>
-                            </li>
-                            <li class="breadcrumb-item mb-0">
-                                <a href="#" class="btn-link">Docs</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
     <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
     <script src="assets/js/vendor/perfect-scrollbar.min.js"></script>
@@ -138,6 +138,7 @@
     <script src="assets/js/vendor/jquery.validate/additional-methods.min.js"></script>
     <script src="assets/js/dore.script.js"></script>
     <script src="assets/js/scripts.js"></script>
+    <script src="assets/js/index.js"></script>
 
 </body>
 

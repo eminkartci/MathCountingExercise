@@ -5600,6 +5600,7 @@ S2.define('select2/core',[
 
   Select2.prototype.destroy = function () {
     this.$container.remove();
+    console.log("kaldırılmaya çalışılıyor...")
 
     if (this.$element[0].detachEvent) {
       this.$element[0].detachEvent('onpropertychange', this._syncA);
