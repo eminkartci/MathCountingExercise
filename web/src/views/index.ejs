@@ -90,18 +90,39 @@
                                 </div>
                             </div>
                             <div id="step-1">
-                                <form id="form-step-1" class="tooltip-label-right" novalidate>
-                                    <div class="form-group position-relative error-l-75">
-                                        <label for="name">First Name</label>
-                                        <input type="text" class="form-control" name="nameValidation"
-                                            id="nameValidation" placeholder="Your first name" required>
+                                <div id="form-step-1" class="tooltip-label-right" novalidate>
+                                    <div class="row">
+                                        <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
+                                            <table id="datatableRows" class="data-table responsive nowrap"
+                                                data-order="[[ 1, &quot;desc&quot; ]]">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ders</th>
+                                                        <th>Konu</th>
+                                                        <th>Çöz</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="konular_div">
+                                                    <tr>
+                                                        <td>
+                                                            <p class="list-item-heading">Tarih</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-muted">İlk Türk Beylikleri</p>
+                                                        </td>
+                                                        <td>
+                                                            <label
+                                                                class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
+                                                                <input type="checkbox" class="custom-control-input" id="ilk_turk_beylikleri_checkbox">
+                                                                <span class="custom-control-label">&nbsp;</span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                    <div class="form-group position-relative error-l-75">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" name="lastNameValidation"
-                                            id="lastNameValidation" placeholder="Your last name" required>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                             <div id="step-2">
                                 <h4 class="text-center">Thank you for your feedback!</h4>
@@ -136,9 +157,17 @@
     <script src="assets/js/vendor/jquery.smartWizard.min.js"></script>
     <script src="assets/js/vendor/jquery.validate/jquery.validate.min.js"></script>
     <script src="assets/js/vendor/jquery.validate/additional-methods.min.js"></script>
+    <script src="assets/js/vendor/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="assets/js/vendor/select2.full.js"></script>
+    <script src="assets/js/index.js"></script>
     <script src="assets/js/dore.script.js"></script>
     <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/index.js"></script>
 
 </body>
 
