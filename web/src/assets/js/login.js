@@ -21,8 +21,12 @@ function user_get(okul_no,sifre){
 
     $.ajax(settings).done(function (response) {
 
+        try{
         let response_json = JSON.parse(response)
         user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
+        }catch(e){
+            hata_yazdir(response)
+        }
     });
 
 
@@ -58,13 +62,18 @@ function user_POST(isim,soyisim,okul_no,sifre){
 
 }
 
-// document.getElementById("login_button").onclick = () =>{
-//     okul_no = document.getElementById("school_no_input").value
-//     sifre = CryptoJS.MD5(document.getElementById("password_input").value).toString()
-//     if(okul_no !=""&&sifre !=""){
-//         // user_get(okul_no,sifre)
-//     }else{
-//         console.log("\n%cOkul Numarası veya Şifre Alanı Boş Olamaz !\n","color:red;")
-//         alert("Okul Numarası veya Şifre Alanı Boş Olamaz !")
-//     }
-// }
+function hata_yazdir(hata){
+    document.getElementById("hata_text").innerHTML = hata
+}
+
+document.getElementById("login_button").onclick = () =>{
+    okul_no = document.getElementById("school_no_input").value
+    let sifre = document.getElementById("password_input").value
+    let hashedSifre = CryptoJS.MD5(sifre).toString()
+    if(okul_no !=""&&sifre !=""){
+        user_get(okul_no,hashedSifre)
+    }else{
+        console.log("\n%cOkul Numarası veya Şifre Alanı Boş Olamaz !\n","color:red;")
+        hata_yazdir("Okul numarası veya şifre alanı boş olamaz !")
+    }
+}

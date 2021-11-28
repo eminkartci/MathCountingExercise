@@ -28,6 +28,10 @@ function user_POST(isim,soyisim,okul_no,sifre){
 
 }
 
+function hata_yazdir(hata){
+    document.getElementById("hata_text").innerHTML = hata
+}
+
 document.getElementById("register_button").onclick = () =>{
     isim = document.getElementById("name_input").value
     soyisim = document.getElementById("surname_input").value
@@ -38,7 +42,7 @@ document.getElementById("register_button").onclick = () =>{
         window.location.replace('./login')
     }else{
         console.log("\n%cİnput alanlarının hepsi dolu olması lazım !!!\n","color:red;")
-        alert("İnput alanlarının hepsi dolu olması lazım !!!")
+        hata_yazdir("Kullanıcı bilgileri boş olamaz !")
     }
 }
 

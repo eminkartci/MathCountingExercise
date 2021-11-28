@@ -207,13 +207,13 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 			console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
 		}else{
-			console.log(chalk.hex('#FF3131').bold.underline("Kullanıcı şifresi yanlış"))
-			res.send(null)
+			console.log(chalk.hex('#FF3131').bold.underline("Kullanıcı şifresi yanlış."))
+			res.send("Kullanıcı şifresi yanlış")
 		}
 		
 	}else{
-		console.log(chalk.hex('#FF3131').bold.underline("Kullanıcı bulunamadı"))
-		res.send(null)
+		console.log(chalk.hex('#FF3131').bold.underline("Okul numarası veya şifre yanlış."))
+		res.send("Kullanıcı Bulunamadı")
 	}
 
 	//ESKİ YONTEM
