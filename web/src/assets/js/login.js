@@ -23,7 +23,8 @@ function user_get(okul_no,sifre){
 
         try{
         let response_json = JSON.parse(response)
-        user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
+        // user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
+        window.location.replace("/")
         }catch(e){
             hata_yazdir(response)
         }
