@@ -467,8 +467,8 @@
 .iconsminds-hamburger { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d4;&nbsp;'); }
 .iconsminds-hot-dog { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d5;&nbsp;'); }
 .iconsminds-webcam { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d7;&nbsp;'); }
-.iconsminds-battery-0% { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d8;&nbsp;'); }
-.iconsminds-battery-100% { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d9;&nbsp;'); }
+.iconsminds-battery-0 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d8;&nbsp;'); }
+.iconsminds-battery-100 { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9d9;&nbsp;'); }
 .iconsminds-battery-charge { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9da;&nbsp;'); }
 .iconsminds-charger { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9db;&nbsp;'); }
 .iconsminds-cpu { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe9dc;&nbsp;'); }

@@ -31,7 +31,7 @@ export class Konu{
     // Şimdilik tek bir soru tipi oluşturuluyor
     // Soru tipi oluştur ve sorutipleri arrayine ekle
     soru_tipi_olustur(SoruYazisi : string,SoruDegiskenleri:any,Siklar : string[],CevapFormulu:string){
-        this.SoruTipleri = [new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar,CevapFormulu)]
+        this.SoruTipleri.push(new SoruTipi([this.Ders],[this],SoruYazisi,SoruDegiskenleri,Siklar,CevapFormulu))
     }
 
     toJSON(){
@@ -66,6 +66,9 @@ export class Konu{
 
     get_SoruTipleri_index(index:number) : SoruTipi{
         return this.SoruTipleri[index]
+    }
+    get_randomly_SoruTipi(){
+        return this.SoruTipleri[Math.floor(Math.random()*this.SoruTipleri.length)]
     }
 
     /// SETTER

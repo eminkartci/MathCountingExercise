@@ -14,6 +14,7 @@ var Soru = /** @class */ (function () {
         this.CevapFormulu = "";
         this.degisken_isimleri = [];
         this.degisken_verileri = [];
+        this.CevapSikki = "";
         this.soru_hazirla();
     }
     /// DAVRANIŞLARI
@@ -41,7 +42,6 @@ var Soru = /** @class */ (function () {
     Soru.prototype.siklari_oluştur = function () {
         // sıkları tutan bir liste yap
         var new_Siklar = [];
-        console.log("ŞIKLAR ÖNEMLİ", this.Siklar);
         // 5 tane şık olana kadar döndür
         while (new_Siklar.length < 5) {
             var degisken_ismi = "";
@@ -49,6 +49,8 @@ var Soru = /** @class */ (function () {
             var new_option = this.CevapFormulu; // cevap formulu string tutuyor
             //Bütün şıkları döndürür
             for (var x = 0; x < this.Siklar.length; x++) {
+                // console.log("THİS DĞEİŞKEN İSMİ  :",this.degisken_isimleri)
+                // console.log(" THİS DĞEİŞKEN VERİSİ:",this.degisken_verileri)
                 // butun degisken isimlerini dondur
                 for (var i = 0; i < this.degisken_isimleri.length; i++) {
                     //Değişken ismini ve veri type'ını bul
@@ -62,8 +64,23 @@ var Soru = /** @class */ (function () {
                     // 1 --> maksimum sayi
                     // 2 --> katsayı
                     if (degisken_verisi instanceof Array && degisken_verisi.length == 3) {
-                        degisken_verisi = Math.floor(Math.random() * degisken_verisi[1] + degisken_verisi[0]) * degisken_verisi[2];
-                        // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
+                        var degisken_ilk_ismi = "";
+                        var degisken_ilk_verisi = "";
+                        try {
+                            for (var i_1 = 0; i_1 < Object.keys(this.get_Degiskenler()).length; i_1++) {
+                                degisken_ilk_ismi = Object.keys(this.get_Degiskenler())[i_1];
+                                degisken_ilk_verisi = this.get_Degiskenler()[degisken_ilk_ismi];
+                                // degisken_verisi[2]=degisken_ilk_verisi[2].split("|"+degisken_ilk_ismi+"|").join(degisken_ilk_ismi.toString())
+                                // degisken_verisi[2] = eval(degisken_verisi[2])
+                            }
+                        }
+                        catch (e) {
+                            // console.log("Hata,",e)
+                        }
+                        var random_maximum = degisken_verisi[1];
+                        var random_minimum = degisken_verisi[0];
+                        var random_katsayi = degisken_verisi[2];
+                        degisken_verisi = Math.floor(Math.random() * (random_maximum - random_minimum) + random_minimum) * random_katsayi;
                         new_option = new_option.split("|" + degisken_ismi + "|").join(degisken_verisi);
                     }
                     else if (this.Siklar[x] == "name-kiz") {
@@ -106,13 +123,14 @@ var Soru = /** @class */ (function () {
             }
             try {
                 new_option = eval(new_option).toString();
+                // console.log("new_option",new_option)
             }
             catch (e) {
                 // console.log("HATA",e)
             }
             if (new_Siklar.length == 0) {
                 new_Siklar.push(new_option);
-                console.log(new_Siklar);
+                // console.log(new_Siklar)
             }
             // Option ekle
             var onceden_eklenmis_mi = false;
@@ -133,8 +151,8 @@ var Soru = /** @class */ (function () {
         //cevap formülünü degisken verileri ile değiştir
         for (var i = 0; i < this.degisken_isimleri.length; i++) {
             // CevapFormulu = CevapFormulu.replace("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
-            console.log("Degisken İsmi", this.degisken_isimleri[i]);
-            console.log("Degisken verisi", this.degisken_verileri[i]);
+            // console.log("Degisken İsmi",this.degisken_isimleri[i])
+            // console.log("Degisken verisi",this.degisken_verileri[i])
             CevapFormulu = CevapFormulu.split("|" + this.degisken_isimleri[i] + "|").join(this.degisken_verileri[i]);
         }
         try {
@@ -146,12 +164,16 @@ var Soru = /** @class */ (function () {
     };
     //Cevabı şıkların içine rastgele yerleştirir
     Soru.prototype.cevabi_siklara_yerlestir = function () {
+        var siklar = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "Y", "Z"];
         for (var i = 0; i < this.Siklar.length; i++) {
             if (this.Siklar[i] == this.Cevap.toString()) {
+                this.CevapSikki = siklar[i];
                 return;
             }
         }
-        this.Siklar[Math.floor(this.Siklar.length * Math.random())] = this.Cevap.toString();
+        var option_index = Math.floor(this.Siklar.length * Math.random());
+        this.CevapSikki = siklar[option_index];
+        this.Siklar[option_index] = this.Cevap.toString();
     };
     //Soru içindeki değişkenlere değerler verir
     Soru.prototype.degiskenlere_deger_ver = function () {
@@ -195,7 +217,19 @@ var Soru = /** @class */ (function () {
             // 1 --> maksimum sayi
             // 2 --> katsayı
             else if (degisken_verisi instanceof Array && degisken_verisi.length == 3) {
-                degisken_verisi = Math.floor(Math.random() * degisken_verisi[1] + degisken_verisi[0]) * degisken_verisi[2];
+                try {
+                    for (var a = 0; a < this.degisken_isimleri.length; a++) {
+                        degisken_verisi[2] = degisken_verisi[2].split("|" + this.degisken_isimleri[a] + "|").join(this.degisken_verileri[a].toString());
+                        degisken_verisi[2] = eval(degisken_verisi[2]);
+                    }
+                }
+                catch (e) {
+                    // console.log("Hata,",e)
+                }
+                var random_maximum = degisken_verisi[1];
+                var random_minimum = degisken_verisi[0];
+                var random_katsayi = degisken_verisi[2];
+                degisken_verisi = Math.floor(Math.random() * (random_maximum - random_minimum) + random_minimum) * random_katsayi;
             }
             else {
                 degisken_verisi == degisken_verisi;
@@ -240,17 +274,18 @@ var Soru = /** @class */ (function () {
         Soru_json["degisken_isimleri"] = this.degisken_isimleri;
         Soru_json["degisken_verileri"] = this.degisken_verileri;
         Soru_json["SoruTipi"] = this.SoruTipi.toJSON();
+        Soru_json["CevapSikki"] = this.CevapSikki;
         return Soru_json;
     };
     Soru.prototype.toCSV = function () {
     };
     Soru.prototype.toHTML = function () {
-        var content = " <br> Soru : <br> " + this.get_SoruYazisi() + " <br>  <br> A) " + this.get_Siklar_index(0) + " <br> B) " + this.get_Siklar_index(1) + " <br> C) " + this.get_Siklar_index(2) + " <br> D) " + this.get_Siklar_index(3) + " <br> E) " + this.get_Siklar_index(4) + " <br>  <br> CEVAP: " + this.get_Cevap();
+        var content = " <br> Soru : <br> " + this.get_SoruYazisi() + " <br>  <br> A) " + this.get_Siklar_index(0) + " <br> B) " + this.get_Siklar_index(1) + " <br> C) " + this.get_Siklar_index(2) + " <br> D) " + this.get_Siklar_index(3) + " <br> E) " + this.get_Siklar_index(4) + " <br>  <br> CEVAP: " + this.get_CevapSikki();
         return content;
     };
     /// TO_STRING()
     Soru.prototype.toString = function () {
-        var content = "\nSoru :\n" + this.get_SoruYazisi() + "\n\nA) " + this.get_Siklar_index(0) + "\nB) " + this.get_Siklar_index(1) + "\nC) " + this.get_Siklar_index(2) + "\nD) " + this.get_Siklar_index(3) + "\nE) " + this.get_Siklar_index(4) + "\n\nCEVAP: " + this.get_Cevap();
+        var content = "\nSoru :\n" + this.get_SoruYazisi() + "\n\nA) " + this.get_Siklar_index(0) + "\nB) " + this.get_Siklar_index(1) + "\nC) " + this.get_Siklar_index(2) + "\nD) " + this.get_Siklar_index(3) + "\nE) " + this.get_Siklar_index(4) + "\n\nCEVAP: " + this.get_CevapSikki();
         return content;
     };
     /// GETTER
@@ -274,6 +309,9 @@ var Soru = /** @class */ (function () {
     };
     Soru.prototype.get_Cevap = function () {
         return this.Cevap;
+    };
+    Soru.prototype.get_CevapSikki = function () {
+        return this.CevapSikki;
     };
     Soru.prototype.get_SoruYazisi = function () {
         return this.SoruYazisi;

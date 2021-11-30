@@ -20,7 +20,10 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 import * as Main from './SoruHazirlama/Main'
 import {Soru} from './SoruHazirlama/Soru'
+import {Test} from './SoruHazirlama/Test'
 import {User} from './SoruHazirlama/User'
+import {Konu} from './SoruHazirlama/Konu'
+import {Ders} from './SoruHazirlama/Ders'
 
 try {
 	require("dotenv").config();
@@ -256,16 +259,28 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 
 
 for(let i = 0;i<Main.dersler.length;i++){
-	for(let j = 0;j<Main.dersler[i].get_Konular().length;j++){
-		app.get('/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
-			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
+	for(let j = 0;j<Main.dersler[i].get_Konular().length;j++){ 
+		let Ders : Ders = Main.dersler[i] 
+		let Konu : Konu = Main.dersler[i].get_Konular()[j]
+		app.get('/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
+			let temp_soru    = new Soru(Ders,Konu)
 			res.send(temp_soru.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
-		app.get('/soru/'+Main.dersler[i].get_DersAdi()+"/"+Main.dersler[i].get_Konular()[j].get_KonuAdi(), function (req, res) {
-			let temp_soru    = new Soru(Main.dersler[i],Main.dersler[i].get_Konular()[j])
-			res.send(temp_soru.toHTML())
+		app.get('/soru/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
+			let temp_soru    = new Soru(Ders,Konu)
+			res.send(temp_soru.toHTML(true))
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
+		})
+		app.get('/test/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi()+"/:soru_sayisi", function (req, res) {
+			let soru_sayisi = parseInt(req.params.soru_sayisi)
+			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
+			for(let i =0;i<soru_sayisi;i++){
+				let temp_soru    = new Soru(Ders,Konu)
+				temp_test.soru_ekle(temp_soru)
+			}
+			res.send(temp_test.toHTML())
+			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
 		})
 	}
 }

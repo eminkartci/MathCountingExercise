@@ -16,6 +16,7 @@ export class Soru{
 
     private degisken_isimleri : any[]=[];
     private degisken_verileri : any[] =[];
+    private CevapSikki : string = ""
     /// YAPILANDIRICI
 
     constructor(private Ders:Ders,private Konu:Konu){
@@ -54,8 +55,6 @@ export class Soru{
         // sıkları tutan bir liste yap
         let new_Siklar = []
 
-        console.log("ŞIKLAR ÖNEMLİ",this.Siklar)
-
         // 5 tane şık olana kadar döndür
         while(new_Siklar.length < 5){
 
@@ -67,6 +66,8 @@ export class Soru{
             //Bütün şıkları döndürür
             for(let x = 0;x<this.Siklar.length;x++){
 
+                // console.log("THİS DĞEİŞKEN İSMİ  :",this.degisken_isimleri)
+                // console.log(" THİS DĞEİŞKEN VERİSİ:",this.degisken_verileri)
                 // butun degisken isimlerini dondur
                 for(let i = 0 ;i < this.degisken_isimleri.length;i++){
 
@@ -85,10 +86,30 @@ export class Soru{
                         // 2 --> katsayı
                     if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
 
-                        degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
-                        // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
+                            let degisken_ilk_ismi : any = ""
+                            let degisken_ilk_verisi : any = ""
+                        try{
+                            for(let i = 0 ;i< Object.keys(this.get_Degiskenler()).length;i++){
+                                degisken_ilk_ismi = Object.keys(this.get_Degiskenler())[i]
+                                degisken_ilk_verisi  = this.get_Degiskenler()[degisken_ilk_ismi]
+                                
+
+                                // degisken_verisi[2]=degisken_ilk_verisi[2].split("|"+degisken_ilk_ismi+"|").join(degisken_ilk_ismi.toString())
+                                // degisken_verisi[2] = eval(degisken_verisi[2])
+                                
+                            }
+                        }catch(e){
+                            // console.log("Hata,",e)
+                        }
+
+                        let random_maximum = degisken_verisi[1]
+                        let random_minimum = degisken_verisi[0]
+                        let random_katsayi = degisken_verisi[2]
+                        degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
+
                         new_option= new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
-                    }else if(this.Siklar[x] == "name-kiz"){
+                    }
+                    else if(this.Siklar[x] == "name-kiz"){
                         degisken_verisi = kiz_ismi[Math.floor(Math.random()*kiz_ismi.length)]
 
                         new_option = new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
@@ -123,12 +144,13 @@ export class Soru{
             }
             try{
                 new_option = eval(new_option).toString()
+                // console.log("new_option",new_option)
             }catch(e){
                 // console.log("HATA",e)
             }
             if(new_Siklar.length == 0){
                 new_Siklar.push(new_option)
-                console.log(new_Siklar)
+                // console.log(new_Siklar)
 
             }
             // Option ekle
@@ -154,8 +176,8 @@ export class Soru{
         //cevap formülünü degisken verileri ile değiştir
         for(let i =0 ;i < this.degisken_isimleri.length;i++){
             // CevapFormulu = CevapFormulu.replace("|"+this.degisken_isimleri[i]+"|",this.degisken_verileri[i])
-            console.log("Degisken İsmi",this.degisken_isimleri[i])
-            console.log("Degisken verisi",this.degisken_verileri[i])
+            // console.log("Degisken İsmi",this.degisken_isimleri[i])
+            // console.log("Degisken verisi",this.degisken_verileri[i])
             CevapFormulu = CevapFormulu.split("|"+this.degisken_isimleri[i]+"|").join(this.degisken_verileri[i])  
         }
         try {
@@ -167,12 +189,17 @@ export class Soru{
     
     //Cevabı şıkların içine rastgele yerleştirir
     cevabi_siklara_yerlestir(){
+        let siklar = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","V","Y","Z"]
+
         for(let i = 0;i<this.Siklar.length;i++){
             if(this.Siklar[i] == this.Cevap.toString()){
+                this.CevapSikki = siklar[i]
                 return
             }
         }
-        this.Siklar[Math.floor(this.Siklar.length*Math.random())] = this.Cevap.toString()
+        let option_index = Math.floor(this.Siklar.length*Math.random())
+        this.CevapSikki = siklar[option_index]
+        this.Siklar[option_index] = this.Cevap.toString()
     }
 
     //Soru içindeki değişkenlere değerler verir
@@ -214,7 +241,21 @@ export class Soru{
                 // 1 --> maksimum sayi
                 // 2 --> katsayı
             else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
-                degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                try{
+
+                    for(let a=0;a<this.degisken_isimleri.length;a++){
+                        degisken_verisi[2] = degisken_verisi[2].split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
+                        degisken_verisi[2] = eval(degisken_verisi[2])
+                        
+                    }
+                }catch(e){
+                    // console.log("Hata,",e)
+                }
+                let random_maximum = degisken_verisi[1]
+                let random_minimum = degisken_verisi[0]
+                let random_katsayi = degisken_verisi[2]
+                degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
+
             }else{
                 degisken_verisi == degisken_verisi
             }
@@ -232,7 +273,7 @@ export class Soru{
     soru_hazirla(){
 
         // Soru tipi şimdilik rastgele alınıyor
-        this.soru_tipi_al(this.Konu.soru_tipi_ver( Math.floor(Math.random()*this.Konu.get_SoruTipleri.length) ));
+        this.soru_tipi_al(this.Konu.get_randomly_SoruTipi());
         // Soru yazısını sorutipinden al
         this.soru_yazisi_al(this.SoruTipi.get_SoruYazisi());
         // Değişkenleri sorutipinden al
@@ -264,6 +305,7 @@ export class Soru{
         Soru_json["degisken_isimleri"] = this.degisken_isimleri
         Soru_json["degisken_verileri"] = this.degisken_verileri
         Soru_json["SoruTipi"] = this.SoruTipi.toJSON()
+        Soru_json["CevapSikki"] = this.CevapSikki
         return Soru_json
     }
 
@@ -271,9 +313,14 @@ export class Soru{
 
     }
 
-    toHTML(){
-        let content = ` <br> Soru : <br> ${this.get_SoruYazisi()} <br>  <br> A) ${this.get_Siklar_index(0)} <br> B) ${this.get_Siklar_index(1)} <br> C) ${this.get_Siklar_index(2)} <br> D) ${this.get_Siklar_index(3)} <br> E) ${this.get_Siklar_index(4)} <br>  <br> CEVAP: ${this.get_Cevap()}`
-        return content
+    toHTML(cevap_yazdirilsin_mi:boolean){
+        if(cevap_yazdirilsin_mi==true){
+            let content = `<p style="color:red"> ${this.get_SoruYazisi()} <br></p><br> A) ${this.get_Siklar_index(0)} <br> B) ${this.get_Siklar_index(1)} <br> C) ${this.get_Siklar_index(2)} <br> D) ${this.get_Siklar_index(3)} <br> E) ${this.get_Siklar_index(4)} <br>  <br> CEVAP: ${this.get_CevapSikki()}`
+            return content
+        }else{
+            let content = `<p style="color:red"> ${this.get_SoruYazisi()} <br></p><br> A) ${this.get_Siklar_index(0)} <br> B) ${this.get_Siklar_index(1)} <br> C) ${this.get_Siklar_index(2)} <br> D) ${this.get_Siklar_index(3)} <br> E) ${this.get_Siklar_index(4)} <br><br>`
+            return content
+        }
     }
 
     /// TO_STRING()
@@ -288,7 +335,7 @@ C) ${this.get_Siklar_index(2)}
 D) ${this.get_Siklar_index(3)}
 E) ${this.get_Siklar_index(4)}
 
-CEVAP: ${this.get_Cevap()}`
+CEVAP: ${this.get_CevapSikki()}`
 
         return content
     }
@@ -319,6 +366,10 @@ CEVAP: ${this.get_Cevap()}`
 
     get_Cevap() : string{
         return this.Cevap;
+    }
+
+    get_CevapSikki() : string{
+        return this.CevapSikki;
     }
 
     get_SoruYazisi(){

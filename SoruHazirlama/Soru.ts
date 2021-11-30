@@ -76,7 +76,11 @@ export class Soru{
                     // 2 --> katsayı
                 if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
 
-                    degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                    let random_maximum = degisken_verisi[1]
+                let random_minimum = degisken_verisi[0]
+                let random_katsayi = degisken_verisi[2]
+                degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
+
                     // new_option = new_option.replace("|"+degisken_ismi+"|",degisken_verisi)
                     new_option= new_option.split("|"+degisken_ismi+"|").join(degisken_verisi)
                 }
@@ -155,7 +159,11 @@ export class Soru{
                 // 1 --> maksimum sayi
                 // 2 --> katsayı
             else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
-                degisken_verisi = Math.floor(Math.random()*degisken_verisi[1]+degisken_verisi[0])*degisken_verisi[2]
+                let random_maximum = degisken_verisi[1]
+                let random_minimum = degisken_verisi[0]
+                let random_katsayi = degisken_verisi[2]
+                degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
+
             }
 
             //değişken ismini ve verisini arraye ekle
