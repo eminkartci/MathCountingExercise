@@ -79,6 +79,10 @@ Soru ${i+1}:  ${temp_soru.get_CevapSikki()}`
         return this.TestAdi
     }
 
+    get_Sorular(){
+        return this.Sorular
+    }
+
 
 
 }

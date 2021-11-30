@@ -267,6 +267,16 @@ for(let i = 0;i<Main.dersler.length;i++){
 			res.send(temp_soru.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
+		app.get('/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi()+"/:soru_sayisi", function (req, res) {
+			let soru_sayisi = parseInt(req.params.soru_sayisi)
+			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
+			for(let i =0;i<soru_sayisi;i++){
+				let temp_soru    = new Soru(Ders,Konu)
+				temp_test.soru_ekle(temp_soru)
+			}
+			res.send(temp_test.toJSON())
+			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
+		})
 		app.get('/soru/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru(Ders,Konu)
 			res.send(temp_soru.toHTML(true))
