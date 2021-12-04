@@ -13,7 +13,7 @@ export class Konu{
     private SoruTipleri : SoruTipi[] = []
 
     /// YAPILANDIRICI
-    constructor(private Ders:Ders , private KonuAdi : string,private KonuYazisi : string){
+    constructor(private KonuID:string,private Ders:Ders , private KonuAdi : string,private KonuYazisi : string){
     }
 
     /// DAVRANISLARI
@@ -36,6 +36,7 @@ export class Konu{
 
     toJSON(){
         let Konu_json : any = {}        
+        Konu_json["KonuID"] = this.KonuID
         Konu_json["KonuAdi"] = this.KonuAdi
         Konu_json["KonuYazisi"] = this.KonuYazisi
         let SoruTipleri_json : any = {}
@@ -54,6 +55,10 @@ export class Konu{
     
     get_KonuAdi() : string{
         return this.KonuAdi
+    }
+
+    get_KonuID() : string{
+        return this.KonuID
     }
 
     get_KonuYazisi() : string{
@@ -83,6 +88,10 @@ export class Konu{
 
     set_KonuAdi(KonuAdi:string){
         this.KonuAdi = KonuAdi
+    }
+
+    set_KonuID(KonuID:string){
+        this.KonuID = KonuID
     }
 
     set_SoruTipleri(SoruTipleri:SoruTipi[]){

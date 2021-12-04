@@ -11,18 +11,19 @@ export class Ders{
     private Konular : Konu[] = [];
     /// YAPILANDIRICI
 
-    constructor(private DersAdi:string,private DersYazisi:string){
+    constructor(private DersID:string,private DersAdi:string,private DersYazisi:string){
     }
 
     /// DAVRANIŞLARI
     toJSON(){
         let Ders_json : any= {}
+        Ders_json["DersID"] = this.DersID
         Ders_json["DersAdi"] = this.DersAdi
         Ders_json["DersYazisi"] = this.DersYazisi
 
         let Konular_json : any = {}
         for(let i = 0;i<this.Konular.length;i++){
-            Konular_json[this.Konular[i].get_KonuAdi()] = this.Konular[i].toJSON()
+            Konular_json[this.Konular[i].get_KonuID()] = this.Konular[i].toJSON()
         }
         Ders_json["Konular"] = Konular_json
         return Ders_json
@@ -31,6 +32,10 @@ export class Ders{
     /// GETTER
     get_DersAdi() : string{
         return this.DersAdi;
+    }
+    
+    get_DersID() : string{
+        return this.DersID;
     }
 
     get_DersYazisi() : string{
@@ -52,6 +57,10 @@ export class Ders{
 
     set_DersYazisi(DersYazisi : string){
         this.DersYazisi = DersYazisi;
+    }
+    
+    set_DersID(DersID : string){
+        this.DersID = DersID;
     }
 
     set_Konular(Konular : Konu[]){

@@ -263,7 +263,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 		let Ders : Ders = Main.dersler[i] 
 		let Konu : Konu = Main.dersler[i].get_Konular()[j]
 		app.get('/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
-			let temp_soru    = new Soru(Ders,Konu)
+			let temp_soru    = new Soru("0",Ders,Konu)
 			res.send(temp_soru.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
@@ -271,14 +271,14 @@ for(let i = 0;i<Main.dersler.length;i++){
 			let soru_sayisi = parseInt(req.params.soru_sayisi)
 			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
 			for(let i =0;i<soru_sayisi;i++){
-				let temp_soru    = new Soru(Ders,Konu)
+				let temp_soru    = new Soru(i.toString(),Ders,Konu)
 				temp_test.soru_ekle(temp_soru)
 			}
 			res.send(temp_test.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
 		})
 		app.get('/soru/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
-			let temp_soru    = new Soru(Ders,Konu)
+			let temp_soru    = new Soru("0",Ders,Konu)
 			res.send(temp_soru.toHTML(true))
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
@@ -286,7 +286,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 			let soru_sayisi = parseInt(req.params.soru_sayisi)
 			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
 			for(let i =0;i<soru_sayisi;i++){
-				let temp_soru    = new Soru(Ders,Konu)
+				let temp_soru    = new Soru(i.toString(),Ders,Konu)
 				temp_test.soru_ekle(temp_soru)
 			}
 			res.send(temp_test.toHTML())

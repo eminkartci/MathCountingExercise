@@ -19,7 +19,7 @@ export class Soru{
     private CevapSikki : string = ""
     /// YAPILANDIRICI
 
-    constructor(private Ders:Ders,private Konu:Konu){
+    constructor(private SoruID:string,private Ders:Ders,private Konu:Konu){
         this.soru_hazirla();
     }
 
@@ -295,6 +295,7 @@ export class Soru{
 
     toJSON(){
         let Soru_json : any= {}
+        Soru_json["SoruID"] = this.SoruID
         Soru_json["Ders"] = this.Ders.toJSON()
         Soru_json["Konu"] = this.Konu.toJSON()
         Soru_json["SoruYazisi"] = this.SoruYazisi
@@ -375,6 +376,9 @@ CEVAP: ${this.get_CevapSikki()}`
     get_SoruYazisi(){
         return this.SoruYazisi
     }
+    get_SoruID(){
+        return this.SoruID
+    }
 
 
 
@@ -409,6 +413,10 @@ CEVAP: ${this.get_CevapSikki()}`
 
     set_Cevap(Cevap : string){
         this.Cevap = Cevap;
+    }
+
+    set_SoruID(SoruID:string){
+        this.SoruID = SoruID;
     }
 
 
