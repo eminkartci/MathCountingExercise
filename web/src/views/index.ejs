@@ -12,11 +12,17 @@
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.rtl.only.min.css" />
     <link rel="stylesheet" href="assets/css/vendor/bootstrap-float-label.min.css" />
-    <link rel="stylesheet" href="assets/css/vendor/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="assets/css/vendor/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="assets/css/vendor/datatables.responsive.bootstrap4.min.css" />
     <link rel="stylesheet" href="assets/css/vendor/smart_wizard.min.css" />
+    <link rel="stylesheet" href="assets/css/vendor/component-custom-switch.min.css" />
     <link rel="stylesheet" href="assets/css/vendor/bootstrap-tagsinput.css" />
+    <link rel="stylesheet" href="assets/css/vendor/perfect-scrollbar.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <!-- <link rel="stylesheet" href="assets/css/bootstrap.css" /> -->
+
+    <link rel="stylesheet" href="assets/fonts/iconsmind-s/css/iconsminds.css" />
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons/css/simple-line-icons.css" />
 </head>
 
 <body id="app-container" class="menu-default show-spinner">
@@ -41,11 +47,11 @@
         </div> -->
 
         <div class="row">
-            <div class="col-6 mb-4" style="margin-left: 25%;margin-top:5%">
+            <div class="col-6 mb-4" style="margin-left: 25%;margin-top:5%;min-height:500px;" id="containerCard">
                 <div class="amean-logo">
-                    <img src="assets/images/amean_logo.png" alt="AMEAN Danışmanlık" style="width: 20%;margin-left:40%">
+                    <img src="assets/images/amean_logo.png" alt="AMEAN Danışmanlık" style="width: 20%;margin-left:40%;max-width:200px;">
                 </div>
-                <div class="card mb-4">
+                <div class="card mb-4" id="innerCard">
                     <div id="smartWizardValidation">
                         <ul class="card-header" style="justify-content: space-around;">
                             <li id="step_name_0"><a href="#step-0">Adım 1<br /><small>Dersleri Seç</small></a></li>
@@ -58,33 +64,9 @@
                                 <div id="form-step-0" class="tooltip-label-right" novalidate>
                                     <h2 style="margin-left:12.5%;color:var(--theme-color-1);">Hangi dersleri çözmek istersin ?</h2>
                                     <div class="row">
-                                        <div class="mb-4 col-6" style="font-size:20px;color:#555">
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="matematik_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="matematik_checkbox">Matematik</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="fizik_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="fizik_checkbox">Fizik</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="biyoloji_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="biyoloji_checkbox">Biyoloji</label>
-                                            </div>
+                                        <div class="mb-4 col-6" style="font-size:20px;color:#555" id="left_ders_checkboxlari">
                                         </div>
-                                        <div class="mb-4 col-6" style="font-size:20px;color:#555">
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="kimya_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="kimya_checkbox">Kimya</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="turkce_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="turkce_checkbox">Türkçe</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
-                                                <input type="checkbox" id="tarih_checkbox" name="lessons"class="custom-control-input">
-                                                <label class="custom-control-label" for="tarih_checkbox">Tarih</label>
-                                            </div>
+                                        <div class="mb-4 col-6" style="font-size:20px;color:#555" id="right_ders_checkboxlari">
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +75,7 @@
                                 <div id="form-step-1" class="tooltip-label-right" novalidate>
                                     <div class="row">
                                         <div class="col-12 mb-4 data-table-rows data-tables-hide-filter">
-                                            <table id="datatableRows" class="data-table responsive nowrap"
+                                            <table id="konularTable" class="data-table responsive"
                                                 data-order="[[ 1, &quot;desc&quot; ]]">
                                                 <thead>
                                                     <tr>
@@ -120,6 +102,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -133,11 +116,12 @@
                                     start-up mentality.
                                 </p>
                             </div>
-                            <p id="hata_text" style="color:#d31616;font-size:17.5px;text-align:center"></p>
+                            
                         </div>
 
-                        <div class="btn-toolbar custom-toolbar text-center card-body pt-0">
-                            <button class="btn btn-secondary" type="button" id="prev_button">Geri</button>
+                        <div class="btn-toolbar custom-toolbar text-center card-body pt-0" style="position: absolute;width:100%;margin: 0 auto;bottom:0px">
+                            <!-- <button class="btn btn-secondary" type="button" id="prev_button">Geri</button> -->
+                            <p id="hata_text" style="color:#d31616;font-size:17.5px;text-align:center"></p>
                             <button class="btn btn-secondary" type="button" id="next_button">İleri</button>
                             <button class="btn btn-secondary" type="button" id="submit_button">Gönder</button>
                         </div>

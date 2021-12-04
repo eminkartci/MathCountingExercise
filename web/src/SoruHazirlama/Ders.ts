@@ -22,7 +22,7 @@ export class Ders{
 
         let Konular_json : any = {}
         for(let i = 0;i<this.Konular.length;i++){
-            Konular_json["Konu"+(i+1)] = this.Konular[i].toJSON()
+            Konular_json[this.Konular[i].get_KonuAdi()] = this.Konular[i].toJSON()
         }
         Ders_json["Konular"] = Konular_json
         return Ders_json

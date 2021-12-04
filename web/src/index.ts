@@ -295,10 +295,17 @@ for(let i = 0;i<Main.dersler.length;i++){
 	}
 }
 
+app.get("/dersler",(req,res)=>{
+	let dersler_json :any = {}
+	for(let ders of Main.dersler){
+		let current_dersYazisi = ders.get_DersAdi()
+		dersler_json[current_dersYazisi] = ders.toJSON()
+	}
+	res.json(dersler_json)
+})
+
+
 // Bütün danışanları idlerine göre json olarak döndürür
-{
-
-
 app.get('/danisan/:danisan_id', async (req, res) => {
 
 	let danisan_id = req.params.danisan_id;
@@ -312,9 +319,7 @@ app.get('/danisan/:danisan_id', async (req, res) => {
 	console.log(chalk.hex('#FFF01F').bold.underline("\nID : "),danisan_id,chalk.hex('#FFF01F').bold.underline(" DANIŞAN :\n"),tempUser)
 	
 })
-	
 
-}
 
 // Bütün dabışanları json olarak döndürür
 app.get("/danisanlar",(req,res)=>{

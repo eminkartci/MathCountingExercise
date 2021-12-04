@@ -2945,27 +2945,27 @@ $.dore = function (element, options) {
         }
       });
 
-      var dataTablePs;
-      $(".data-table-scrollable").DataTable({
-        searching: false,
-        bLengthChange: false,
-        destroy: true,
-        info: false,
-        paging: false,
-        sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
-        responsive: !0,
-        deferRender: !0,
-        scrollY: "calc(100vh - 400px)",
-        scrollCollapse: !0,
-        "fnInitComplete": function () {
-          dataTablePs = new PerfectScrollbar('.dataTables_scrollBody', { suppressScrollX: true });
-          dataTablePs.isRtl = false;
-        },
-        "fnDrawCallback": function (oSettings) {
-          dataTablePs = new PerfectScrollbar('.dataTables_scrollBody', { suppressScrollX: true });
-          dataTablePs.isRtl = false;
-        }
-      });
+      // var dataTablePs;
+      // $(".data-table-scrollable").DataTable({
+      //   searching: false,
+      //   bLengthChange: false,
+      //   destroy: true,
+      //   info: false,
+      //   paging: false,
+      //   sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      //   responsive: !0,
+      //   deferRender: !0,
+      //   scrollY: "250px",
+      //   scrollCollapse: !0,
+      //   "fnInitComplete": function () {
+      //     dataTablePs = new PerfectScrollbar('.dataTables_scrollBody', { suppressScrollX: true });
+      //     dataTablePs.isRtl = false;
+      //   },
+      //   "fnDrawCallback": function (oSettings) {
+      //     dataTablePs = new PerfectScrollbar('.dataTables_scrollBody', { suppressScrollX: true });
+      //     dataTablePs.isRtl = false;
+      //   }
+      // });
 
       $(".data-table-feature").DataTable({
         sDom: '<"row view-filter"<"col-sm-12"<"float-right"l><"float-left"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
@@ -3007,7 +3007,7 @@ $.dore = function (element, options) {
           'csv',
           'pdf'
         ],
-        destroy: true,
+        destroy: false,
         info: false,
         sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
         pageLength: 4,

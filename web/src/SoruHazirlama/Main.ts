@@ -8,7 +8,7 @@ import {Test} from './Test';
 import {SoruTipi} from './SoruTipi';
 import {kiz_ismi,erkek_ismi,sehirler,ince_isimler,kalin_isimler,elementler} from './Database';
 
-
+                                                      
 /////////////// DERSLER ///////////////
 export let matematik   = new Ders("matematik","Matematik")
 export let turkce      = new Ders("turkce","Türkçe")
@@ -29,6 +29,10 @@ export  let yazim_kurallari = new Konu(turkce,"yazim-kurallari","Yazım Kurallar
 yazim_kurallari.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde yazım yanlışı vardır?",{"cevap":"yazim-hatali-cumle"},["yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle"],"|cevap|")
 turkce.add_Konu(yazim_kurallari)
 
+export  let fiilimsiler = new Konu(turkce,"fiilimsiler","Fiilimsiler")
+fiilimsiler.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde fiilimsi vardır?",{"cevap":"fiilimsili-cumle"},["fiilimsisiz-cumle","fiilimsisiz-cumle","fiilimsisiz-cumle","fiilimsisiz-cumle","fiilimsisiz-cumle"],"|cevap|")
+turkce.add_Konu(fiilimsiler)
+
 export let elektrik_manyetizma = new Konu(fizik,"elektrik-manyetizma","Elektrik - Manyetizma")
 elektrik_manyetizma.soru_tipi_olustur("Yarıçap uzunluğu |yaricap| cm , uzunluğu |uzunluk| cm olan bir telin direnci kaç ohm'dur?\n(π=3)",{"yaricap":[1,5,1],"uzunluk":[1,5,"|yaricap|*|yaricap|*3"]},["","","","",""],"|uzunluk|/(3*|yaricap|*|yaricap|)")
 fizik.add_Konu(elektrik_manyetizma)
@@ -46,13 +50,9 @@ mitoz_bolunme.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kardeş kroma
 mitoz_bolunme.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde hayvan hücrelerinde boğumlanma görülür?",{"cevap":"Sitokinez"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
 biyoloji.add_Konu(mitoz_bolunme)
 
-// export  let ilk_turk_beylikleri = new Konu(tarih,"ilk-turk-beylikleri","İlk Türk Beylikleri")
-// ilk_turk_beylikleri.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen Ayşe , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.Ayşe'in 5 elbise , 2 gömlek ve 3 pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",["Hatice"],["10","11","8","7"])
-// tarih.add_Konu(ilk_turk_beylikleri)
-
-export let konular = [yas_problemi,yazim_kurallari,elektrik_manyetizma,katli_oranlar_kanunu,mitoz_bolunme]
-
-
+export  let ilk_turk_beylikleri = new Konu(tarih,"ilk-turk-beylikleri","İlk Türk Beylikleri")
+ilk_turk_beylikleri.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kromozomlar ortaya dizilmiş halde bulunur?",{"cevap":"Metafaz"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
+tarih.add_Konu(ilk_turk_beylikleri)
 
 /////////////// SORULAR ///////////////
 // export  let matematik_sorusu       = new Soru(matematik,yas_problemi)
@@ -105,3 +105,4 @@ console.log("")
 // console.log(fizik_test.toString())
 
 export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]
+ 
