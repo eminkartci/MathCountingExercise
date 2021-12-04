@@ -146,20 +146,26 @@ myPromise.then(
         }else if(state == 1){
 
         
-                console.log(secilenKonular(dersler,kullanici_dersleri))
-                containerCard.classList.add("col-6")
-                containerCard.classList.remove("col-10")
-                containerCard.style.marginLeft = "25%"
-                containerCard.style.marginTop = "5%"
-                innerCard.style.height = "80%"
-                cardContent.style.height = "100%"
-                card_0.style.display = "none"
-                card_1.style.display = "none"
-                card_2.style.display = "block"
-                step_2.classList.add("active")
-                state += 1
-                next_button.style.display = "none"
-                submit_button.style.display = ""
+                kullanici_konulari = secilenKonular(dersler,kullanici_dersleri)
+
+                if(kullanici_konulari.length != 0){
+                    containerCard.classList.add("col-6")
+                    containerCard.classList.remove("col-10")
+                    containerCard.style.marginLeft = "25%"
+                    containerCard.style.marginTop = "5%"
+                    innerCard.style.height = "80%"
+                    cardContent.style.height = "100%"
+                    card_0.style.display = "none"
+                    card_1.style.display = "none"
+                    card_2.style.display = "block"
+                    step_2.classList.add("active")
+                    state += 1
+                    next_button.style.display = "none"
+                    submit_button.style.display = ""
+                    hata_yazdir("")
+                }else{
+                    hata_yazdir("En az bir konu seçmelisiniz.")
+                }
         }
     }
 
