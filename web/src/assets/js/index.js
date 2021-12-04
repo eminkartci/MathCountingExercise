@@ -19,8 +19,9 @@ myPromise.then(
       
     dersler = JSON.parse(value)
     let dersler_checkboxlari = []
-    let konular_checkboxlari = []
-    let konular_checkboxlari_dersler_hashmap = []
+    let konular_checkbox_idleri = []
+    let konular_checkbox_idleri_dersler_hashmap = []
+    let konular_sorusayisi_input_idleri = []
     let ders_sayisi = Object.keys(dersler).length
     for(let i = 0;i<ders_sayisi;i++){
         let current_ders = dersler[Object.keys(dersler)[i]]
@@ -98,20 +99,30 @@ myPromise.then(
 
                     for(let j=0;j<current_dersKonularSayisi;j++){
                         let current_konu = current_dersKonular[Object.keys(current_dersKonular)[j]]
-                        konular_checkboxlari.push(current_konu.KonuAdi+"_checkbox")
-                        konular_checkboxlari_dersler_hashmap.push(current_ders.DersAdi)
+                        konular_checkbox_idleri.push(current_konu.KonuAdi+"_checkbox")
+                        konular_sorusayisi_input_idleri.push(current_konu.KonuAdi+"_sorusayisi_input")
+                        konular_checkbox_idleri_dersler_hashmap.push(current_ders.DersAdi)
                         konular_div.innerHTML += `
                         <tr>
                             <td>
+                                <p class="list-item-heading">${current_ders.DersID}</p>
+                            </td>
+                            <td>
                                 <p class="list-item-heading">${current_ders.DersYazisi}</p>
+                            </td>
+                            <td>
+                                <p class="text-muted">${current_konu.KonuID}</p>
                             </td>
                             <td>
                                 <p class="text-muted">${current_konu.KonuYazisi}</p>
                             </td>
                             <td>
+                              <input type="number" name="${konular_sorusayisi_input_idleri[j]}" id="" value="0">
+                            </td>
+                            <td>
                                 <label
                                     class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
-                                    <input type="checkbox" class="custom-control-input" id="${konular_checkboxlari[j]}">
+                                    <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}">
                                     <span class="custom-control-label">&nbsp;</span>
                                 </label>
                             </td>
@@ -300,8 +311,11 @@ function controlCheckAll() {
             sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
             pageLength: 3,
             columns: [
+              { data: "Ders ID" },
               { data: "Ders" },
+              { data: "Konu ID" },
               { data: "Konu" },
+              { data: "Soru Sayısı" },
               { data: "Çöz" }
             ],
             language: {
