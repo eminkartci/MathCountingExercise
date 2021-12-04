@@ -30,14 +30,14 @@ myPromise.then(
         // Sol tarafa yerleşitilecek checkboxlar
         if(i<Math.floor(ders_sayisi/2)){
             document.getElementById("left_ders_checkboxlari").innerHTML += `
-            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.floor(ders_sayisi/2)}px;display:flex;align-items:center">
                 <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri"class="custom-control-input">
                 <label class="custom-control-label" for="${dersler_checkboxlari[i]}">${current_ders.DersYazisi}</label>
             </div>`
         }// Sağ tarafa yerleşitilecek checkboxlar
         else if(i>=Math.floor(ders_sayisi/2)){
             document.getElementById("right_ders_checkboxlari").innerHTML += `
-            <div class="custom-control custom-checkbox" style="margin-left:25%;padding-bottom:5px;">
+            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.floor(ders_sayisi/2)}px;display:flex;align-items:center">
                 <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri"class="custom-control-input">
                 <label class="custom-control-label" for="${dersler_checkboxlari[i]}">${current_ders.DersYazisi}</label>
             </div>`
@@ -89,52 +89,53 @@ myPromise.then(
 
         if(state == 0){
 
-            for(let i = 0;i<ders_sayisi;i++){
-                let current_ders = dersler[Object.keys(dersler)[i]]
-                let current_dersCheckbox = dersler_checkboxlari[i]
-                if(document.getElementById(current_dersCheckbox).checked == true){
-                    kullanici_dersleri.push(current_ders.DersAdi)
-                    let current_dersKonular = current_ders.Konular
-                    let current_dersKonularSayisi = Object.keys(current_ders.Konular).length
+          for(let i = 0;i<ders_sayisi;i++){
+              let current_ders = dersler[Object.keys(dersler)[i]]
+              let current_dersCheckbox = dersler_checkboxlari[i]
+              if(document.getElementById(current_dersCheckbox).checked == true){
+                  kullanici_dersleri.push(current_ders.DersAdi)
+                  let current_dersKonular = current_ders.Konular
+                  let current_dersKonularSayisi = Object.keys(current_ders.Konular).length
 
-                    for(let j=0;j<current_dersKonularSayisi;j++){
-                        let current_konu = current_dersKonular[Object.keys(current_dersKonular)[j]]
-                        konular_checkbox_idleri.push(current_konu.KonuAdi+"_checkbox")
-                        konular_sorusayisi_input_idleri.push(current_konu.KonuAdi+"_sorusayisi_input")
-                        konular_checkbox_idleri_dersler_hashmap.push(current_ders.DersAdi)
-                        konular_div.innerHTML += `
-                        <tr>
-                            <td>
-                                <p class="list-item-heading">${current_ders.DersID}</p>
-                            </td>
-                            <td>
-                                <p class="list-item-heading">${current_ders.DersYazisi}</p>
-                            </td>
-                            <td>
-                                <p class="text-muted">${current_konu.KonuID}</p>
-                            </td>
-                            <td>
-                                <p class="text-muted">${current_konu.KonuYazisi}</p>
-                            </td>
-                            <td>
-                              <input type="number" name="${konular_sorusayisi_input_idleri[j]}" id="" value="0">
-                            </td>
-                            <td>
-                                <label
-                                    class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
-                                    <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}">
-                                    <span class="custom-control-label">&nbsp;</span>
-                                </label>
-                            </td>
-                        </tr>
-                `
-                    }
-                    
-                }
-            }
+                  for(let j=0;j<current_dersKonularSayisi;j++){
+                      let current_konu = current_dersKonular[Object.keys(current_dersKonular)[j]]
+                      konular_checkbox_idleri.push(current_konu.KonuAdi+"_checkbox")
+                      konular_sorusayisi_input_idleri.push(current_konu.KonuAdi+"_sorusayisi_input")
+                      konular_checkbox_idleri_dersler_hashmap.push(current_ders.DersAdi)
+                      konular_div.innerHTML += `
+                      <tr>
+                          <td>
+                              <p class="list-item-heading">${current_ders.DersID}</p>
+                          </td>
+                          <td>
+                              <p class="list-item-heading">${current_ders.DersYazisi}</p>
+                          </td>
+                          <td>
+                              <p class="text-muted">${current_konu.KonuID}</p>
+                          </td>
+                          <td>
+                              <p class="text-muted">${current_konu.KonuYazisi}</p>
+                          </td>
+                          <td>
+                            <input type="number" class="soru_sayisi_input" name="" id="${konular_sorusayisi_input_idleri[j]}" value="0">
+                          </td>
+                          <td>
+                              <label
+                                  class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
+                                  <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}" disabled>
+                                  <span class="custom-control-label">&nbsp;</span>
+                              </label>
+                          </td>
+                      </tr>
+              `
+                  }
+                  
+              }
+          }
 
 
-            if(kullanici_dersleri.length !== 0){
+            if(kullanici_dersleri.length != 0){
+              
                 tabloyu_düzenle()
                 containerCard.classList.remove("col-6")
                 containerCard.classList.add("col-10")
@@ -158,8 +159,10 @@ myPromise.then(
 
         
                 kullanici_konulari = secilenKonular(dersler,kullanici_dersleri)
+                console.log(kullanici_konulari)
 
                 if(kullanici_konulari.length != 0){
+
                     containerCard.classList.add("col-6")
                     containerCard.classList.remove("col-10")
                     containerCard.style.marginLeft = "25%"
@@ -183,6 +186,8 @@ myPromise.then(
     submit_button.onclick = () =>{
         
     }
+
+    
 
 
 
@@ -265,7 +270,6 @@ function controlCheckAll() {
   function secilenKonular(dersler,secilen_dersler) {
     let secilen_konular = [];
     let secilen_rowlar = $konularTable.rows('.selected').data()
-    console.log("selected row data",$konularTable.rows('.selected'))
     let secilen_row_dersİndex = "Ders";
     let secilen_row_konuİndex = "Konu";
     let secilen_row_cozİndex = "Çöz";
@@ -362,10 +366,27 @@ function controlCheckAll() {
           });
     
           $('#konularTable tbody').on('click', 'tr', function () {
-            $(this).toggleClass('selected');
-            var $checkBox = $(this).find(".custom-checkbox input");
-            $checkBox.prop("checked", !$checkBox.prop("checked")).trigger("change");
-            controlCheckAll();
+            // $(this).toggleClass('selected');
+            // var $checkBox = $(this).find(".custom-checkbox input");
+            // $checkBox.prop("checked", !$checkBox.prop("checked")).trigger("change");
+            // controlCheckAll();
           });
+          
+          for(let i = 0;i<$('#konularTable .soru_sayisi_input').length;i++){
+            $('#konularTable .soru_sayisi_input')[i].oninput = () => {
+              if($('#konularTable .soru_sayisi_input')[i].value > 0 && $('#konularTable .soru_sayisi_input')[i].value != null){
+                $("#konularTable #konular_div tr")[i].classList.add('selected');
+                var $checkBox = $('#konularTable .custom-control-input')[i]
+                $checkBox.checked = true;
+                controlCheckAll();
+              }else{
+                $("#konularTable #konular_div tr")[i].classList.remove('selected');
+                var $checkBox = $('#konularTable .custom-control-input')[i]
+                $checkBox.checked = false;
+                controlCheckAll();
+              }
+            }
+          }
+
 
   }
