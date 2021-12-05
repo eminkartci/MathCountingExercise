@@ -1,6 +1,8 @@
+
+// Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
 let dersler;
 
-
+// Dersleri get yapıyoruz
 let myPromise = new Promise(function(myResolve, myReject) {
   let req = new XMLHttpRequest();
   req.open('GET', "http://localhost:5006/dersler");
@@ -14,10 +16,13 @@ let myPromise = new Promise(function(myResolve, myReject) {
   req.send();
 });
 
+//Aldığımız dersleri dersler değişkeninne atıyoruz
 myPromise.then(
-  function(value) {
+  function(dersler_value) {
       
-    dersler = JSON.parse(value)
+        /////// BACKEND ELEMENTS //////
+
+    dersler = JSON.parse(dersler_value)
     let dersler_checkboxlari = []
     let konular_checkbox_idleri = []
     let konular_checkbox_idleri_dersler_hashmap = []
@@ -28,22 +33,21 @@ myPromise.then(
         dersler_checkboxlari.push(current_ders.DersAdi+"_checkbox")
 
         // Sol tarafa yerleşitilecek checkboxlar
-        if(i<Math.floor(ders_sayisi/2)){
+        if(i<Math.round(ders_sayisi/2)){
             document.getElementById("left_ders_checkboxlari").innerHTML += `
-            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.floor(ders_sayisi/2)}px;display:flex;align-items:center">
-                <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri"class="custom-control-input">
+            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.round(ders_sayisi/2)}px;display:flex;align-items:center">
+                <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri" class="custom-control-input">
                 <label class="custom-control-label" for="${dersler_checkboxlari[i]}">${current_ders.DersYazisi}</label>
             </div>`
         }// Sağ tarafa yerleşitilecek checkboxlar
-        else if(i>=Math.floor(ders_sayisi/2)){
+        else if(i>=Math.round(ders_sayisi/2)){
             document.getElementById("right_ders_checkboxlari").innerHTML += `
-            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.floor(ders_sayisi/2)}px;display:flex;align-items:center">
-                <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri"class="custom-control-input">
+            <div class="custom-control custom-checkbox" style="margin-left:25%;height:${200/Math.round(ders_sayisi/2)}px;display:flex;align-items:center">
+                <input type="checkbox" id="${dersler_checkboxlari[i]}" name="kullanici_dersleri" class="custom-control-input">
                 <label class="custom-control-label" for="${dersler_checkboxlari[i]}">${current_ders.DersYazisi}</label>
             </div>`
         }
     }
-    /////// BACKEND ELEMENTS //////
 
 
     let kullanici_dersleri =  []
@@ -100,10 +104,10 @@ myPromise.then(
                   for(let j=0;j<current_dersKonularSayisi;j++){
                       let current_konu = current_dersKonular[Object.keys(current_dersKonular)[j]]
                       konular_checkbox_idleri.push(current_konu.KonuAdi+"_checkbox")
-                      konular_sorusayisi_input_idleri.push(current_konu.KonuAdi+"_sorusayisi_input")
+                      konular_sorusayisi_input_idleri.push(current_konu.KonuAdi+"_sorusayisi_input")                      
                       konular_checkbox_idleri_dersler_hashmap.push(current_ders.DersAdi)
                       konular_div.innerHTML += `
-                      <tr>
+                      <tr class="soru">
                           <td>
                               <p class="list-item-heading">${current_ders.DersID}</p>
                           </td>
@@ -117,15 +121,16 @@ myPromise.then(
                               <p class="text-muted">${current_konu.KonuYazisi}</p>
                           </td>
                           <td>
-                            <input type="number" class="soru_sayisi_input" name="" id="${konular_sorusayisi_input_idleri[j]}" value="0">
+                            <label class="custom-control custom-input mb-1 align-self-center">
+                                  <input type="number" name="" id="${current_konu.KonuAdi+"_sorusayisi_input"}" value="0" class="soru_sayisi_input">
+                              </label>
                           </td>
                           <td>
-                              <label
-                                  class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
+                              <label class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
                                   <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}" disabled>
                                   <span class="custom-control-label">&nbsp;</span>
                               </label>
-                          </td>
+                          </td> 
                       </tr>
               `
                   }
@@ -160,6 +165,10 @@ myPromise.then(
         
                 kullanici_konulari = secilenKonular(dersler,kullanici_dersleri)
                 console.log(kullanici_konulari)
+                for(let current_konu_index=0;current_konu_index<kullanici_konulari.length;current_konu_index++){
+                  let current_konu_json = kullanici_konulari[current_konu_index]
+                  konuya_gore_test_getir(current_konu_json)
+                }
 
                 if(kullanici_konulari.length != 0){
 
@@ -268,125 +277,150 @@ function controlCheckAll() {
   }
 
   function secilenKonular(dersler,secilen_dersler) {
+    
+
     let secilen_konular = [];
     let secilen_rowlar = $konularTable.rows('.selected').data()
-    let secilen_row_dersİndex = "Ders";
-    let secilen_row_konuİndex = "Konu";
-    let secilen_row_cozİndex = "Çöz";
+    let secilen_row_dersidIndex = "Ders ID";
+    let secilen_row_sorusayisiIndex = "Soru Sayısı";
+    let secilen_row_konuidIndex = "Konu ID";
     //Seçilen dersleri obje olarak alıyoruz
-    let ders_sayisi = Object.keys(dersler).length
-    for(let i =0;i<ders_sayisi;i++){
-        for(let secilen_ders of secilen_dersler){
-            if(secilen_ders == Object.keys(dersler)[i]){                
-                let current_ders = dersler[secilen_ders]
-                for(let x = 0;x<secilen_rowlar.length;x++){
-                    let current_secilen_row = secilen_rowlar[x]
-                    let current_secilen_rowDers = current_secilen_row[secilen_row_dersİndex]
-                    if(current_secilen_rowDers.includes(current_ders.DersYazisi)){
-                        let konular_sayisi = Object.keys(dersler[current_ders.DersAdi].Konular).length
-                        for(let a = 0;a < konular_sayisi;a++){
-                            let current_konu = dersler[current_ders.DersAdi].Konular[Object.keys(dersler[current_ders.DersAdi].Konular)[a]]
-                            let current_secilen_rowKonu = current_secilen_row[secilen_row_konuİndex]
-                            if(current_secilen_rowKonu.includes(current_konu.KonuYazisi)){
-                                secilen_konular.push(current_konu)
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    console.log("seçlien rowlar",secilen_rowlar)
+    for(let i = 0;i< secilen_rowlar.length;i++){
+      let current_secilen_row = secilen_rowlar[i]
+      let current_dersID = $(current_secilen_row[secilen_row_dersidIndex])[0].innerText
+      let current_konuID = $(current_secilen_row[secilen_row_konuidIndex])[0].innerText
+      let current_SoruSayisiInput_HTMLtext = $(current_secilen_row[secilen_row_sorusayisiIndex])[0].firstElementChild
+      let current_SoruSayisiInput_id = $(current_SoruSayisiInput_HTMLtext)[0].id
+      let current_SoruSayisi = document.getElementById(current_SoruSayisiInput_id).value
+      let current_konuJSON = dersler[current_dersID].Konular[current_konuID]
+      current_konuJSON["SoruSayisi"] = current_SoruSayisi
+      secilen_konular.push(current_konuJSON)
     }
+
     return secilen_konular
   }
 
   function tabloyu_düzenle(){
 
-        // Tabloyu düzenlediğimiz yers
-        $konularTable = $("#konularTable").DataTable({
-            bLengthChange: false,
-            buttons: [
-              'copy',
-              'excel',
-              'csv',
-              'pdf'
-            ],
-            destroy: false,
-            info: false,
-            sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
-            pageLength: 3,
-            columns: [
-              { data: "Ders ID" },
-              { data: "Ders" },
-              { data: "Konu ID" },
-              { data: "Konu" },
-              { data: "Soru Sayısı" },
-              { data: "Çöz" }
-            ],
-            language: {
-              paginate: {
-                previous: "<i class='simple-icon-arrow-left'></i>",
-                next: "<i class='simple-icon-arrow-right'></i>"
-              }
-            },
-            drawCallback: function () {
-            //   unCheckAllRows();
-              $("#checkAllDataTables").prop("checked", false);
-              $("#checkAllDataTables").prop("indeterminate", false).trigger("change");
+     
+
+  // Tabloyu düzenlediğimiz yers
+  $konularTable = $("#konularTable").DataTable({
+      bLengthChange: false,
+      buttons: [
+        'copy',
+        'excel',
+        'csv',
+        'pdf'
+      ],
+      destroy: false,
+      info: false,
+      sDom: '<"row view-filter"<"col-sm-12"<"float-left"l><"float-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      pageLength: 3,
+      columns: [
+        { data: "Ders ID" },
+        { data: "Ders" },
+        { data: "Konu ID" },
+        { data: "Konu" },
+        { data: "Soru Sayısı" },
+        { data: "Çöz" }
+      ],
+      language: {
+        paginate: {
+          previous: "<i class='simple-icon-arrow-left'></i>",
+          next: "<i class='simple-icon-arrow-right'></i>"
+        }
+      },
+      drawCallback: function () {
+
+        
+
+      //   unCheckAllRows();
+        $("#checkAllDataTables").prop("checked", false);
+        $("#checkAllDataTables").prop("indeterminate", false).trigger("change");
+
+        $($(".dataTables_wrapper .pagination li:first-of-type"))
+          .find("a")
+          .addClass("prev");
+        $($(".dataTables_wrapper .pagination li:last-of-type"))
+          .find("a")
+          .addClass("next");
+        $(".dataTables_wrapper .pagination").addClass("pagination-sm");
+        var api = $(this).dataTable().api();
+        $("#pageCountDatatable span").html("Displaying " + parseInt(api.page.info().start + 1) + "-" + api.page.info().end + " of " + api.page.info().recordsTotal + " items");
+      }
+    });
+    $("#dataTablesCopy").on("click", function (event) {
+      event.preventDefault();
+      $konularTable.buttons(0).trigger();
+    });
+
+    $("#dataTablesExcel").on("click", function (event) {
+      event.preventDefault();
+      $konularTable.buttons(1).trigger();
+    });
+
+    $("#dataTablesCsv").on("click", function (event) {
+      event.preventDefault();
+      $konularTable.buttons(2).trigger();
+    });
+
+    $("#dataTablesPdf").on("click", function (event) {
+      event.preventDefault();
+      $konularTable.buttons(3).trigger();
+    });
+
+    $('#konularTable tbody').on('click', 'tr', function () {
+      // $(this).toggleClass('selected');
+      // var $checkBox = $(this).find(".custom-checkbox input");
+      // $checkBox.prop("checked", !$checkBox.prop("checked")).trigger("change");
+      // controlCheckAll();
+    });
     
-              $($(".dataTables_wrapper .pagination li:first-of-type"))
-                .find("a")
-                .addClass("prev");
-              $($(".dataTables_wrapper .pagination li:last-of-type"))
-                .find("a")
-                .addClass("next");
-              $(".dataTables_wrapper .pagination").addClass("pagination-sm");
-              var api = $(this).dataTable().api();
-              $("#pageCountDatatable span").html("Displaying " + parseInt(api.page.info().start + 1) + "-" + api.page.info().end + " of " + api.page.info().recordsTotal + " items");
-            }
-          });
     
-          $("#dataTablesCopy").on("click", function (event) {
-            event.preventDefault();
-            $konularTable.buttons(0).trigger();
-          });
-    
-          $("#dataTablesExcel").on("click", function (event) {
-            event.preventDefault();
-            $konularTable.buttons(1).trigger();
-          });
-    
-          $("#dataTablesCsv").on("click", function (event) {
-            event.preventDefault();
-            $konularTable.buttons(2).trigger();
-          });
-    
-          $("#dataTablesPdf").on("click", function (event) {
-            event.preventDefault();
-            $konularTable.buttons(3).trigger();
-          });
-    
-          $('#konularTable tbody').on('click', 'tr', function () {
-            // $(this).toggleClass('selected');
-            // var $checkBox = $(this).find(".custom-checkbox input");
-            // $checkBox.prop("checked", !$checkBox.prop("checked")).trigger("change");
-            // controlCheckAll();
-          });
-          
-          for(let i = 0;i<$('#konularTable .soru_sayisi_input').length;i++){
-            $('#konularTable .soru_sayisi_input')[i].oninput = () => {
-              if($('#konularTable .soru_sayisi_input')[i].value > 0 && $('#konularTable .soru_sayisi_input')[i].value != null){
-                $("#konularTable #konular_div tr")[i].classList.add('selected');
-                var $checkBox = $('#konularTable .custom-control-input')[i]
-                $checkBox.checked = true;
-                controlCheckAll();
-              }else{
-                $("#konularTable #konular_div tr")[i].classList.remove('selected');
-                var $checkBox = $('#konularTable .custom-control-input')[i]
-                $checkBox.checked = false;
-                controlCheckAll();
-              }
-            }
+    for(let i = 0;i<$('#konularTable .soru_sayisi_input').length;i++){
+      $('#konularTable .soru_sayisi_input')[i].oninput = () => {
+        if($('#konularTable .soru_sayisi_input')[i].value > 0 && $('#konularTable .soru_sayisi_input')[i].value != null){
+          $("#konularTable #konular_div tr")[i].classList.add('selected');
+          var $checkBox = $('#konularTable .custom-control-input')[i]
+          $checkBox.checked = true;
+          controlCheckAll();
+        }else{
+          $("#konularTable #konular_div tr")[i].classList.remove('selected');
+          var $checkBox = $('#konularTable .custom-control-input')[i]
+          $checkBox.checked = false;
+          controlCheckAll();
+        }
+      }
+    }
+
+    $(".next").on("click",()=>{
+      for(let i = 0;i<$('#konularTable .soru_sayisi_input').length;i++){
+        $('#konularTable .soru_sayisi_input')[i].oninput = () => {
+          if($('#konularTable .soru_sayisi_input')[i].value > 0 && $('#konularTable .soru_sayisi_input')[i].value != null){
+            $("#konularTable #konular_div tr")[i].classList.add('selected');
+            var $checkBox = $('#konularTable .custom-control-input')[i]
+            $checkBox.checked = true;
+            controlCheckAll();
+          }else{
+            $("#konularTable #konular_div tr")[i].classList.remove('selected');
+            var $checkBox = $('#konularTable .custom-control-input')[i]
+            $checkBox.checked = false;
+            controlCheckAll();
           }
+        }
+      }
+    })
 
+}
 
-  }
+function konuya_gore_test_getir(konuJSON){
+  console.log("Gönderilen Konu Json",konuJSON)
+  let endpoint = "http://localhost:5006/matematik/yas-problemi/"+konuJSON.SoruSayisi;
+
+  fetch(endpoint).then(res => res.json()).then(async test => {
+    console.log(test)
+    return await test
+  })
+}

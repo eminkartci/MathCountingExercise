@@ -298,8 +298,8 @@ for(let i = 0;i<Main.dersler.length;i++){
 app.get("/dersler",(req,res)=>{
 	let dersler_json :any = {}
 	for(let ders of Main.dersler){
-		let current_dersYazisi = ders.get_DersAdi()
-		dersler_json[current_dersYazisi] = ders.toJSON()
+		let current_dersID = ders.get_DersID()
+		dersler_json[current_dersID] = ders.toJSON()
 	}
 	res.json(dersler_json)
 })

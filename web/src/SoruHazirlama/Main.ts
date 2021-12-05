@@ -16,6 +16,7 @@ export let fizik       = new Ders("2","fizik","Fizik")
 export let kimya       = new Ders("3","kimya","Kimya")
 export let biyoloji    = new Ders("4","biyoloji","Biyoloji")
 export let tarih       = new Ders("5","tarih","Tarih")
+export let cografya       = new Ders("5","cografya","Coğrafya")
 
 
 
@@ -104,5 +105,5 @@ console.log("")
 
 // console.log(fizik_test.toString())
 
-export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]
+export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]//,cografya]
  
