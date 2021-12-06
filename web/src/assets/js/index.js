@@ -51,7 +51,10 @@ myPromise.then(
 
 
     let kullanici_dersleri =  []
-    let kullanici_konulari = []
+    let kullanici_konulari_json = []
+
+    let test_icerigi_json = {}
+
 
     /////// HTML ELEMENTS //////
     let next_button = document.getElementById("next_button")
@@ -128,7 +131,7 @@ myPromise.then(
                           <td>
                               <label class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
                                   <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}" disabled>
-                                  <span class="custom-control-label">&nbsp;</span>
+                                  <span class="custom-control-label">&nbsp;</span>"
                               </label>
                           </td> 
                       </tr>
@@ -163,74 +166,54 @@ myPromise.then(
         }else if(state == 1){
 
         
-                kullanici_konulari = secilenKonular(dersler,kullanici_dersleri)
-                console.log(kullanici_konulari)
-                for(let current_konu_index=0;current_konu_index<kullanici_konulari.length;current_konu_index++){
-                  let current_konu_json = kullanici_konulari[current_konu_index]
-                  konuya_gore_test_getir(current_konu_json)
-                }
+          /// TEST İÇERİĞİNİ OLUŞTURDUĞUMUZ YER
 
-                if(kullanici_konulari.length != 0){
+          kullanici_konulari_json = secilenKonular(dersler,kullanici_dersleri)
+          let test_icerigi_konu_IDleri = []
+          let test_icerigi_ders_IDleri = []
+          let test_icerigi_soru_sayilari = []
+          for(let b = 0;b<Object.keys(kullanici_konulari_json.secilen_konular).length;b++){
+            current_secilen_konu = kullanici_konulari_json.secilen_konular[Object.keys(kullanici_konulari_json.secilen_konular)[b]]
+            test_icerigi_konu_IDleri.push(current_secilen_konu.KonuID)
+            test_icerigi_ders_IDleri.push(current_secilen_konu.DersID)
+            test_icerigi_soru_sayilari.push(current_secilen_konu.SoruSayisi)
+          }
+          test_icerigi_json["DersID_Array"] = test_icerigi_ders_IDleri
+          test_icerigi_json["KonuID_Array"] = test_icerigi_konu_IDleri
+          test_icerigi_json["SoruSayisi_Array"] = test_icerigi_soru_sayilari
 
-                    containerCard.classList.add("col-6")
-                    containerCard.classList.remove("col-10")
-                    containerCard.style.marginLeft = "25%"
-                    containerCard.style.marginTop = "5%"
-                    innerCard.style.height = "80%"
-                    cardContent.style.height = "100%"
-                    card_0.style.display = "none"
-                    card_1.style.display = "none"
-                    card_2.style.display = "block"
-                    step_2.classList.add("active")
-                    state += 1
-                    next_button.style.display = "none"
-                    submit_button.style.display = ""
-                    hata_yazdir("")
-                }else{
-                    hata_yazdir("En az bir konu seçmelisiniz.")
-                }
+
+          console.log("Test İçeriği",test_icerigi_json)
+          ///
+          if(kullanici_konulari_json.length != 0){
+
+              containerCard.classList.add("col-6")
+              containerCard.classList.remove("col-10")
+              containerCard.style.marginLeft = "25%"
+              containerCard.style.marginTop = "5%"
+              innerCard.style.height = "80%"
+              cardContent.style.height = "100%"
+              card_0.style.display = "none"
+              card_1.style.display = "none"
+              card_2.style.display = "block"
+              step_2.classList.add("active")
+              state += 1
+              next_button.style.display = "none"
+              submit_button.style.display = ""
+              hata_yazdir("")
+          }else{
+              hata_yazdir("En az bir konu seçmelisiniz.")
+          }
         }
     }
 
     submit_button.onclick = () =>{
-        
+      test_coze_gonder(test_icerigi_json)
     }
 
     
 
 
-
-    // // prev_button.onclick = () =>{
-    //     let kullanici_dersleri =  []
-
-    //     if(state == 1){
-    //         containerCard.classList.add("col-6")
-    //         containerCard.classList.remove("col-10")
-    //         containerCard.style.marginLeft = "25%"
-    //         innerCard.style.height = "80%"
-    //         cardContent.style.height = "100%"
-    //         card_0.style.display = "block"
-    //         card_1.style.display = "none"
-    //         card_2.style.display = "none"
-    //         state -= 1
-    //         // prev_button.classList.add("disabled")            
-    //     }else if(state == 2){
-    //         containerCard.classList.remove("col-6")
-    //         containerCard.classList.add("col-10")
-    //         containerCard.style.marginLeft = "8.3333333333%"
-    //         innerCard.style.height = "110%"
-    //         cardContent.style.height = "100%"
-    //         card_0.style.display = "none"
-    //         card_1.style.display = "block"
-    //         card_2.style.display = "none"
-    //         state -= 1
-    //         // prev_button.classList.remove("disabled")  
-    //         next_button.style.display = ""
-    //         submit_button.style.display = "none"
-
-            
-    //     }
-    // }
 
 }
 
@@ -276,29 +259,28 @@ function controlCheckAll() {
     $('#konularTable tbody tr .custom-checkbox input').prop("checked", true).trigger("change");
   }
 
-  function secilenKonular(dersler,secilen_dersler) {
+  function secilenKonular(dersler) {
     
 
-    let secilen_konular = [];
+    let secilen_konular_array = [];
     let secilen_rowlar = $konularTable.rows('.selected').data()
     let secilen_row_dersidIndex = "Ders ID";
     let secilen_row_sorusayisiIndex = "Soru Sayısı";
     let secilen_row_konuidIndex = "Konu ID";
     //Seçilen dersleri obje olarak alıyoruz
-    console.log("seçlien rowlar",secilen_rowlar)
     for(let i = 0;i< secilen_rowlar.length;i++){
       let current_secilen_row = secilen_rowlar[i]
       let current_dersID = $(current_secilen_row[secilen_row_dersidIndex])[0].innerText
       let current_konuID = $(current_secilen_row[secilen_row_konuidIndex])[0].innerText
       let current_SoruSayisiInput_HTMLtext = $(current_secilen_row[secilen_row_sorusayisiIndex])[0].firstElementChild
       let current_SoruSayisiInput_id = $(current_SoruSayisiInput_HTMLtext)[0].id
-      let current_SoruSayisi = document.getElementById(current_SoruSayisiInput_id).value
+      let current_SoruSayisi = parseInt(document.getElementById(current_SoruSayisiInput_id).value)
       let current_konuJSON = dersler[current_dersID].Konular[current_konuID]
       current_konuJSON["SoruSayisi"] = current_SoruSayisi
-      secilen_konular.push(current_konuJSON)
+      secilen_konular_array.push(current_konuJSON)
     }
-
-    return secilen_konular
+    let secilen_konular_json = {"secilen_konular":secilen_konular_array}
+    return secilen_konular_json
   }
 
   function tabloyu_düzenle(){
@@ -424,3 +406,25 @@ function konuya_gore_test_getir(konuJSON){
     return await test
   })
 }
+
+function test_coze_gonder(testicerigiJSON){
+  // console.log(JSON.stringify(testicerigiJSON).split("\\").join("").split("\"").join("\\\""))
+ 
+  
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "http://localhost:5006/testHTML");
+xhr.setRequestHeader("test_icerigi", JSON.stringify(testicerigiJSON));
+xhr.setRequestHeader("Cookie", "connect.sid=s%3ABBOsIzG3vHBY7QB3TgvECYFa6f7L8PXl.rEQIESkcq3h8b1etWQ%2Be8Pt8efFYno%2Bn9%2B1mgvGiqSo");
+
+xhr.send();
+  
+}
+

@@ -37,6 +37,7 @@ export class Konu{
     toJSON(){
         let Konu_json : any = {}        
         Konu_json["KonuID"] = this.KonuID
+        Konu_json["DersID"] = this.Ders.get_DersID()
         Konu_json["KonuAdi"] = this.KonuAdi
         Konu_json["KonuYazisi"] = this.KonuYazisi
         let SoruTipleri_json : any = {}

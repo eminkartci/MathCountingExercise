@@ -14,8 +14,6 @@ import flash from "express-flash"
 
 var bodyParser = require('body-parser')
 
-var jsonParser = bodyParser.json()
-
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 import * as Main from './SoruHazirlama/Main'
@@ -50,8 +48,10 @@ app.use(cors());
 //* Reqeust parsing
 app.use(methodOverride());
 app.use(cookieParser());
+app.use(bodyParser.json())
+app.use(express.urlencoded({extended:false,limit: '50mb'}))
 
-app.use(express.urlencoded({extended:false}))
+app.use(express.json({limit: '50mb'}));
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -277,6 +277,7 @@ for(let i = 0;i<Main.dersler.length;i++){
 			res.send(temp_test.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
 		})
+
 		app.get('/soru/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi(), function (req, res) {
 			let temp_soru    = new Soru("0",Ders,Konu)
 			res.send(temp_soru.toHTML(true))
@@ -294,6 +295,21 @@ for(let i = 0;i<Main.dersler.length;i++){
 		})
 	}
 }
+
+
+app.get("/testHTML",(req,res) =>{
+	console.log(chalk.green.bold("Welcome to the testHTML \n"))
+	let test_icerigi_string : any = req.headers.test_icerigi
+	let test_icerigi_json : any = JSON.parse(test_icerigi_string)
+	let DersID_Array = test_icerigi_json.DersID_Array
+	let KonuID_Array = test_icerigi_json.KonuID_Array
+	let SoruSayisi_Array = test_icerigi_json.SoruSayisi_Array
+
+	console.log(chalk.yellow("DERS IDLERİ  :"),DersID_Array)
+	console.log(chalk.yellow("KONU IDLERİ  :"),KonuID_Array)
+	console.log(chalk.yellow("SORU SAYILARI:"),SoruSayisi_Array)
+	res.send("test_icerigi")
+})
 
 app.get("/dersler",(req,res)=>{
 	let dersler_json :any = {}
