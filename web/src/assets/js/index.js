@@ -408,8 +408,8 @@ function konuya_gore_test_getir(konuJSON){
 }
 
 function test_coze_gonder(testicerigiJSON){
-  // console.log(JSON.stringify(testicerigiJSON).split("\\").join("").split("\"").join("\\\""))
- 
+  
+  window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
   
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = true;

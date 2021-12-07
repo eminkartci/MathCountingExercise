@@ -297,9 +297,9 @@ for(let i = 0;i<Main.dersler.length;i++){
 }
 
 
-app.get("/testHTML",(req,res) =>{
+app.get("/testHTML/:test_icerigi",(req,res) =>{
 	console.log(chalk.green.bold("Welcome to the testHTML \n"))
-	let test_icerigi_string : any = req.headers.test_icerigi
+	let test_icerigi_string : any = req.params.test_icerigi
 	let test_icerigi_json : any = JSON.parse(test_icerigi_string)
 	let DersID_Array = test_icerigi_json.DersID_Array
 	let KonuID_Array = test_icerigi_json.KonuID_Array
@@ -308,7 +308,7 @@ app.get("/testHTML",(req,res) =>{
 	console.log(chalk.yellow("DERS IDLERİ  :"),DersID_Array)
 	console.log(chalk.yellow("KONU IDLERİ  :"),KonuID_Array)
 	console.log(chalk.yellow("SORU SAYILARI:"),SoruSayisi_Array)
-	res.send("test_icerigi")
+	res.render("quiz.ejs",{test:test_icerigi_string})
 })
 
 app.get("/dersler",(req,res)=>{
