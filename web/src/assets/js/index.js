@@ -409,22 +409,8 @@ function konuya_gore_test_getir(konuJSON){
 
 function test_coze_gonder(testicerigiJSON){
   
-  window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
-  
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+  // window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
+  window.location.replace("http://localhost:5006/testJSON/"+JSON.stringify(testicerigiJSON))
 
-xhr.addEventListener("readystatechange", function() {
-  if(this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
-
-xhr.open("GET", "http://localhost:5006/testHTML");
-xhr.setRequestHeader("test_icerigi", JSON.stringify(testicerigiJSON));
-xhr.setRequestHeader("Cookie", "connect.sid=s%3ABBOsIzG3vHBY7QB3TgvECYFa6f7L8PXl.rEQIESkcq3h8b1etWQ%2Be8Pt8efFYno%2Bn9%2B1mgvGiqSo");
-
-xhr.send();
-  
 }
 

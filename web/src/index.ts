@@ -267,9 +267,9 @@ for(let i = 0;i<Main.dersler.length;i++){
 			res.send(temp_soru.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
-		app.get('/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi()+"/:soru_sayisi", function (req, res) {
+		app.get('/'+Ders.get_DersID()+"/"+Konu.get_KonuID()+"/:soru_sayisi", function (req, res) {
 			let soru_sayisi = parseInt(req.params.soru_sayisi)
-			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
+			let temp_test    = new Test(Main.dersler[i].get_DersAdi() + "/"+Main.dersler[i].get_Konular()[j].get_KonuAdi())
 			for(let i =0;i<soru_sayisi;i++){
 				let temp_soru    = new Soru(i.toString(),Ders,Konu)
 				temp_test.soru_ekle(temp_soru)
@@ -283,9 +283,9 @@ for(let i = 0;i<Main.dersler.length;i++){
 			res.send(temp_soru.toHTML(true))
 			console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN SORU :\n"),temp_soru)
 		})
-		app.get('/test/'+Ders.get_DersAdi()+"/"+Konu.get_KonuAdi()+"/:soru_sayisi", function (req, res) {
+		app.get('/test/'+Ders.get_DersID()+"/"+Konu.get_KonuID()+"/:soru_sayisi", function (req, res) {
 			let soru_sayisi = parseInt(req.params.soru_sayisi)
-			let temp_test    = new Test(Main.dersler[0].get_DersAdi() + "/"+Main.dersler[0].get_Konular()[0].get_KonuAdi())
+			let temp_test    = new Test(Main.dersler[i].get_DersAdi() + "/"+Main.dersler[i].get_Konular()[j].get_KonuAdi())
 			for(let i =0;i<soru_sayisi;i++){
 				let temp_soru    = new Soru(i.toString(),Ders,Konu)
 				temp_test.soru_ekle(temp_soru)
@@ -310,6 +310,87 @@ app.get("/testHTML/:test_icerigi",(req,res) =>{
 	console.log(chalk.yellow("SORU SAYILARI:"),SoruSayisi_Array)
 	res.render("quiz.ejs",{test:test_icerigi_string})
 })
+
+app.get("/testJSON/:test_icerigi",(req,res) =>{
+
+	// Test içeriğini alıp arraylere parçalıyoruz
+	let test_icerigi_string : any = req.params.test_icerigi
+	let test_icerigi_json : any = JSON.parse(test_icerigi_string)
+	let DersID_Array = test_icerigi_json.DersID_Array
+	let KonuID_Array = test_icerigi_json.KonuID_Array
+	let SoruSayisi_Array = test_icerigi_json.SoruSayisi_Array
+	let temp_test    = new Test("-")
+
+	let toplam_soru_sayisi = 0
+
+	// Test içeriğindeki dersleri döndürüyoruz
+	for(let i = 0;i<DersID_Array.length;i++){
+		// Dersleri Döndürüyoruz
+		for(let j = 0;j< Main.dersler.length;j++){
+			if(Main.dersler[j].get_DersID() == DersID_Array[i]){
+				let current_Ders = Main.dersler[j]
+				// Dersin Konularını Döndürüyoruz
+				for(let x = 0;x<current_Ders.get_Konular().length;x++){
+					if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[i]){
+						let current_Konu = current_Ders.get_Konular()[x]
+						// Konunun Soru Sayısını Döndürüyoruz
+						for(let k = 0;k < SoruSayisi_Array[i];k++){
+							toplam_soru_sayisi += 1;
+							temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
+						}	
+						break				
+					}
+				}
+				break
+			}
+		}
+	}
+
+	console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
+	res.send(temp_test.toJSON())
+})
+
+app.get("/html/testJSON/:test_icerigi",(req,res) =>{
+
+	
+	// Test içeriğini alıp arraylere parçalıyoruz
+	let test_icerigi_string : any = req.params.test_icerigi
+	let test_icerigi_json : any = JSON.parse(test_icerigi_string)
+	let DersID_Array = test_icerigi_json.DersID_Array
+	let KonuID_Array = test_icerigi_json.KonuID_Array
+	let SoruSayisi_Array = test_icerigi_json.SoruSayisi_Array
+	let temp_test    = new Test("-")
+
+	let toplam_soru_sayisi = 0
+
+	// Test içeriğindeki dersleri döndürüyoruz
+	for(let i = 0;i<DersID_Array.length;i++){
+		// Dersleri Döndürüyoruz
+		for(let j = 0;j< Main.dersler.length;j++){
+			if(Main.dersler[j].get_DersID() == DersID_Array[i]){
+				let current_Ders = Main.dersler[j]
+				// Dersin Konularını Döndürüyoruz
+				for(let x = 0;x<current_Ders.get_Konular().length;x++){
+					if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[i]){
+						let current_Konu = current_Ders.get_Konular()[x]
+						// Konunun Soru Sayısını Döndürüyoruz
+						for(let k = 0;k < SoruSayisi_Array[i];k++){
+							toplam_soru_sayisi += 1;
+							temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
+						}	
+						break				
+					}
+				}
+				break
+			}
+		}
+	}
+
+	console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
+	res.send(temp_test.toHTML())
+})
+
+
 
 app.get("/dersler",(req,res)=>{
 	let dersler_json :any = {}
