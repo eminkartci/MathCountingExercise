@@ -409,8 +409,7 @@ function konuya_gore_test_getir(konuJSON){
 
 function test_coze_gonder(testicerigiJSON){
   
-  // window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
-  window.location.replace("http://localhost:5006/testJSON/"+JSON.stringify(testicerigiJSON))
+  window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
 
 }
 
