@@ -86,17 +86,7 @@ function loadStyle(href, callback) {
       <label class="custom-control-label" for="flatRadio">Flat</label>
     </div>
   </div>
-  <div class="p-4">
-    <p class="text-muted mb-2">Direction</p>
-    <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" id="ltrRadio" name="directionRadio" class="custom-control-input direction-radio" data-direction="ltr">
-    <label class="custom-control-label" for="ltrRadio">Ltr</label>
-  </div>
-  <div class="custom-control custom-radio custom-control-inline">
-    <input type="radio" id="rtlRadio" name="directionRadio" class="custom-control-input direction-radio" data-direction="rtl">
-    <label class="custom-control-label" for="rtlRadio">Rtl</label>
-  </div>
-</div>
+  
 <a href="#" class="theme-button"> <i class="simple-icon-magic-wand"></i> </a>
 </div>
 `;

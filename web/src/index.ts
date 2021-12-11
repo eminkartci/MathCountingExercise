@@ -110,6 +110,10 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 app.use(authRouter)
 
 app.get("/",(req, res) => {
+    res.redirect("soru-coz")
+});
+
+app.get("/soru-coz",(req, res) => {
     res.render('index.ejs')
 });
 
@@ -130,6 +134,10 @@ app.post("/login",passport.authenticate("local",{
 app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
+
+app.get("/soru-takvimi",(req,res)=>{
+	res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+})	
 
 
 app.get("/profil",(req, res) => {
