@@ -80,7 +80,44 @@ const Kullanici = sequelize.define(
 	}
 );
 
+const SoruTakvimi = sequelize.define(
+	"soru_takvimi",
+	{
+		sorucozumu_id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		tarih: {
+			type: DataTypes.STRING,
+		},
+		ders_id: {
+			type: DataTypes.INTEGER,
+		},
+		konu_id: {
+			type: DataTypes.INTEGER,
+		},
+		toplam_soru_sayisi: {
+			type: DataTypes.INTEGER,
+		},
+		dogru_soru_sayisi: {
+			type: DataTypes.INTEGER,
+		},
+		yanlis_soru_sayisi: {
+			type: DataTypes.INTEGER,
+		},
+		kisisel_degerlendirme: {
+			type: DataTypes.INTEGER,
+		}
+	},
+	{
+		freezeTableName: true,
+		createdAt: false,
+		updatedAt: false,
+	}
+);
+
 // Export
 //https://www.npmjs.com/package/sequelize-views-support
 export default sequelize;
-export { User,Kullanici};
+export { User,Kullanici,SoruTakvimi};

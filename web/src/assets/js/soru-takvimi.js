@@ -4,7 +4,7 @@ let konu_ekle_button = document.getElementById("konu_ekle")
 let ders_adi = document.getElementById("ders_adi_input")
 let konu_adi = document.getElementById("konu_adi_input")
 let soru_sayisi = document.getElementById("soru_sayisi_input")
-let dogri_sayisi = document.getElementById("dogri_sayisi_input")
+let dogru_sayisi = document.getElementById("dogru_sayisi_input")
 let yanlis_sayisi = document.getElementById("yanlis_sayisi_input")
 
 let tarih_secici = document.getElementById("tarih_secici")
@@ -73,15 +73,16 @@ var settings = {
         // console.log("ders adi",ders_adi.value)
         // console.log("konu adi",konu_adi.value)
         // console.log("soru_sayisi",soru_sayisi.value)
-        // console.log("dogri sayisi",dogri_sayisi.value)
+        // console.log("dogri sayisi",dogru_sayisi.value)
         // console.log("yanlis sayisi",yanlis_sayisi.value)
 
 
-        if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogri_sayisi.value != null && yanlis_sayisi.value != null && parseInt( soru_sayisi.value)> 0 && parseInt( dogri_sayisi.value) >= 0 && parseInt( yanlis_sayisi.value) >= 0 && parseInt( soru_sayisi.value) >= (parseInt( dogri_sayisi.value)+parseInt( yanlis_sayisi.value))){            
+        if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogru_sayisi.value != null && yanlis_sayisi.value != null && parseInt( soru_sayisi.value)> 0 && parseInt( dogru_sayisi.value) >= 0 && parseInt( yanlis_sayisi.value) >= 0 && parseInt( soru_sayisi.value) >= (parseInt( dogru_sayisi.value)+parseInt( yanlis_sayisi.value))){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]
             console.log("tiklandi")
-            tabloya_konu_ekle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,soru_sayisi.value,dogri_sayisi.value,yanlis_sayisi.value)
+            tabloya_konu_ekle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,soru_sayisi.value,dogru_sayisi.value,yanlis_sayisi.value)
+            soru_takvimi_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(soru_sayisi.value),parseInt(dogru_sayisi.value),parseInt(yanlis_sayisi.value),parseInt(10))
         }
     }
 
@@ -89,7 +90,7 @@ var settings = {
 
 })
 
-function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogri_sayisi,yanlis_sayisi){
+function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_sayisi){
     gunluk_ozet_tablo_body.innerHTML += `
     
     <tr role="row" class="odd" style="display:flex;">
@@ -103,7 +104,7 @@ function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogri_sayisi,yanlis_say
             <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${dogri_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${dogru_sayisi}</p>
         </td>
         <td style="width:20%">
             <p class="text-muted" style="text-align:center">${yanlis_sayisi}</p>
@@ -111,4 +112,36 @@ function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogri_sayisi,yanlis_say
     </tr>
 
     `
+}
+
+function soru_takvimi_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,kisisel_degerlendirme){
+
+    var form = new FormData();
+    form.append("tarih", tarih);
+    form.append("ders_id", ders_id);
+    form.append("konu_id", konu_id);
+    form.append("toplam_soru_sayisi", toplam_soru_sayisi);
+    form.append("dogru_soru_sayisi", dogru_soru_sayisi);
+    form.append("yanlis_soru_sayisi", yanlis_soru_sayisi);
+    form.append("kisisel_degerlendirme", kisisel_degerlendirme);
+
+    var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": `http://localhost:5006/soru-takvimi/ekle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
+    "method": "POST",
+    "headers": {
+        "cache-control": "no-cache",
+        "postman-token": "70368b63-2fa2-41a8-e490-f2e5eb3a8480"
+    },
+    "processData": false,
+    "contentType": false,
+    "mimeType": "multipart/form-data",
+    "data": form
+    }
+
+    $.ajax(settings).done(function (response) {
+    console.log(response);
+    });
+
 }

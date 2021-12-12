@@ -87,7 +87,7 @@ if (dev) {
 }
 
 //* App Start
-import sequelize, { Kullanici } from "./db";
+import sequelize, { Kullanici,SoruTakvimi } from "./db";
 import authRouter, { passport, protect } from "./core/auth";
 import kayitRouter from "./core/kayit"
 import apiRouter from "./core/api";
@@ -137,7 +137,24 @@ app.get("/register",(req, res) => {
 
 app.get("/soru-takvimi",(req,res)=>{
 	res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
-})	
+})
+
+app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
+	let yeni_veri : any = req.query
+	console.log(yeni_veri)
+	SoruTakvimi.create({
+		tarih 					: yeni_veri.tarih,
+		ders_id					: yeni_veri.ders_id,
+		konu_id					: yeni_veri.konu_id,
+		toplam_soru_sayisi		: yeni_veri.toplam_soru_sayisi,
+		dogru_soru_sayisi		: yeni_veri.dogru_soru_sayisi,
+		yanlis_soru_sayisi		: yeni_veri.yanlis_soru_sayisi,
+		kisisel_degerlendirme	: yeni_veri.kisisel_degerlendirme
+	})
+
+	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	res.end()
+})
 
 
 app.get("/profil",(req, res) => {
@@ -397,7 +414,6 @@ app.get("/html/testJSON/:test_icerigi",(req,res) =>{
 	console.log(chalk.hex('#FFF01F').bold.underline("\nOLUŞTURULAN TEST :\n"),temp_test)
 	res.send(temp_test.toHTML())
 })
-
 
 
 app.get("/dersler",(req,res)=>{
