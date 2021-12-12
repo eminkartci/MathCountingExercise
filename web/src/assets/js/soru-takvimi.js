@@ -1,26 +1,114 @@
-let ders_inputlari = $(".ders_input")
+console.log("hello world")
+let gunluk_ozet_tablo_body = document.getElementById("gunluk_ozet_tablo_body")
+let konu_ekle_button = document.getElementById("konu_ekle")
+let ders_adi = document.getElementById("ders_adi_input")
+let konu_adi = document.getElementById("konu_adi_input")
+let soru_sayisi = document.getElementById("soru_sayisi_input")
+let dogri_sayisi = document.getElementById("dogri_sayisi_input")
+let yanlis_sayisi = document.getElementById("yanlis_sayisi_input")
 
-let konu_inputlari = $(".konu_input")
-let sayi_inputlari_div = $(".sayi_inputlari_div")
+let tarih_secici = document.getElementById("tarih_secici")
+var today = new Date();
+var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
+console.log("date",date)
+tarih_secici.value = date
 
-console.log("ders inputları",ders_inputlari)
-console.log("konu inputları",konu_inputlari)
-console.log("sayi inputlariinputları",sayi_inputlari_div)
+gunluk_ozet_tablo_body.innerHTML = ""
 
-for(let i = 0 ;i < ders_inputlari.length;i++){
-    ders_inputlari[i].onchange = () =>{
-        if(ders_inputlari[i].value != null && konu_inputlari[i].value != null){
-            sayi_inputlari_div[i].style.display = "block"
-        }else{
-            sayi_inputlari_div[i].style.display = "none"
+// Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
+let dersler;
+
+var settings = {
+    "url": "http://localhost:5006/dersler",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Cookie": "connect.sid=s%3ACe1E1jk_2_DLE_iszl3bz62Zk6tEaJqK.4KZYfEBs%2FqSOyxqFw1jhWON8AM1g5hrml64eOuY2r00"
+    },
+  };
+  
+  $.ajax(settings).done(function (dersler_value) {
+      
+    dersler = dersler_value
+    ders_adi.innerHTML = `
+    <option label="&nbsp;">&nbsp;</option>                        
+        <optgroup label="Dersler">
+    `
+    let ders_sayisi = Object.keys(dersler).length
+    for(let i = 0;i<ders_sayisi;i++){
+        ders_adi.innerHTML += `<option value="${dersler[Object.keys(dersler)[i]].DersID}">${dersler[Object.keys(dersler)[i]].DersYazisi}</option>`
+    }
+
+    ders_adi.innerHTML += `                      
+        </optgroup>
+    `
+
+    ders_adi.onchange = () =>{
+        if(ders_adi.value != null){
+            try {
+                    
+                
+                let secilen_ders_konulari = dersler[ders_adi.value].Konular
+                konu_adi.innerHTML = `<option label="&nbsp;">&nbsp;</option>                        
+                <optgroup label="Konular">`
+
+                let konu_sayisi = Object.keys(secilen_ders_konulari).length;
+                for(let i = 0;i<konu_sayisi;i++){
+                    konu_adi.innerHTML += `<option value="${secilen_ders_konulari[Object.keys(secilen_ders_konulari)[i]].KonuID}">${secilen_ders_konulari[Object.keys(secilen_ders_konulari)[i]].KonuYazisi}</option>`                    
+                }
+
+                konu_adi.innerHTML += `                      
+                    </optgroup>
+                `
+            } catch (error) {
+                konu_adi.innerHTML = ``
+            }
+        }else if(ders_adi.value == null || ders_adi.value == ' '){
+            konu_adi.innerHTML = ``
         }
     }
 
-    konu_inputlari[i].onchange = () =>{
-        if(ders_inputlari[i].value != null && konu_inputlari[i].value != null){
-            sayi_inputlari_div[i].style.display = "block"
-        }else{
-            sayi_inputlari_div[i].style.display = "none"
+
+    konu_ekle_button.onclick = () =>{
+        // console.log("ders adi",ders_adi.value)
+        // console.log("konu adi",konu_adi.value)
+        // console.log("soru_sayisi",soru_sayisi.value)
+        // console.log("dogri sayisi",dogri_sayisi.value)
+        // console.log("yanlis sayisi",yanlis_sayisi.value)
+
+
+        if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogri_sayisi.value != null && yanlis_sayisi.value != null && parseInt( soru_sayisi.value)> 0 && parseInt( dogri_sayisi.value) >= 0 && parseInt( yanlis_sayisi.value) >= 0 && parseInt( soru_sayisi.value) >= (parseInt( dogri_sayisi.value)+parseInt( yanlis_sayisi.value))){            
+            let secilen_ders = dersler[ders_adi.value]
+            let secilen_konu = secilen_ders.Konular[konu_adi.value]
+            console.log("tiklandi")
+            tabloya_konu_ekle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,soru_sayisi.value,dogri_sayisi.value,yanlis_sayisi.value)
         }
     }
+
+
+
+})
+
+function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogri_sayisi,yanlis_sayisi){
+    gunluk_ozet_tablo_body.innerHTML += `
+    
+    <tr role="row" class="odd" style="display:flex;">
+        <td style="width:20%" tabindex="0">
+            <p class="list-item-heading">${ders_adi}</p>
+        </td>
+        <td style="width:20%">
+            <p class="text-muted">${konu_adi}</p>
+        </td>
+        <td style="width:20%">
+            <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
+        </td>
+        <td style="width:20%">
+            <p class="text-muted" style="text-align:center">${dogri_sayisi}</p>
+        </td>
+        <td style="width:20%">
+            <p class="text-muted" style="text-align:center">${yanlis_sayisi}</p>
+        </td>
+    </tr>
+
+    `
 }
