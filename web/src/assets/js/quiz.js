@@ -40,10 +40,10 @@ function soru_ekle(soru){
         siklar_HTML += 
         `
         <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio1_${soru_sayisi}"
+            <input type="radio" id="customRadio${i+1}_${soru_sayisi}"
                 name="customRadio_${soru_sayisi}" class="custom-control-input">
             <label class="custom-control-label"
-                for="customRadio1_${soru_sayisi}">${soru.Siklar[i]}</label>
+                for="customRadio${i+1}_${soru_sayisi}">${soru.Siklar[i]}</label>
         </div>
         `
     }
