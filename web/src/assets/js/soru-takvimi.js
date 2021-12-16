@@ -86,6 +86,12 @@ var settings = {
         }
     }
 
+    tarih_secici.onchange = () => {
+        let secilenTarih = tarih_secici.value;
+
+        
+    }
+
 
 
 })
