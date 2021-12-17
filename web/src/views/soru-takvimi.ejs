@@ -749,8 +749,42 @@
                     <div class="separator mb-5"></div>
                 </div>
             </div>
-            <div class="row" style="min-height: 600px;height:80%">
-                <div class="col-6 mb-4" >
+            <div class="row" style="min-height: 600px;height:80%">    
+                <style>
+                    @media only screen and (max-width: 600px) {
+                        .after-col-12 {
+                            -webkit-box-flex: 0;
+                            -ms-flex: 0 0 100%;
+                            flex: 0 0 100%;
+                            max-width: 100%; 
+                        }
+                      }
+                </style>            
+                <div class="col-6 after-col-12 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label>Tarih <p class="text-muted">(AA/GG/YYYY)</p> </label>
+                                <input class="form-control datepicker" placeholder="AA/GG/YYYY" id="tarih_secici">
+                            </div>
+                            <table style="width: 100%;">
+                                <thead>
+                                    <tr style="display: flex;">
+                                        <th style="width: 20%;">Ders</th>
+                                        <th style="width: 20%;">Konu</th>
+                                        <th style="width: 20%;text-align:center">Soru Sayısı</th>
+                                        <th style="width: 20%;text-align:center">Doğru Sayısı</th>
+                                        <th style="width: 20%;text-align:center">Yanlış Sayısı</th>
+                                        <hr style="width:100%">
+                                    </tr>
+                                </thead>
+                                <tbody id="gunluk_ozet_tablo_body">
+                                </tbody>
+                            </table>    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 after-col-12 mb-4" >
                     <div class="card h-100">
                         <div class="card-body">
                             <div id="tooltipHelpers" novalidate="novalidate" class="tooltip-label-right">
@@ -863,30 +897,6 @@
                                     </div>
                                 </div><button class="btn btn-primary" style="position: absolute;bottom:3rem;right:3rem" id="konu_ekle">Ekle</button>
                             </div>                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="form-group mb-3">
-                                <label>Tarih <p class="text-muted">(AA/GG/YYYY)</p> </label>
-                                <input class="form-control datepicker" placeholder="AA/GG/YYYY" id="tarih_secici">
-                            </div>
-                            <table style="width: 100%;">
-                                <thead>
-                                    <tr style="display: flex;">
-                                        <th style="width: 20%;">Ders</th>
-                                        <th style="width: 20%;">Konu</th>
-                                        <th style="width: 20%;text-align:center">Soru Sayısı</th>
-                                        <th style="width: 20%;text-align:center">Doğru Sayısı</th>
-                                        <th style="width: 20%;text-align:center">Yanlış Sayısı</th>
-                                        <hr style="width:100%">
-                                    </tr>
-                                </thead>
-                                <tbody id="gunluk_ozet_tablo_body">
-                                </tbody>
-                            </table>    
                         </div>
                     </div>
                 </div>

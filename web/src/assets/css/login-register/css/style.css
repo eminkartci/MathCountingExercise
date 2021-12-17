@@ -549,7 +549,8 @@ pre {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 50%;
   flex: 0 0 50%;
-  max-width: 50%; }
+  max-width: 50%; 
+}
 
 .col-7 {
   -webkit-box-flex: 0;
