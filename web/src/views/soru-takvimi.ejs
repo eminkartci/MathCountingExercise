@@ -752,15 +752,18 @@
             <div class="row" style="min-height: 600px;height:80%">    
                 <style>
                     @media only screen and (max-width: 600px) {
-                        .after-col-12 {
+                        .mobile-col-12 {
                             -webkit-box-flex: 0;
                             -ms-flex: 0 0 100%;
                             flex: 0 0 100%;
                             max-width: 100%; 
                         }
+                        .mobile-input{
+                            min-height: 550px;
+                        }
                       }
                 </style>            
-                <div class="col-6 after-col-12 mb-4">
+                <div class="col-6 mobile-col-12 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="form-group mb-3">
@@ -770,12 +773,11 @@
                             <table style="width: 100%;">
                                 <thead>
                                     <tr style="display: flex;">
-                                        <th style="width: 20%;">Ders</th>
-                                        <th style="width: 20%;">Konu</th>
-                                        <th style="width: 20%;text-align:center">Soru Sayısı</th>
-                                        <th style="width: 20%;text-align:center">Doğru Sayısı</th>
-                                        <th style="width: 20%;text-align:center">Yanlış Sayısı</th>
-                                        <hr style="width:100%">
+                                        <th style="width: 20%;text-align:center">Ders <hr> </th>
+                                        <th style="width: 20%;text-align:center">Konu<hr></th>
+                                        <th style="width: 20%;text-align:center">Soru Sayısı<hr></th>
+                                        <th style="width: 20%;text-align:center">Doğru Sayısı<hr></th>
+                                        <th style="width: 20%;text-align:center">Yanlış Sayısı<hr></th>                                    
                                     </tr>
                                 </thead>
                                 <tbody id="gunluk_ozet_tablo_body">
@@ -784,7 +786,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 after-col-12 mb-4" >
+                <div class="col-6 mobile-col-12 mb-4 mobile-input" >
                     <div class="card h-100">
                         <div class="card-body">
                             <div id="tooltipHelpers" novalidate="novalidate" class="tooltip-label-right">

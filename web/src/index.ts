@@ -143,7 +143,7 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	let yeni_veri : any = req.query
 	console.log(yeni_veri)
 	SoruTakvimi.create({
-	kullanici_adi      			: yeni_veri.kullanici_adi,
+		// kullanici_adi      		: yeni_veri.kullanici_adi,
 		tarih 					: yeni_veri.tarih,
 		ders_id					: yeni_veri.ders_id,
 		konu_id					: yeni_veri.konu_id,
@@ -160,13 +160,21 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 	let tarih = req.params.tarih;
 
-	let soruKTakvimiKayitlar = SoruTakvimi.findAll({
+	//tarih formatını düzeltiyoruz
+	tarih = tarih.split("-").join("/")
+
+	let soruKTakvimiKayitlarDatatableArray : any = await SoruTakvimi.findAll({
 		where: {
 			tarih: tarih
 		}
 	})
+	let soruKTakvimiKayitlar :any = {}
+	for(let i = 0 ;i < soruKTakvimiKayitlarDatatableArray.length;i++){
+		soruKTakvimiKayitlar[i] = soruKTakvimiKayitlarDatatableArray[i]
+	}
+
 	console.log(soruKTakvimiKayitlar)
-	res.json((await soruKTakvimiKayitlar).values())
+	res.json(soruKTakvimiKayitlar)
 })
 
 

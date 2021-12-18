@@ -1,4 +1,3 @@
-console.log("hello world")
 let gunluk_ozet_tablo_body = document.getElementById("gunluk_ozet_tablo_body")
 let konu_ekle_button = document.getElementById("konu_ekle")
 let ders_adi = document.getElementById("ders_adi_input")
@@ -10,10 +9,32 @@ let yanlis_sayisi = document.getElementById("yanlis_sayisi_input")
 let tarih_secici = document.getElementById("tarih_secici")
 var today = new Date();
 var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-console.log("date",date)
 tarih_secici.value = date
 
 gunluk_ozet_tablo_body.innerHTML = ""
+let soru_takvimi_ders_rengi = "#fff"
+var requestOptions_1 = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+fetch("http://localhost:5006/soru-takvimi/getir/"+date.split("/").join("-"), requestOptions_1)
+.then(response => response.text())
+.then(result =>  {
+
+    result = JSON.parse(result)
+
+    gunluk_ozet_tablo_body.innerHTML = ""
+    for(let i = 0 ;i < Object.keys(result).length;i++){
+        let mevcut_soru_takvimi = result[i]
+        let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
+        let mevcut_konu = mevcut_ders.Konular[mevcut_soru_takvimi.konu_id]
+
+        tabloya_konu_ekle(mevcut_ders.DersYazisi,mevcut_konu.KonuYazisi,mevcut_soru_takvimi.toplam_soru_sayisi,mevcut_soru_takvimi.dogru_soru_sayisi,mevcut_soru_takvimi.yanlis_soru_sayisi)
+    }
+
+
+})
+.catch(error => console.log('error', error));
 
 // Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
 let dersler;
@@ -88,6 +109,30 @@ var settings = {
 
     tarih_secici.onchange = () => {
         let secilenTarih = tarih_secici.value;
+        soru_takvimi_ders_rengi = "#fff"
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+        let fetch_tarih_format = secilenTarih.split("/").join("-")
+        fetch("http://localhost:5006/soru-takvimi/getir/"+fetch_tarih_format, requestOptions)
+        .then(response => response.text())
+        .then(result =>  {
+
+            result = JSON.parse(result)
+
+            gunluk_ozet_tablo_body.innerHTML = ""
+            for(let i = 0 ;i < Object.keys(result).length;i++){
+                let mevcut_soru_takvimi = result[i]
+                let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
+                let mevcut_konu = mevcut_ders.Konular[mevcut_soru_takvimi.konu_id]
+                tabloya_konu_ekle(mevcut_ders.DersYazisi,mevcut_konu.KonuYazisi,mevcut_soru_takvimi.toplam_soru_sayisi,mevcut_soru_takvimi.dogru_soru_sayisi,mevcut_soru_takvimi.yanlis_soru_sayisi)
+            }
+
+
+        })
+        .catch(error => console.log('error', error));
 
         
     }
@@ -99,12 +144,12 @@ var settings = {
 function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_sayisi){
     gunluk_ozet_tablo_body.innerHTML += `
     
-    <tr role="row" class="odd" style="display:flex;">
+    <tr role="row" class="odd" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}">
         <td style="width:20%" tabindex="0">
-            <p class="list-item-heading">${ders_adi}</p>
+            <p class="list-item-heading" style="text-align:center">${ders_adi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted">${konu_adi}</p>
+            <p class="text-muted" style="text-align:center">${konu_adi}</p>
         </td>
         <td style="width:20%">
             <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
@@ -118,6 +163,12 @@ function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_say
     </tr>
 
     `
+
+    if(soru_takvimi_ders_rengi != "#fff"){
+        soru_takvimi_ders_rengi= "#fff"
+    }else{
+        soru_takvimi_ders_rengi= "#f8f8f8"
+    }
 }
 
 function soru_takvimi_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,kisisel_degerlendirme){
@@ -151,3 +202,4 @@ function soru_takvimi_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_s
     });
 
 }
+
