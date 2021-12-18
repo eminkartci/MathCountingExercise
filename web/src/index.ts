@@ -157,6 +157,24 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	res.end()
 })
 
+app.post("/soru-takvimi/guncelle",urlencodedParser, async (req,res)=>{
+	let yeni_veri : any = req.query
+	let guncellenecek_soru_takvimi = await SoruTakvimi.findOne({
+		 where: {
+			  tarih: yeni_veri.tarih, konu_id:yeni_veri.konu_id 
+			} 
+		})
+		
+		guncellenecek_soru_takvimi?.setDataValue("toplam_soru_sayisi",yeni_veri.toplam_soru_sayisi)
+		guncellenecek_soru_takvimi?.setDataValue("dogru_soru_sayisi",yeni_veri.dogru_soru_sayisi)
+		guncellenecek_soru_takvimi?.setDataValue("yanlis_soru_sayisi",yeni_veri.yanlis_soru_sayisi)
+
+		guncellenecek_soru_takvimi?.save()
+
+	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	res.end()
+})
+
 app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 	let tarih = req.params.tarih;
 
@@ -176,6 +194,8 @@ app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 	console.log(soruKTakvimiKayitlar)
 	res.json(soruKTakvimiKayitlar)
 })
+
+
 
 
 app.get("/profil",(req, res) => {
