@@ -68,7 +68,7 @@ var settings = {
         </optgroup>
     `
 
-    ders_adi.oninput = () =>{
+    ders_adi.onchange = () =>{
         if(ders_adi.value != null){
             try {
                     
@@ -94,13 +94,12 @@ var settings = {
         }
     }
 
-    konu_adi.oninput = () => {
+    konu_adi.onchange = () => {
         soru_takviminde_onceden_varsa()
     }
 
 
     konu_ekle_button.onclick = () =>{
-        soru_takviminde_onceden_varsa()
         // console.log("ders adi",ders_adi.value)
         // console.log("konu adi",konu_adi.value)
         // console.log("soru_sayisi",soru_sayisi.value)
@@ -122,9 +121,41 @@ var settings = {
                 soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(soru_sayisi.value),parseInt(dogru_sayisi.value),parseInt(yanlis_sayisi.value),parseInt(10))
             }
         }
+
+        soru_takviminde_onceden_varsa()
+        let secilenTarih = tarih_secici.value;
+        soru_takvimi_ders_rengi = "#fff"
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+        let fetch_tarih_format = secilenTarih.split("/").join("-")
+        fetch("http://localhost:5006/soru-takvimi/getir/"+fetch_tarih_format, requestOptions)
+        .then(response => response.text())
+        .then(result =>  {
+
+            result = JSON.parse(result)
+            mevcut_tarihin_soru_takvimi_json = result
+
+            gunluk_ozet_tablo_body.innerHTML = ""
+            tablodaki_mevcut_soru_takvimi_tr_HTML_array = []
+            for(let i = 0 ;i < Object.keys(result).length;i++){
+                let mevcut_soru_takvimi = result[i]
+                let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
+                let mevcut_konu = mevcut_ders.Konular[mevcut_soru_takvimi.konu_id]
+                tabloya_konu_ekle(mevcut_ders.DersYazisi,mevcut_konu.KonuYazisi,mevcut_soru_takvimi.toplam_soru_sayisi,mevcut_soru_takvimi.dogru_soru_sayisi,mevcut_soru_takvimi.yanlis_soru_sayisi)
+            }
+
+
+        })
+        .catch(error => console.log('error', error));
+
+        soru_takviminde_onceden_varsa()
+
     }
 
-    tarih_secici.oninput = () => {
+    tarih_secici.onchange = () => {
         soru_takviminde_onceden_varsa()
         let secilenTarih = tarih_secici.value;
         soru_takvimi_ders_rengi = "#fff"
@@ -336,4 +367,7 @@ function soru_takviminde_onceden_varsa(){
             }
         }
     }
+    console.log("hey")
 }
+
+setInterval(soru_takviminde_onceden_varsa, 1000);
