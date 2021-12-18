@@ -367,7 +367,6 @@ function soru_takviminde_onceden_varsa(){
             }
         }
     }
-    console.log("hey")
 }
 
 setInterval(soru_takviminde_onceden_varsa, 1000);
