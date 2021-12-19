@@ -2,9 +2,9 @@ let gunluk_ozet_tablo_body = document.getElementById("gunluk_ozet_tablo_body")
 let konu_ekle_button = document.getElementById("konu_ekle")
 let ders_adi = document.getElementById("ders_adi_input")
 let konu_adi = document.getElementById("konu_adi_input")
-let soru_sayisi = document.getElementById("soru_sayisi_input")
-let dogru_sayisi = document.getElementById("dogru_sayisi_input")
-let yanlis_sayisi = document.getElementById("yanlis_sayisi_input")
+let toplam_soru_sayisi_input = document.getElementById("soru_sayisi_input")
+let dogru_soru_sayisi_input = document.getElementById("dogru_sayisi_input")
+let yanlis_soru_sayisi_input = document.getElementById("yanlis_sayisi_input")
 
 let tarih_secici = document.getElementById("tarih_secici")
 var today = new Date();
@@ -13,6 +13,7 @@ tarih_secici.value = date
 
 mevcut_tarihin_soru_takvimi_json = {}
 tablodaki_mevcut_soru_takvimi_tr_HTML_array = []
+tablodaki_mevcut_soru_takvimi_ders_konu_array = []
 
 gunluk_ozet_tablo_body.innerHTML = ""
 let soru_takvimi_ders_rengi = "#fff"
@@ -29,6 +30,7 @@ fetch("http://localhost:5006/soru-takvimi/getir/"+date.split("/").join("-"), req
 
     gunluk_ozet_tablo_body.innerHTML = ""
     tablodaki_mevcut_soru_takvimi_tr_HTML_array = []
+    tablodaki_mevcut_soru_takvimi_ders_konu_array = []
     for(let i = 0 ;i < Object.keys(result).length;i++){
         let mevcut_soru_takvimi = result[i]
         let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
@@ -89,7 +91,7 @@ var settings = {
                 konu_adi.innerHTML = ``
             }
             soru_takviminde_onceden_varsa()
-        }else if(ders_adi.value == null || ders_adi.value == ' '){
+        }else if(ders_adi.value == null || ders_adi.value == ' '){
             konu_adi.innerHTML = ``
         }
     }
@@ -100,25 +102,20 @@ var settings = {
 
 
     konu_ekle_button.onclick = () =>{
-        // console.log("ders adi",ders_adi.value)
-        // console.log("konu adi",konu_adi.value)
-        // console.log("soru_sayisi",soru_sayisi.value)
-        // console.log("dogri sayisi",dogru_sayisi.value)
-        // console.log("yanlis sayisi",yanlis_sayisi.value)
 
         if(konu_ekle_button.innerHTML == "Ekle"){
-            if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogru_sayisi.value != null && yanlis_sayisi.value != null && parseInt( soru_sayisi.value)> 0 && parseInt( dogru_sayisi.value) >= 0 && parseInt( yanlis_sayisi.value) >= 0 && parseInt( soru_sayisi.value) >= (parseInt( dogru_sayisi.value)+parseInt( yanlis_sayisi.value))){            
+            if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value))){            
                 let secilen_ders = dersler[ders_adi.value]
                 let secilen_konu = secilen_ders.Konular[konu_adi.value]
-                tabloya_konu_ekle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,soru_sayisi.value,dogru_sayisi.value,yanlis_sayisi.value)
-                soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(soru_sayisi.value),parseInt(dogru_sayisi.value),parseInt(yanlis_sayisi.value),parseInt(10))
+                tabloya_konu_ekle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,toplam_soru_sayisi_input.value,dogru_soru_sayisi_input.value,yanlis_soru_sayisi_input.value)
+                soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(10))
             }
         }else if(konu_ekle_button.innerHTML == "Güncelle"){
-            if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogru_sayisi.value != null && yanlis_sayisi.value != null && parseInt( soru_sayisi.value)> 0 && parseInt( dogru_sayisi.value) >= 0 && parseInt( yanlis_sayisi.value) >= 0 && parseInt( soru_sayisi.value) >= (parseInt( dogru_sayisi.value)+parseInt( yanlis_sayisi.value))){            
+            if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value))){            
                 let secilen_ders = dersler[ders_adi.value]
                 let secilen_konu = secilen_ders.Konular[konu_adi.value]
-                tabloya_konu_guncelle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,soru_sayisi.value,dogru_sayisi.value,yanlis_sayisi.value)
-                soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(soru_sayisi.value),parseInt(dogru_sayisi.value),parseInt(yanlis_sayisi.value),parseInt(10))
+                tabloya_konu_guncelle(secilen_ders.DersYazisi,secilen_konu.KonuYazisi,toplam_soru_sayisi_input.value,dogru_soru_sayisi_input.value,yanlis_soru_sayisi_input.value)
+                soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(10))
             }
         }
 
@@ -140,6 +137,7 @@ var settings = {
 
             gunluk_ozet_tablo_body.innerHTML = ""
             tablodaki_mevcut_soru_takvimi_tr_HTML_array = []
+            tablodaki_mevcut_soru_takvimi_ders_konu_array = []
             for(let i = 0 ;i < Object.keys(result).length;i++){
                 let mevcut_soru_takvimi = result[i]
                 let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
@@ -174,6 +172,7 @@ var settings = {
 
             gunluk_ozet_tablo_body.innerHTML = ""
             tablodaki_mevcut_soru_takvimi_tr_HTML_array = []
+            tablodaki_mevcut_soru_takvimi_ders_konu_array = []
             for(let i = 0 ;i < Object.keys(result).length;i++){
                 let mevcut_soru_takvimi = result[i]
                 let mevcut_ders = dersler[mevcut_soru_takvimi.ders_id]
@@ -192,10 +191,12 @@ var settings = {
 
 })
 
-function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_sayisi){
+function tabloya_konu_ekle(ders_adi,konu_adi,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi){
     let content = `
     
-    <tr role="row" class="odd" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}">
+    <tr role="row" class="odd tiklanabilir" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}" onclick="
+    input_alanina_veriler_yerlestir(${ders_adi},${konu_adi},${toplam_soru_sayisi},${dogru_soru_sayisi},${yanlis_soru_sayisi})
+    ">
         <td style="width:20%" tabindex="0">
             <p class="list-item-heading" style="text-align:center">${ders_adi}</p>
         </td>
@@ -203,19 +204,20 @@ function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_say
             <p class="text-muted" style="text-align:center">${konu_adi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${toplam_soru_sayisi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${dogru_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${dogru_soru_sayisi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${yanlis_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${yanlis_soru_sayisi}</p>
         </td>
     </tr>
 
     `
     gunluk_ozet_tablo_body.innerHTML += content
     tablodaki_mevcut_soru_takvimi_tr_HTML_array.push(content)
+    tablodaki_mevcut_soru_takvimi_ders_konu_array.push({"ders_adi":ders_adi,"konu_adi":konu_adi,"toplam_soru_sayisi":toplam_soru_sayisi,"dogru_soru_sayisi":dogru_soru_sayisi,"yanlis_soru_sayisi":yanlis_soru_sayisi})
 
 
     if(soru_takvimi_ders_rengi != "#fff"){
@@ -225,7 +227,7 @@ function tabloya_konu_ekle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_say
     }
 }
 
-function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_sayisi){
+function tabloya_konu_guncelle(ders_adi,konu_adi,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_sayisi){
 
     gunluk_ozet_tablo_body.innerHTML  = "" 
     soru_takvimi_ders_rengi = "#fff"
@@ -234,7 +236,9 @@ function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis
         if(mevcut_soru_takvimi_tr_HTML.includes(ders_adi) && mevcut_soru_takvimi_tr_HTML.includes(konu_adi) ){
             mevcut_soru_takvimi_tr_HTML = `
     
-            <tr role="row" class="odd" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}">
+            <tr role="row" class="odd tiklanabilir" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}" onclick="
+            input_alanina_veriler_yerlestir(${ders_adi},${konu_adi},${toplam_soru_sayisi},${dogru_soru_sayisi},${yanlis_sayisi})
+            ">
                 <td style="width:20%" tabindex="0">
                     <p class="list-item-heading" style="text-align:center">${ders_adi}</p>
                 </td>
@@ -242,10 +246,10 @@ function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis
                     <p class="text-muted" style="text-align:center">${konu_adi}</p>
                 </td>
                 <td style="width:20%">
-                    <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
+                    <p class="text-muted" style="text-align:center">${toplam_soru_sayisi}</p>
                 </td>
                 <td style="width:20%">
-                    <p class="text-muted" style="text-align:center">${dogru_sayisi}</p>
+                    <p class="text-muted" style="text-align:center">${dogru_soru_sayisi}</p>
                 </td>
                 <td style="width:20%">
                     <p class="text-muted" style="text-align:center">${yanlis_sayisi}</p>
@@ -255,6 +259,7 @@ function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis
             `
 
             tablodaki_mevcut_soru_takvimi_tr_HTML_array[i] = mevcut_soru_takvimi_tr_HTML
+            tablodaki_mevcut_soru_takvimi_ders_konu_array.push({"ders_adi":ders_adi,"konu_adi":konu_adi,"toplam_soru_sayisi":toplam_soru_sayisi,"dogru_soru_sayisi":dogru_soru_sayisi,"yanlis_soru_sayisi":yanlis_sayisi})
             gunluk_ozet_tablo_body.innerHTML += mevcut_soru_takvimi_tr_HTML
         }else{
             gunluk_ozet_tablo_body.innerHTML += mevcut_soru_takvimi_tr_HTML
@@ -271,7 +276,9 @@ function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis
     if(gunluk_ozet_tablo_body.innerHTML.includes("ders_adi"))
     gunluk_ozet_tablo_body.innerHTML += `
     
-    <tr role="row" class="odd" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}">
+    <tr role="row" class="odd tiklanabilir" style="display:flex;min-height:50px;justify-content:center;align-items:center;background:${soru_takvimi_ders_rengi}" onclick="
+    input_alanina_veriler_yerlestir(${ders_adi},${konu_adi},${toplam_soru_sayisi},${dogru_soru_sayisi},${yanlis_sayisi})
+    ">
         <td style="width:20%" tabindex="0">
             <p class="list-item-heading" style="text-align:center">${ders_adi}</p>
         </td>
@@ -279,10 +286,10 @@ function tabloya_konu_guncelle(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis
             <p class="text-muted" style="text-align:center">${konu_adi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${soru_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${toplam_soru_sayisi}</p>
         </td>
         <td style="width:20%">
-            <p class="text-muted" style="text-align:center">${dogru_sayisi}</p>
+            <p class="text-muted" style="text-align:center">${dogru_soru_sayisi}</p>
         </td>
         <td style="width:20%">
             <p class="text-muted" style="text-align:center">${yanlis_sayisi}</p>
@@ -357,7 +364,7 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
 }
 
 function soru_takviminde_onceden_varsa(){
-    if(ders_adi.value != null && konu_adi.value != null && soru_sayisi.value != null && dogru_sayisi.value != null && yanlis_sayisi.value != null ){
+    if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && ders_adi.value != " " && konu_adi.value != " " && toplam_soru_sayisi_input.value != " " && dogru_soru_sayisi_input.value != " " && yanlis_soru_sayisi_input.value != " " ){
         for(let i = 0;i<Object.keys(mevcut_tarihin_soru_takvimi_json).length;i++){
             if(mevcut_tarihin_soru_takvimi_json[i].tarih == tarih_secici.value && mevcut_tarihin_soru_takvimi_json[i].ders_id == ders_adi.value && mevcut_tarihin_soru_takvimi_json[i].konu_id == konu_adi.value ){
                 konu_ekle_button.innerHTML = "Güncelle"
@@ -367,6 +374,18 @@ function soru_takviminde_onceden_varsa(){
             }
         }
     }
+}
+
+function input_alanina_veriler_yerlestir(ders_adi,konu_adi,soru_sayisi,dogru_sayisi,yanlis_sayisi){
+
+    ders_adi.value = ders_adi
+    konu_adi.value = konu_adi
+    toplam_soru_sayisi_input.value = parseInt(soru_sayisi)
+    dogru_soru_sayisi_input.value = parseInt(dogru_sayisi)
+    yanlis_soru_sayisi_input.value = parseInt(yanlis_sayisi)
+
+    console.log("tiklandi hello")
+
 }
 
 setInterval(soru_takviminde_onceden_varsa, 1000);
