@@ -175,6 +175,20 @@ app.post("/soru-takvimi/guncelle",urlencodedParser, async (req,res)=>{
 	res.end()
 })
 
+app.post("/soru-takvimi/sil",urlencodedParser, async (req,res)=>{
+	let yeni_veri : any = req.query
+	let silinecek_soru_takvimi = await SoruTakvimi.findOne({
+		 where: {
+			  tarih: yeni_veri.tarih, konu_id:yeni_veri.konu_id 
+			} 
+		})
+		
+	silinecek_soru_takvimi?.destroy()
+
+	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	res.end()
+})
+
 app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 	let tarih = req.params.tarih;
 
