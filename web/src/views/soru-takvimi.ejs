@@ -30,6 +30,8 @@
     <style>
         .tiklanabilir:hover{
             cursor: pointer;
+            box-shadow: 0px 1px 10px 1px #888888;
+            z-index:100;
         }
     </style>     
 </head>
@@ -812,7 +814,7 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="error-l-275 position-relative form-group">
-                                                            <select class="form-control select2-single ders_input" data-width="100%" id="ders_adi_input" required>
+                                                            <select class="form-control ders_input" data-width="100%" id="ders_adi_input" required>
                                                                 <option label="&nbsp;">&nbsp;</option>                        
                                                                 <optgroup label="Türkçe">
                                                                     <option value="yazim-kurallari">Yazım Kuralları</option>
@@ -837,7 +839,7 @@
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="error-l-275 position-relative form-group">
-                                                            <select class="form-control select2-single" data-width="100%" id="konu_adi_input" required>
+                                                            <select class="form-control" data-width="100%" id="konu_adi_input" required>
                                                                 <option label="&nbsp;">&nbsp;</option>                        
                                                                 <optgroup label="Türkçe">
                                                                     <option value="yazim-kurallari">Yazım Kuralları</option>
