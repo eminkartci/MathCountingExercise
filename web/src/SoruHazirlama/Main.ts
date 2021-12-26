@@ -29,7 +29,7 @@ matematik.add_Konu(yas_problemi)
 export  let olasilik    = new Konu("6",matematik,"olasilik","Olasılık")
 olasilik.soru_tipi_olustur(
 
-    "|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
+    "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-erkek","zar-sayisi":[1,6,1],"tura-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
     " (1) /(2*|zar-sayisi|)*100"
@@ -38,7 +38,7 @@ olasilik.soru_tipi_olustur(
 
 olasilik.soru_tipi_olustur(
 
-    "|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
+    "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-kiz","zar-sayisi":[1,6,1],"tura-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
     " (1) /(2*|zar-sayisi|)*100"
@@ -47,7 +47,7 @@ olasilik.soru_tipi_olustur(
 
 olasilik.soru_tipi_olustur(
 
-    "|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
+    "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-kiz","zar-sayisi":[1,6,1],"yazi-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
     " (1) /(2*|zar-sayisi|)*100"
@@ -56,12 +56,40 @@ olasilik.soru_tipi_olustur(
 
 olasilik.soru_tipi_olustur(
 
-    "|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
+    "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-erkek","zar-sayisi":[1,6,1],"yazi-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
     " (1) /(2*|zar-sayisi|)*100"
     
 )
+
+olasilik.soru_tipi_olustur(
+
+    "*Bir torbada |sol-mavi-sayi| adet mavi top, |sol-yesil-sayi| adet yeşil top ; diğer torbada ise |sag-mavi-sayi| adet mavi top , |sag-yesil-sayi| adet top vardır. Bu iki torbadan rastgele bir torba seçiliyor ve seçilen torbadan rastgele bir top seçiliyor.Buna göre seçilen topun mavi olma olasılığı kaçtır?",
+    {"sol-mavi-sayi":[1,5,1],"sol-yesil-sayi":[1,5,1],"sag-mavi-sayi":[1,5,1],"sag-yesil-sayi":[1,5,1]},
+    ["30","28","15","1"],
+    "(|sol-mavi-sayi|+|sag-mavi-sayi|)/(|sol-mavi-sayi|+|sag-mavi-sayi|+|sol-yesil-sayi|+|sag-yesil-sayi|)"
+    
+)
+
+olasilik.soru_tipi_olustur(
+
+    "*Bir torbada |sol-mavi-sayi| adet mavi top, |sol-yesil-sayi| adet yeşil top ; diğer torbada ise |sag-mavi-sayi| adet mavi top , |sag-yesil-sayi| adet top vardır. Bu iki torbadan rastgele bir torba seçiliyor ve seçilen torbadan rastgele bir top seçiliyor.Buna göre seçilen topun yeşil olma olasılığı kaçtır?",
+    {"sol-mavi-sayi":[1,5,1],"sol-yesil-sayi":[1,5,1],"sag-mavi-sayi":[1,5,1],"sag-yesil-sayi":[1,5,1]},
+    ["30","28","15","1"],
+    "(|sol-yesil-sayi|+|sag-yesil-sayi|)/(|sol-mavi-sayi|+|sag-mavi-sayi|+|sol-yesil-sayi|+|sag-yesil-sayi|)"
+    
+)
+
+olasilik.soru_tipi_olustur(
+
+    "Bir zar arka arkaya |atilma-sayisi| kez atılıyor.Buna göre arka arkaya |arka-arkaya-gelme-sayisi| kez aynı sayı gelme olasılığı kaçtır?",
+    {"atilma-sayisi":[2,10,1],"arka-arkaya-gelme-sayisi":[1,"(|atilma-sayisi| - 1)",1]},
+    ["30","28","15","1"],
+    "(1/|atilma-sayisi|)**(|arka-arkaya-gelme-sayisi|)"
+    
+)
+
 matematik.add_Konu(olasilik)
 
 export  let yazim_kurallari = new Konu("1",turkce,"yazim-kurallari","Yazım Kuralları")
