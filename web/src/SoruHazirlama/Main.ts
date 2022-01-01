@@ -119,11 +119,11 @@ mitoz_bolunme.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kardeş kroma
 mitoz_bolunme.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde hayvan hücrelerinde boğumlanma görülür?",{"cevap":"Sitokinez"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
 biyoloji.add_Konu(mitoz_bolunme)
 
-export  let ilk_turk_beylikleri = new Konu("5",tarih,"ilk-turk-beylikleri","İlk Türk Beylikleri")
-ilk_turk_beylikleri.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kromozomlar ortaya dizilmiş halde bulunur?",{"cevap":"Metafaz"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
-tarih.add_Konu(ilk_turk_beylikleri)
+// export  let ilk_turk_beylikleri = new Konu("5",tarih,"ilk-turk-beylikleri","İlk Türk Beylikleri")
+// ilk_turk_beylikleri.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kromozomlar ortaya dizilmiş halde bulunur?",{"cevap":"Metafaz"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
+// tarih.add_Konu(ilk_turk_beylikleri)
 
 
 
-export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]//,cografya]
+export let dersler = [matematik,turkce,fizik,kimya,biyoloji]//,tarih]//,cografya]
  
