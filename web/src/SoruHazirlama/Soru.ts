@@ -243,15 +243,10 @@ export class Soru{
             else if(degisken_verisi instanceof Array && degisken_verisi.length == 3){
                 try{
 
-                    console.log("değişken isimleri",this.degisken_isimleri)
-                    console.log("değişken verileri",this.degisken_verileri)
                     for(let a=0;a<this.degisken_isimleri.length;a++){
-                        console.log("değişken verisi önce",degisken_verisi)
                         degisken_verisi[0] = (degisken_verisi[0]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
                         degisken_verisi[1] = (degisken_verisi[1]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
-                        degisken_verisi[2] = (degisken_verisi[2]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
-                        console.log("değişken verisi sonra",degisken_verisi)
-                        console.log("i",a)
+                        degisken_verisi[2] = (degisken_verisi[2]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())                        
 
                     }
 

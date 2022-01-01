@@ -89,7 +89,7 @@ function soru_ekle(soru,current_soru_sayisi){
                             <span class="heading-number d-inline-block" >
                                 ${current_soru_sayisi}
                             </span>
-                            ${soru.Ders.DersYazisi}
+                            ${soru.Ders.DersYazisi} - ${soru.Konu.KonuYazisi}
                         </div>
                     </div>
                     <div

@@ -3931,7 +3931,7 @@ $.dore = function (element, options) {
     }
 
     $("#fullScreenButton").on("click", function (event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (isFullScreen()) {
         $($(this).find("i")[1]).css("display", "none");
         $($(this).find("i")[0]).css("display", "inline");
