@@ -67,9 +67,6 @@ function soru_ekle(soru){
                         <button class="btn btn-outline-theme-3 icon-button edit-button">
                             <i class="simple-icon-pencil"></i>
                         </button>
-                        <button class="btn btn-outline-theme-3 icon-button view-button">
-                            <i class="simple-icon-eye"></i>
-                        </button>
                         <button
                             class="btn btn-outline-theme-3 icon-button rotate-icon-click"
                             type="button" data-toggle="collapse" data-target="#q${soru_sayisi}"
@@ -86,7 +83,12 @@ function soru_ekle(soru){
                         <div class="mb-4">
                         ${siklar_HTML}
                         </div>
+                        <div class="row" style="display:flex;justify-content:center">
+                            <button class="btn btn-primary" style="background:red">Geri</button>
+                            <button class="btn btn-primary">İleri</button>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

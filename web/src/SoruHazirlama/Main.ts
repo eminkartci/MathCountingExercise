@@ -94,7 +94,13 @@ matematik.add_Konu(olasilik)
 
 export  let yazim_kurallari = new Konu("1",turkce,"yazim-kurallari","Yazım Kuralları")
 yazim_kurallari.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde yazım yanlışı vardır?",{"cevap":"yazim-hatali-cumle"},["yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle","yazim-hatasiz-cumle"],"|cevap|")
+yazim_kurallari.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde yazım yanlışı yoktur?",{"cevap":"yazim-hatasiz-cumle"},["yazim-hatali-cumle","yazim-hatali-cumle","yazim-hatali-cumle","yazim-hatali-cumle","yazim-hatali-cumle"],"|cevap|")
 turkce.add_Konu(yazim_kurallari)
+
+export  let noktalama_kurallari = new Konu("7",turkce,"noktalama-kurallari","Noktalama İşaretleri")
+noktalama_kurallari.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde noktalama yanlışı vardır?",{"cevap":"noktalama-hatali-cumle"},["noktalama-hatasiz-cumle","noktalama-hatasiz-cumle","noktalama-hatasiz-cumle","noktalama-hatasiz-cumle","noktalama-hatasiz-cumle"],"|cevap|")
+noktalama_kurallari.soru_tipi_olustur("Aşağıdaki cümlelerin hangisinde noktalama yanlışı yoktur?",{"cevap":"noktalama-hatasiz-cumle"},["noktalama-hatali-cumle","noktalama-hatali-cumle","noktalama-hatali-cumle","noktalama-hatali-cumle","noktalama-hatali-cumle"],"|cevap|")
+turkce.add_Konu(noktalama_kurallari)
 
 export let elektrik_manyetizma = new Konu("2",fizik,"elektrik-manyetizma","Elektrik - Manyetizma")
 elektrik_manyetizma.soru_tipi_olustur("Yarıçap uzunluğu |yaricap| cm , uzunluğu |uzunluk| cm olan bir telin direnci kaç ohm'dur?\n(π=3)",{"yaricap":[1,5,1],"uzunluk":[1,5,"|yaricap|*|yaricap|*3"]},["","","","",""],"|uzunluk|/(3*|yaricap|*|yaricap|)")
@@ -117,55 +123,7 @@ export  let ilk_turk_beylikleri = new Konu("5",tarih,"ilk-turk-beylikleri","İlk
 ilk_turk_beylikleri.soru_tipi_olustur("Aşağıdaki evrelerin hangisinde kromozomlar ortaya dizilmiş halde bulunur?",{"cevap":"Metafaz"},["mitoz-evre","mitoz-evre","mitoz-evre","mitoz-evre"],"|cevap|")
 tarih.add_Konu(ilk_turk_beylikleri)
 
-/////////////// SORULAR ///////////////
-// export  let matematik_sorusu       = new Soru(matematik,yas_problemi)
-// export  let turkce_sorusu       = new Soru(turkce,yazim_kurallari)
-// export  let fizik_sorusu        = new Soru(fizik,elektrik_manyetizma)
-// export  let kimya_sorusu        = new Soru(kimya,katli_oranlar_kanunu)
-// export  let biyoloji_sorusu     = new Soru(biyoloji,mitoz_bolunme)
-// // export  let tarih_sorusu        = new Soru(tarih,ilk_turk_beylikleri)
 
-// export let sorular = [matematik_sorusu,turkce_sorusu,fizik_sorusu,kimya_sorusu,biyoloji_sorusu]
-
-
-// console.log("/*-------------------------------------*\\")
-// console.log("")
-// console.log("MATEMATİK KONULAR : " , matematik.get_Konular())
-// console.log("TÜRKÇE    KONULAR : " , turkce.get_Konular())
-// console.log("FİZİK     KONULAR : " , fizik.get_Konular())
-// console.log("KİMYA     KONULAR : " , kimya.get_Konular())
-// console.log("BİYOLOJİ  KONULAR : " , biyoloji.get_Konular())
-// console.log("TARİH     KONULAR : " , tarih.get_Konular())
-// console.log("")
-// console.log("/*-------------------------------------*\\")
-
-console.log("")
-// console.log("-----------MATEMATİK ------------")
-// console.log(matematik_sorusu.toString())
-// console.log("")
-// console.log("-----------FİZİK ------------")
-// console.log(fizik_sorusu.toString())
-// console.log("")
-// console.log("-----------BİYOLOJİ------------")
-// console.log(biyoloji_sorusu.toString())
-// console.log("")
-// console.log("-----------KİMYA ------------")
-// console.log(kimya_sorusu.toString())
-// console.log("")
-// console.log("-----------TARİH ------------")
-// console.log(tarih_sorusu.toString())
-// console.log("")
-// console.log("-----------TURKCE------------")
-// console.log(turkce_sorusu.toString())
-
-// const SORU_SAYISI = 100;
-// let fizik_test : Test = new Test("Elektrik ve Manyetizma - 10. Sınıf Fizik")
-// for(let i = 0;i<SORU_SAYISI;i++){
-//     let temp_soru = new Soru(fizik,elektrik_manyetizma)
-//     fizik_test.soru_ekle(temp_soru)
-// }
-
-// console.log(fizik_test.toString())
 
 export let dersler = [matematik,turkce,fizik,kimya,biyoloji,tarih]//,cografya]
  

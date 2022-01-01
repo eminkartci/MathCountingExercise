@@ -2,6 +2,12 @@
 // Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
 let dersler;
 
+let dersler_checkboxlari ;
+let konular_checkbox_idleri ;
+let konular_checkbox_idleri_dersler_hashmap ;
+let konular_sorusayisi_input_idleri ;
+let ders_sayisi ;
+let soru_sayisi ;
 // Dersleri get yapıyoruz
 let myPromise = new Promise(function(myResolve, myReject) {
   let req = new XMLHttpRequest();
@@ -23,11 +29,12 @@ myPromise.then(
         /////// BACKEND ELEMENTS //////
 
     dersler = JSON.parse(dersler_value)
-    let dersler_checkboxlari = []
-    let konular_checkbox_idleri = []
-    let konular_checkbox_idleri_dersler_hashmap = []
-    let konular_sorusayisi_input_idleri = []
-    let ders_sayisi = Object.keys(dersler).length
+    dersler_checkboxlari = []
+    konular_checkbox_idleri = []
+    konular_checkbox_idleri_dersler_hashmap = []
+    konular_sorusayisi_input_idleri = []
+    ders_sayisi = Object.keys(dersler).length
+
     for(let i = 0;i<ders_sayisi;i++){
         let current_ders = dersler[Object.keys(dersler)[i]]
         dersler_checkboxlari.push(current_ders.DersAdi+"_checkbox")
@@ -112,13 +119,13 @@ myPromise.then(
                       konular_div.innerHTML += `
                       <tr class="soru">
                           <td>
-                              <p class="list-item-heading">${current_ders.DersID}</p>
+                              <p class="list-item-heading" style="opacity: 0;" >${current_ders.DersID}</p>
                           </td>
                           <td>
                               <p class="list-item-heading">${current_ders.DersYazisi}</p>
                           </td>
                           <td>
-                              <p class="text-muted">${current_konu.KonuID}</p>
+                              <p class="text-muted" style="opacity: 0;" >${current_konu.KonuID}</p>
                           </td>
                           <td>
                               <p class="text-muted">${current_konu.KonuYazisi}</p>
@@ -128,10 +135,10 @@ myPromise.then(
                                   <input type="number" name="" id="${current_konu.KonuAdi+"_sorusayisi_input"}" value="0" class="soru_sayisi_input">
                               </label>
                           </td>
-                          <td>
-                              <label class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check">
+                          <td style="display:flex;">
+                              <label class="custom-control custom-checkbox mb-1 align-self-center data-table-rows-check" style="text-align:left;">
                                   <input type="checkbox" class="custom-control-input" id="${konular_checkbox_idleri[j]}" disabled>
-                                  <span class="custom-control-label">&nbsp;</span>"
+                                  <span class="custom-control-label">&nbsp;</span>
                               </label>
                           </td> 
                       </tr>

@@ -8,4 +8,8 @@ export let elementler = ["H","He","Li","Be","B","C","N"]
 export let mitoz_evre = ["Profaz","Metafaz","Anafaz","Telofaz","Sitokinez","İnterfaz"]
 export let yazim_hatali_cumle = ["Ayşe Teyzem geldi.","Yarına Dünyalar kadar ödevim var.","İngiliz Anahtarı aldık.","Hoca testleri 2'şer 2'şer dağıttı.","Geldinmi?"]
 export let yazim_hatasiz_cumle = ["Mehmet amcam dün gitti.","Hoca dünyalar kadar ödev verdi","En sevdiğim baklagil Antep fıstığıdır.","Oturaklar üçer üçer dizilmişti.","Dün meydanda gezen sen miydin?"]
+export let noktalama_hatali_cumle = ["Ayşe Teyzem geldi.","Yarına Dünyalar kadar ödevim var.","İngiliz Anahtarı aldık.","Hoca testleri 2'şer 2'şer dağıttı.","Geldinmi?"]
+export let noktalama_hatasiz_cumle = ["Ayşe Teyzem geldi.","Yarına Dünyalar kadar ödevim var.","İngiliz Anahtarı aldık.","Hoca testleri 2'şer 2'şer dağıttı.","Geldinmi?"]
+
+
 export let katli_oranlar_uygulanabilir_bilesikleri = ["C"+"2".sub()+"O-C"+"2".sub()+"O"+"2".sub(),"N"+"2".sub()+"H-N"+"2".sub()+"H"+"2".sub(),"Al"+"2".sub()+"Na-Al"+"2".sub()+"Na"+"2".sub(),"H"+"2".sub()+"He-H"+"2".sub()+"He"+"2".sub(),"Fe"+"2".sub()+"O-Fe"+"2".sub()+"O"+"2".sub()]
