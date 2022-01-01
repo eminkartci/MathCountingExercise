@@ -34,7 +34,7 @@ myPromise.then(
             }   
       }
 
-      soru_sayisi = Object.keys(test).length
+      soru_sayisi = Object.keys(test).length - 1
       soru_gorunum_butonlarini_etkinlestir()
   }
 )
@@ -77,7 +77,7 @@ function soru_ekle(soru,current_soru_sayisi){
     }
     sorular_div.innerHTML += 
      `
-     <div>
+     <div id="question_${current_soru_sayisi}">
             <div class="card question d-flex mb-4 edit-quesiton">
                 <div class="d-flex flex-grow-1 min-width-zero">
                     <div
@@ -119,8 +119,7 @@ function soru_ekle(soru,current_soru_sayisi){
 }
 
 function soru_gorunum_butonlarini_etkinlestir(){
-    for(let current_soru_sayisi = 1;current_soru_sayisi < soru_sayisi;current_soru_sayisi ++){
-        console.log("question_toggle_button_"+current_soru_sayisi)
+    for(let current_soru_sayisi = 1;current_soru_sayisi <= soru_sayisi;current_soru_sayisi ++){
         document.getElementById("question_toggle_button_"+current_soru_sayisi).onclick = () => {
             for(let i = 0;i< soru_gorunum_boolen_array.length;i++){
                 if(soru_gorunum_boolen_array[i] == true){
@@ -129,7 +128,34 @@ function soru_gorunum_butonlarini_etkinlestir(){
                 }
             }
             soru_gorunum_boolen_array[current_soru_sayisi-1]= true
-            console.log("hello",current_soru_sayisi)
         }
+        if(current_soru_sayisi != 1){
+            document.getElementById("next_q_button_"+current_soru_sayisi).onclick = () => {
+                for(let i = 0;i< soru_gorunum_boolen_array.length;i++){
+                    if(soru_gorunum_boolen_array[i] == true){
+                        document.getElementById("question_toggle_button_"+(i+1)).click()
+                        soru_gorunum_boolen_array[i] = false
+                    }
+                }
+                document.getElementById("question_toggle_button_"+current_soru_sayisi).click()
+                soru_gorunum_boolen_array[current_soru_sayisi-1]= true
+                document.getElementById("question_"+current_soru_sayisi).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+            }
+        }
+        if(current_soru_sayisi != soru_sayisi){
+            console.log(current_soru_sayisi)
+            document.getElementById("prev_q_button_"+current_soru_sayisi).onclick = () => { 
+                for(let i = 0;i< soru_gorunum_boolen_array.length;i++){
+                    if(soru_gorunum_boolen_array[i] == true){
+                        document.getElementById("question_toggle_button_"+(i+1)).click()
+                        soru_gorunum_boolen_array[i] = false
+                    }
+                }
+                document.getElementById("question_toggle_button_"+current_soru_sayisi).click()
+                soru_gorunum_boolen_array[current_soru_sayisi-1]= true
+                document.getElementById("question_"+current_soru_sayisi).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+            }
+        }
+
     }
 }
