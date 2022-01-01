@@ -1,5 +1,5 @@
 # Grab the latest alpine image
-FROM ubuntu:20.10
+FROM ubuntu:20.04
 
 # Install python, pip & node, npm
 RUN apt-get update && \
