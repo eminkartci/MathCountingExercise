@@ -411,14 +411,17 @@ app.get("/testJSON/:test_icerigi",(req,res) =>{
 				let current_Ders = Main.dersler[j]
 				// Dersin Konularını Döndürüyoruz
 				for(let x = 0;x<current_Ders.get_Konular().length;x++){
-					if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[i]){
-						let current_Konu = current_Ders.get_Konular()[x]
-						// Konunun Soru Sayısını Döndürüyoruz
-						for(let k = 0;k < SoruSayisi_Array[i];k++){
-							toplam_soru_sayisi += 1;
-							temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
-						}	
-						break				
+					// Test içeriğindeki konular döndürüyoruz
+					for(let k = 0;k<KonuID_Array.length;k++){
+						if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[k]){
+							let current_Konu = current_Ders.get_Konular()[x]
+							// Konunun Soru Sayısını Döndürüyoruz
+							for(let k = 0;k < SoruSayisi_Array[i];k++){
+								toplam_soru_sayisi += 1;
+								temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
+							}	
+							break				
+						}
 					}
 				}
 				break
