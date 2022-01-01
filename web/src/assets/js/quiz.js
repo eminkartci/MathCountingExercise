@@ -36,6 +36,9 @@ myPromise.then(
 
       soru_sayisi = Object.keys(test).length - 1
       soru_gorunum_butonlarini_etkinlestir()
+
+      document.getElementById("question_toggle_button_1").click()
+      soru_gorunum_boolen_array[0] = true
   }
 )
 
