@@ -53,7 +53,7 @@ function soru_ekle(soru,current_soru_sayisi){
         <div class="custom-control custom-radio">
             <input type="radio" id="customRadio${i+1}_${current_soru_sayisi}"
                 name="customRadio_${current_soru_sayisi}" class="custom-control-input">
-            <label class="custom-control-label"
+            <label class="custom-control-label hide"
                 for="customRadio${i+1}_${current_soru_sayisi}">${soru.Siklar[i]}</label>
         </div>
         `
@@ -108,7 +108,7 @@ function soru_ekle(soru,current_soru_sayisi){
                 <div class="collapse question-collapse" id="q${current_soru_sayisi}">
                     <div class="card-body pt-0">
                         
-                        <label>${soru.SoruYazisi}</label>
+                        <label class="hide">${soru.SoruYazisi}</label>
                         <div class="mb-4">
                         ${siklar_HTML}
                         </div>

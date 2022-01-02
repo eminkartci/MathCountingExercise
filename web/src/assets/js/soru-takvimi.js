@@ -31,7 +31,7 @@ var settings = {
     },
   };
   
-  $.ajax(settings).done(function (dersler_value) {
+$.ajax(settings).done(function (dersler_value) {
     
     dersler = dersler_value
     ders_adi.innerHTML = `
@@ -87,14 +87,9 @@ var settings = {
             } catch (error) {
                 konu_adi.innerHTML = ``
             }
-            soru_takviminde_onceden_varsa()
         }else if(ders_adi.value == null || ders_adi.value == ' '){
             konu_adi.innerHTML = ``
         }
-    }
-
-    konu_adi.onchange = () => {
-        soru_takviminde_onceden_varsa()
     }
 
 
@@ -105,7 +100,6 @@ var settings = {
 
 
     tarih_secici.onchange = () => {
-        soru_takviminde_onceden_varsa()
         let secilenTarih = tarih_secici.value;
         soru_takvimi_ders_rengi = "#fff"
         var requestOptions = {
