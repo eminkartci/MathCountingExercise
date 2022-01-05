@@ -22,9 +22,9 @@ export let cografya       = new Ders("5","cografya","Coğrafya")
 
 /////////////// KONULAR ///////////////
 
-export  let yas_problemi    = new Konu("0",matematik,"yas-problemi","Yaş Problemi")
-yas_problemi.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen |isim| , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.|isim| 'in |sayi1| elbise , |sayi2| gömlek ve |sayi3| pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",{"isim":"name-kiz","sayi1":[1,5,1],"sayi2":[1,5,1],"sayi3":[1,5,1]},["30","28","15","1"],"|sayi1|+|sayi2|*|sayi3|")
-matematik.add_Konu(yas_problemi)
+export  let siralama_secme    = new Konu("0",matematik,"siralama-secme","Sıralama ve Seçme")
+siralama_secme.soru_tipi_olustur("Arkadaşlarıyla dışarıya çıkmak isteyen |isim| , dışarıya çıkarken elbise veya gömlek ve pantolon giymek istiyor.|isim| 'in |sayi1| elbise , |sayi2| gömlek ve |sayi3| pantolonu olduğuna göre kaç farklı şekilde giyinebilir ?",{"isim":"name-kiz","sayi1":[1,5,1],"sayi2":[1,5,1],"sayi3":[1,5,1]},["30","28","15","1"],"|sayi1|+|sayi2|*|sayi3|")
+matematik.add_Konu(siralama_secme)
 
 export  let olasilik    = new Konu("6",matematik,"olasilik","Olasılık")
 olasilik.soru_tipi_olustur(

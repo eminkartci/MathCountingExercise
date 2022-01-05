@@ -1,4 +1,24 @@
+let motive_sozler = {
+    0:{
+        "yazi":"Nereye dönersen dön popon arkandadır.",
+        "yazar":"Sinan Engin"
+    },
+    1:{
+        "yazi":"Başarılı bir adam olmak için çalışmayın, aksine önemli bir adam olmak için çalışın.",
+        "yazar":"Albert Einstein"
+    },
+    2:{
+        "yazi":"Düşünmek koIaydır, yapmak zordur.",
+        "yazar":"Goethe"
+    },
+}
 
+let motive_soz = motive_sozler[Math.floor(Math.random()*Object.keys(motive_sozler).length)]
+document.getElementById("motive_soz_yazi").innerHTML = motive_soz.yazi
+document.getElementById("motive_soz_yazar").innerHTML = motive_soz.yazar
+
+let bugün_tarihi = new Date()
+document.getElementById("test_tarih").innerHTML = bugün_tarihi.getDate()+'/'+(bugün_tarihi.getMonth()+1)+'/'+bugün_tarihi.getFullYear();
 let sorular_div = document.getElementById("sorular_div")
 let soru_sayisi = 0
 // Hangi soruların görünüp görünmediği bu divde boolen olarak tutulur
