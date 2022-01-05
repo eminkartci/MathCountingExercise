@@ -18,6 +18,15 @@
     <link rel="stylesheet" href="../assets/css/main.css" />
 
     <script src="https://kit.fontawesome.com/f70679fb39.js" crossorigin="anonymous"></script>
+    <style>
+        @media only screen and (min-width: 600px) {
+            .computer_submit_div{
+                position: sticky;
+                top: 150px;
+            }
+        }
+        
+    </style>
 </head>
 
 <body id="app-container" class="menu-sub-hidden show-spinner right-menu">
@@ -45,7 +54,7 @@
             </a>
 
             <div class="search" data-search-path="Pages.Search.html?q=">
-                <input placeholder="Search...">
+                <input placeholder="Bul...">
                 <span class="search-icon">
                     <i class="simple-icon-magnifier"></i>
                 </span>
@@ -55,10 +64,9 @@
                 href="https://1.envato.market/5kAb">&nbsp;BUY&nbsp;</a>
         </div>
 
-
-        <a class="navbar-logo" href="Dashboard.Default.html">
-            <span class="logo d-none d-xs-block"></span>
-            <span class="logo-mobile d-block d-xs-none"></span>
+        <a class="navbar-logo" href="Dashboard.Default.html" style="width:10%;height:100%">
+            <span class="logo d-none d-xs-block" style="background-size: contain;width:100%;height:100%;"></span>
+            <span class="logo-mobile d-block d-xs-none" style="background-size: contain;width:100%;height:100%;"></span>
         </a>
 
         <div class="navbar-right">
@@ -181,18 +189,15 @@
             <div class="user d-inline-block">
                 <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <span class="name">Sarah Kortney</span>
-                    <span>
-                        <img alt="Profile Picture" src="../assets/images/profiles/l-1.jpg" />
-                    </span>
+                    <span class="name">Emin Kartcı</span>
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Account</a>
-                    <a class="dropdown-item" href="#">Features</a>
-                    <a class="dropdown-item" href="#">History</a>
-                    <a class="dropdown-item" href="#">Support</a>
-                    <a class="dropdown-item" href="#">Sign out</a>
+                    <a class="dropdown-item" href="#">Hesap</a>
+                    <a class="dropdown-item" href="#">Özellikler</a>
+                    <a class="dropdown-item" href="#">Geçmiş</a>
+                    <a class="dropdown-item" href="#">Destek Al</a>
+                    <a class="dropdown-item" href="#">Çıkıl yap</a>
                 </div>
             </div>
         </div>
@@ -727,64 +732,48 @@
                 <div class="col-12 survey-app">
                     <div class="mb-2">
                         <h1>Developer Survey</h1>
-                        <div class="text-zero top-right-button-container">
-                            <button type="button"
-                                class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split top-right-button top-right-button-single"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ACTIONS
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                        </div>
+                        
                     </div>
                     <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="first-tab" data-toggle="tab" href="#first" role="tab"
-                                aria-controls="first" aria-selected="true">DETAILS</a>
+                                aria-controls="first" aria-selected="true">TEST</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" id="third-tab" data-toggle="tab" href="#third" role="tab"
-                                aria-controls="third" aria-selected="false">RESULTS</a>
+                                aria-controls="third" aria-selected="false">SONUÇ</a>
                         </li>
                     </ul>
                     <div class="tab-content mb-4">
                         <div class="tab-pane show active" id="first" role="tabpanel" aria-labelledby="first-tab">
                             <div class="row">
 
+                                
                                 <div class="col-lg-4 col-12 mb-4">
-                                    <div class="card mb-4">
-                                        <div class="position-absolute card-top-buttons">
-                                            <button class="btn btn-header-light icon-button">
-                                                <i class="simple-icon-pencil"></i>
-                                            </button>
-                                        </div>
+                                    <div class="card mb-4 computer_submit_div">
                                         <div class="card-body">
-                                            <p class="list-item-heading mb-4">Summary</p>
-                                            <p class="text-muted text-small mb-2">Name</p>
+                                            <p class="list-item-heading mb-4">Test</p>
+                                            <p class="text-muted text-small mb-2">İsim</p>
                                             <p class="mb-3">
-                                                Developer Survey
+                                                Emin Kartcı
                                             </p>
-                                            <p class="text-muted text-small mb-2">Welcome Message</p>
-                                            <p class="mb-3">
-                                                As a software professional, you are an innovator, problem solver,
-                                                researcher, and a creative. Your job is to take big ideas
-                                                and make them a reality. With the right support, the possibilities are
-                                                endless.
-                                                <br>
-                                                <br> When roadblocks are removed and you’re allowed do your best work,
-                                                you change
-                                                the world.
+                                            <p class="text-muted text-small mb-2">Motive Edici Söz</p>
+                                            <p class="mb-3" style="display: flex;flex-direction:column;">
+                                                <span id="motive_soz_yazi"></span>
+                                                <span id="motive_soz_yazar" style="width: 90%;text-align:right;color:rgb(87, 87, 87)"></span>
                                             </p>
 
-                                            <p class="text-muted text-small mb-2">Date</p>
+                                            <p class="text-muted text-small mb-2">Tarih</p>
                                             <p class="mb-3">
-                                                12.05.2018 - 18.05.2018
+                                                <span id="test_tarih"></span>
                                             </p>
 
-                                            <p class="text-muted text-small mb-2">Labels</p>
+                                            <div class="row" style="display:flex;justify-content:center">
+                                                <button class="btn btn-primary" id="submit_button">Bitir</button>
+                                            </div>
+
+                                            <!-- <p class="text-muted text-small mb-2">Labels</p>
                                             <div>
                                                 <p class="d-sm-inline-block mb-1">
                                                     <a href="#">
@@ -798,203 +787,26 @@
                                                             class="badge badge-pill badge-outline-secondary mb-1">PERSONAL</span>
                                                     </a>
                                                 </p>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-12 col-lg-8">
 
-                                    <div class="sortable-survey" id="sorular_div"></div>
+                                    <div class="" id="sorular_div"></div>
 
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <button type="button" class="btn btn-outline-primary btn-sm mb-2" id="soru_ekle">
                                             <i class="simple-icon-plus btn-group-icon"></i>
                                             Soru Ekle</button>
-                                    </div>
+                                    </div> -->
                                 </div>
+
+                                
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="third" role="tabpanel" aria-labelledby="third-tab">
-                            <div class="row">
-
-                                <div class="col-lg-4 col-12 mb-4">
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <p class="list-item-heading mb-4">Quota</p>
-                                            <div class="mb-4">
-                                                <p class="mb-2">Gender</p>
-
-                                                <div class="progress mb-3">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="60"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-theme-2" role="progressbar"
-                                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-
-                                                <table class="table table-sm table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-1 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">105/125
-                                                                    Male</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-2 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">90/125
-                                                                    Female</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <div class="mb-4">
-                                                <p class="mb-2">Education</p>
-                                                <div class="progress mb-3">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="80"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-theme-2" role="progressbar"
-                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-
-                                                <table class="table table-sm table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-1 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">139/125
-                                                                    College</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-2 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">95/125
-                                                                    High School</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <div>
-                                                <p class="mb-2">Age</p>
-                                                <div class="progress mb-3">
-                                                    <div class="progress-bar" role="progressbar" aria-valuenow="35"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-theme-2" role="progressbar"
-                                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-theme-3" role="progressbar"
-                                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-
-                                                <table class="table table-sm table-borderless">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-1 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">50/75
-                                                                    18-24</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-2 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">40/75
-                                                                    24-30</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="p-0 pb-1 w-10">
-                                                                <span
-                                                                    class="log-indicator border-theme-3 align-middle"></span>
-                                                            </td>
-                                                            <td class="p-0 pb-1">
-                                                                <span
-                                                                    class="font-weight-medium text-muted text-small">60/75
-                                                                    30-40</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="col-12 col-lg-8">
-
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h6 class="mb-4">How old are you?</h6>
-                                            <div class="dashboard-donut-chart chart">
-                                                <canvas id="ageChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h6 class="mb-4">What is your gender?</h6>
-                                            <div class="dashboard-donut-chart chart">
-                                                <canvas id="genderChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card mb-4">
-                                        <div class="card-body">
-                                            <h6 class="mb-4">What is your employment status?</h6>
-                                            <div class="dashboard-donut-chart chart">
-                                                <canvas id="workChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="card ">
-                                        <div class="card-body">
-                                            <h6 class="mb-4">What programming languages do you use?</h6>
-                                            <div class="dashboard-donut-chart chart">
-                                                <canvas id="codingChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>

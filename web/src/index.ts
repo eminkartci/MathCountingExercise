@@ -87,7 +87,7 @@ if (dev) {
 }
 
 //* App Start
-import sequelize, { Kullanici,SoruTakvimi } from "./db";
+import sequelize, { Dersler, Konular, Kullanici,SoruTakvimi, SoruTipleri } from "./db";
 import authRouter, { passport, protect } from "./core/auth";
 import kayitRouter from "./core/kayit"
 import apiRouter from "./core/api";
@@ -110,7 +110,7 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 app.use(authRouter)
 
 app.get("/",(req, res) => {
-    res.redirect("soru-coz")
+    res.redirect("login")
 });
 
 app.get("/soru-coz",(req, res) => {
@@ -126,7 +126,7 @@ app.get("/redirect",(req, res) => {
 });
 
 app.post("/login",passport.authenticate("local",{
-	successRedirect:"/profil",
+	successRedirect:"/soru-takvimi",
 	failureRedirect:"/login",
 	failureFlash: true
 }));
@@ -135,15 +135,17 @@ app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 
-app.get("/soru-takvimi",(req,res)=>{
+app.get("/soru-takvimi",protect,(req,res)=>{
 	res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 })
 
 app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	let yeni_veri : any = req.query
-	console.log(yeni_veri)
+	console.log("Yeni Soru Verisi: ",yeni_veri)
+	console.log("Kullanici: ", req.user)
 	SoruTakvimi.create({
-		// kullanici_adi      		: yeni_veri.kullanici_adi,
+		// kullanici_id      		: yeni_veri.kullanici_id,
+		kullanici_id      		: req.user.kullanici_id ? req.user.kullanici_id : 1,
 		tarih 					: yeni_veri.tarih,
 		ders_id					: yeni_veri.ders_id,
 		konu_id					: yeni_veri.konu_id,
@@ -153,7 +155,6 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 		kisisel_degerlendirme	: yeni_veri.kisisel_degerlendirme
 	})
 
-	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 	res.end()
 })
 
@@ -170,6 +171,20 @@ app.post("/soru-takvimi/guncelle",urlencodedParser, async (req,res)=>{
 		guncellenecek_soru_takvimi?.setDataValue("yanlis_soru_sayisi",yeni_veri.yanlis_soru_sayisi)
 
 		guncellenecek_soru_takvimi?.save()
+
+	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	res.end()
+})
+
+app.post("/soru-takvimi/sil",urlencodedParser, async (req,res)=>{
+	let yeni_veri : any = req.query
+	let silinecek_soru_takvimi = await SoruTakvimi.findOne({
+		 where: {
+			  tarih: yeni_veri.tarih, konu_id:yeni_veri.konu_id 
+			} 
+		})
+		
+	silinecek_soru_takvimi?.destroy()
 
 	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 	res.end()
@@ -269,7 +284,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 })
 
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
-	let alinan_user  : any= req.query
+	let alinan_user = req.query
 
 	let kullanici = await Kullanici.findOne({ where: { okul_no: alinan_user.okul_no } })
 	
@@ -397,14 +412,17 @@ app.get("/testJSON/:test_icerigi",(req,res) =>{
 				let current_Ders = Main.dersler[j]
 				// Dersin Konularını Döndürüyoruz
 				for(let x = 0;x<current_Ders.get_Konular().length;x++){
-					if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[i]){
-						let current_Konu = current_Ders.get_Konular()[x]
-						// Konunun Soru Sayısını Döndürüyoruz
-						for(let k = 0;k < SoruSayisi_Array[i];k++){
-							toplam_soru_sayisi += 1;
-							temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
-						}	
-						break				
+					// Test içeriğindeki konular döndürüyoruz
+					for(let k = 0;k<KonuID_Array.length;k++){
+						if(current_Ders.get_Konular()[x].get_KonuID() == KonuID_Array[k]){
+							let current_Konu = current_Ders.get_Konular()[x]
+							// Konunun Soru Sayısını Döndürüyoruz
+							for(let k = 0;k < SoruSayisi_Array[i];k++){
+								toplam_soru_sayisi += 1;
+								temp_test.soru_ekle(new Soru(toplam_soru_sayisi.toString(),current_Ders,current_Konu))
+							}	
+							break				
+						}
 					}
 				}
 				break
@@ -457,9 +475,48 @@ app.get("/html/testJSON/:test_icerigi",(req,res) =>{
 })
 
 
-app.get("/dersler",(req,res)=>{
+app.get("/dersler",async (req,res)=>{
 	let dersler_json :any = {}
-	for(let ders of Main.dersler){
+
+	
+	let dersler_value :any = await Dersler.findAll(
+		{
+			where:{ kategori:"tyt"}
+		})
+	let dersler_array :any = [];
+	for(let i = 0 ; i < dersler_value.length;i++){
+		dersler_array.push(new Ders((dersler_value[i].dataValues.ders_id).toString(),dersler_value[i].dataValues.ders_ismi,dersler_value[i].dataValues.ders_yazisi))
+	}
+
+	let konular_value :any = await Konular.findAll()
+	let konular_array :any = [];
+	for(let i = 0 ; i < konular_value.length;i++){		
+		let current_konu_dersi :any = null ;
+		let current_konu_ders_indexi : any = null;
+		for(let j = 0 ;j < dersler_array.length;j++){
+			if(dersler_array[j].get_DersID() == konular_value[i].dataValues.ders_id){
+				current_konu_dersi = dersler_array[j]
+				current_konu_ders_indexi=j
+			}
+		}
+		let current_konu : Konu =new Konu((konular_value[i].dataValues.konu_id).toString(),current_konu_dersi,konular_value[i].dataValues.konu_ismi,konular_value[i].dataValues.konu_yazisi)
+		konular_array.push(current_konu)
+		dersler_array[current_konu_ders_indexi].add_Konu(current_konu)
+		
+	}
+
+	console.log("KONULAR",konular_array)
+
+
+	// let soru_tipleri_data_valuse_array :any = []
+	// let soru_tipleri_value :any = await SoruTipleri.findAll()
+	// let soru_tipleri_array :any = []
+	// for(let i = 0;i< soru_tipleri_value.length;i++){
+	// 	soru_tipleri_array.push(soru_tipleri_value[i].dataValues)
+
+	// }
+	
+	for(let ders of dersler_array){
 		let current_dersID = ders.get_DersID()
 		dersler_json[current_dersID] = ders.toJSON()
 	}

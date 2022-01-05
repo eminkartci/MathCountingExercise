@@ -93,14 +93,14 @@ router.post("/bul", (req, res, next) => {
 		if (error) {
 			return res.redirect("/login");
 		} else if (!kullanici) {
-			return res.redirect("./login");
+			return res.redirect("/login");
 		} else {
 			return req.login(kullanici, function (err) {
 				if (err) {
 					return next(err);
 				}
 				//console.log("Giriş Başarılı!")
-				return res.redirect("/profil");
+				return res.redirect("/soru-takvimi");
 			});
 		}
 	})(req, res);

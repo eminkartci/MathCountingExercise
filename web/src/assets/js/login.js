@@ -22,9 +22,10 @@ function user_get(okul_no,sifre){
     $.ajax(settings).done(function (response) {
 
         try{
-        let response_json = JSON.parse(response)
-        // user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
-        window.location.replace("/")
+            let response_json = JSON.parse(response)
+            console.log("Kullanici Response: ", response_json)
+            // user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
+            window.location.replace("/soru-takvimi")
         }catch(e){
             hata_yazdir(response)
         }

@@ -244,10 +244,15 @@ export class Soru{
                 try{
 
                     for(let a=0;a<this.degisken_isimleri.length;a++){
-                        degisken_verisi[2] = degisken_verisi[2].split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
-                        degisken_verisi[2] = eval(degisken_verisi[2])
-                        
+                        degisken_verisi[0] = (degisken_verisi[0]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
+                        degisken_verisi[1] = (degisken_verisi[1]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())
+                        degisken_verisi[2] = (degisken_verisi[2]).toString().split("|"+this.degisken_isimleri[a]+"|").join(this.degisken_verileri[a].toString())                        
+
                     }
+
+                    degisken_verisi[0] = eval(degisken_verisi[0])
+                    degisken_verisi[1] = eval(degisken_verisi[1])
+                    degisken_verisi[2] = eval(degisken_verisi[2])
                 }catch(e){
                     // console.log("Hata,",e)
                 }
@@ -256,6 +261,9 @@ export class Soru{
                 let random_katsayi = degisken_verisi[2]
                 degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
 
+            }
+            else if(degisken_verisi instanceof Array){
+                degisken_verisi = degisken_verisi[Math.floor(Math.random()*degisken_verisi.length)]
             }else{
                 degisken_verisi == degisken_verisi
             }
