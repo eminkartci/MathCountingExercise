@@ -181,9 +181,9 @@ const SoruTipleri = sequelize.define(
 			type: DataTypes.JSON,
 		},
 
-		// Soru şıklarına yerleştirmek istenilen değişkenleri tutan değişken
+		// Soru şıklarına yerleştirmek istenilen değişkenleriykonuşar tutan değişken
 		soru_siklari: {
-			type: DataTypes.ARRAY,
+			type: DataTypes.ARRAY(DataTypes.INTEGER),
 		},
 
 		// Soru cevabının veya cevap formülünü tutan değişken
@@ -242,4 +242,4 @@ const Konular = sequelize.define(
 // Export
 //https://www.npmjs.com/package/sequelize-views-support
 export default sequelize;
-export { User,Kullanici,SoruTakvimi};
+export { User,Kullanici,SoruTakvimi,Dersler,Konular,SoruTipleri};

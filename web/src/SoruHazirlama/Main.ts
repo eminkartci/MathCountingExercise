@@ -32,7 +32,7 @@ olasilik.soru_tipi_olustur(
     "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-erkek","zar-sayisi":[1,6,1],"tura-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
-    " (1) /(2*|zar-sayisi|)*100"
+    "(1) /(2*|zar-sayisi|)*100"
     
 )
 
@@ -41,7 +41,7 @@ olasilik.soru_tipi_olustur(
     "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |tura-sayisi| tanesinin tura gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-kiz","zar-sayisi":[1,6,1],"tura-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
-    " (1) /(2*|zar-sayisi|)*100"
+    "(1) /(2*|zar-sayisi|)*100"
     
 )
 
@@ -50,7 +50,7 @@ olasilik.soru_tipi_olustur(
     "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-kiz","zar-sayisi":[1,6,1],"yazi-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
-    " (1) /(2*|zar-sayisi|)*100"
+    "(1) /(2*|zar-sayisi|)*100"
     
 )
 
@@ -59,7 +59,7 @@ olasilik.soru_tipi_olustur(
     "*|isim| , |zar-sayisi| madeni parayı aynı anda atıyor. Buna göre yere düşen paraların |yazi-sayisi| tanesinin yazı gelme olasılığı yüzde kaçtır ?",
     {"isim":"name-erkek","zar-sayisi":[1,6,1],"yazi-sayisi":[1,"|zar-sayisi|",1]},
     ["30","28","15","1"],
-    " (1) /(2*|zar-sayisi|)*100"
+    "(1) /(2*|zar-sayisi|)*100"
     
 )
 
@@ -107,7 +107,7 @@ elektrik_manyetizma.soru_tipi_olustur("Yarıçap uzunluğu |yaricap| cm , uzunlu
 fizik.add_Konu(elektrik_manyetizma)
 
 export  let katli_oranlar_kanunu = new Konu("3",kimya,"katli-oranlar-kanunu","Katlı Oranlar Kanunu")
-katli_oranlar_kanunu.soru_tipi_olustur("Aşağıda verilen bileşiklerin hangilerinin arasında katlı oranlar kanunu uygulanamaz?",{"cevap":"H"+"O-H"+"2".sub()+"O"+"2".sub()},["katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri"],"|cevap|")
+katli_oranlar_kanunu.soru_tipi_olustur("Aşağıda verilen bileşiklerin hangilerinin arasında katlı oranlar kanunu uygulanamaz?",{"cevap":["H"+"O-H"+"2".sub()+"O"+"2".sub(),"K"+"O-K"+"2".sub()+"O"+"2".sub(),"C"+"O-C"+"2".sub()+"O"+"2".sub(),"S"+"O-S"+"2".sub()+"O"+"2".sub()]},["katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri","katli-oranlar-uygulanabilir-bilesikleri"],"|cevap|")
 kimya.add_Konu(katli_oranlar_kanunu)
 
 export  let mitoz_bolunme = new Konu("4",biyoloji,"mitoz-bolunme","Mitoz Bölünme")

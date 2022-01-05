@@ -261,6 +261,9 @@ export class Soru{
                 let random_katsayi = degisken_verisi[2]
                 degisken_verisi = Math.floor(Math.random() * (random_maximum-random_minimum) + random_minimum)*random_katsayi
 
+            }
+            else if(degisken_verisi instanceof Array){
+                degisken_verisi = degisken_verisi[Math.floor(Math.random()*degisken_verisi.length)]
             }else{
                 degisken_verisi == degisken_verisi
             }
