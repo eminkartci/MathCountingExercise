@@ -28,7 +28,7 @@ router.post("/ogrenci_kayit", async(req, res) => {
             console.log("Kullanıcı Eklerken Hata: ",error);
         }else{
             console.log("Yeni Kullanici: ",yeniKullanici);
-            res.redirect("/ogrenci_paneli");
+            res.redirect("/soru-takvimi");
         }
         
     });

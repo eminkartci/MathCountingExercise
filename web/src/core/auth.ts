@@ -3,10 +3,12 @@
 import { Router } from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+import * as crypto from 'crypto';
 
 // database den User çağır
 	// siteye girmeye izin verirken kontrol edilmesi gerek
 import { Kullanici } from "../db";
+const md5 = (contents: string) => crypto.createHash('md5').update(contents).digest("hex");
 
 // Router yapısı
 const router = Router();
@@ -68,6 +70,9 @@ passport.use(
 
 			//! HIGHLY DANGEROUS
 			if (kullanici.sifre !== password) {
+				console.log("Kullanıcı Şifre: ",kullanici.sifre)
+				console.log("Kullanıcı Şifre HASH: ",md5(kullanici.sifre))
+				console.log("Password: ",password)
 				console.log("Kullanici Bilgileri Eşleşmedi!")
 				return done(null, false);
 			}
@@ -79,16 +84,18 @@ passport.use(
 	})
 );
 
+router.get("/", (req, res) => {
+	return res.render("login");
+});
+
 router.get("/exit", (req, res) => {
 	req.logout();
 	return res.redirect("/");
 });
 
 
-router.post("/bul", (req, res, next) => {
-
-	//console.log("Form Verileri:",req.body);
-
+router.post("/", (req, res, next) => {
+	console.log("USER POST");
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
 			return res.redirect("/login");

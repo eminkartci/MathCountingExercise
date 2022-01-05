@@ -24,8 +24,8 @@ function user_get(okul_no,sifre){
         try{
             let response_json = JSON.parse(response)
             console.log("Kullanici Response: ", response_json)
-            // user_POST(response_json.İsim,response_json.Soyİsim,response_json.OkulNo,response_json.Sifre)
-            window.location.replace("/soru-takvimi")
+            user_POST(response_json.OkulNo,response_json.Sifre);
+            //window.location.replace("/soru-takvimi")
         }catch(e){
             hata_yazdir(response)
         }
@@ -35,18 +35,16 @@ function user_get(okul_no,sifre){
 
 }
 
-function user_POST(isim,soyisim,okul_no,sifre){
+function user_POST(okul_no,sifre){
 
     var form = new FormData();
-    form.append("isim", isim);
-    form.append("soyisim", soyisim);
     form.append("okul_no", okul_no);
     form.append("sifre", sifre);
 
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/login?isim=${isim}&soyisim=${soyisim}&okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `http://localhost:5006/login?okul_no=${okul_no}&sifre=${sifre}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -68,14 +66,14 @@ function hata_yazdir(hata){
     document.getElementById("hata_text").innerHTML = hata
 }
 
-document.getElementById("login_button").onclick = () =>{
-    okul_no = document.getElementById("school_no_input").value
-    let sifre = document.getElementById("password_input").value
-    let hashedSifre = CryptoJS.MD5(sifre).toString()
-    if(okul_no !=""&&sifre !=""){
-        user_get(okul_no,hashedSifre)
-    }else{
-        console.log("\n%cOkul Numarası veya Şifre Alanı Boş Olamaz !\n","color:red;")
-        hata_yazdir("Okul numarası veya şifre alanı boş olamaz !")
-    }
-}
+// document.getElementById("login_button").onclick = () =>{
+//     okul_no = document.getElementById("school_no_input").value
+//     let sifre = document.getElementById("password_input").value
+//     let hashedSifre = CryptoJS.MD5(sifre).toString()
+//     if(okul_no !=""&&sifre !=""){
+//         user_get(okul_no,hashedSifre)
+//     }else{
+//         console.log("\n%cOkul Numarası veya Şifre Alanı Boş Olamaz !\n","color:red;")
+//         hata_yazdir("Okul numarası veya şifre alanı boş olamaz !")
+//     }
+// }

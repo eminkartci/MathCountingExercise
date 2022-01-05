@@ -22,14 +22,14 @@ import {Test} from './SoruHazirlama/Test'
 import {User} from './SoruHazirlama/User'
 import {Konu} from './SoruHazirlama/Konu'
 import {Ders} from './SoruHazirlama/Ders'
-
+import * as crypto from 'crypto';
 try {
 	require("dotenv").config();
 } catch (_) {}
 
 //* CONSTANTS
 const PORT = process.env.PORT || 5006;
-
+const md5 = (contents: string) => crypto.createHash('md5').update(contents).digest("hex");
 //* APP
 const app = express();
 var engines = require('consolidate');
@@ -102,6 +102,7 @@ app.use(passport.session());
 
 
 app.use("/danisan", express.urlencoded({ extended: true }), authRouter);
+app.use("/login", express.urlencoded({ extended: true }), authRouter);
 app.use("/kayit_ol",express.urlencoded({ extended: true }), kayitRouter);
 app.use("/api",express.urlencoded({ extended: true }), apiRouter);
 app.use("/ogrenci_paneli",express.urlencoded({ extended: true }), ogrenciPaneliRouter);
@@ -117,26 +118,16 @@ app.get("/soru-coz",(req, res) => {
     res.render('index.ejs')
 });
 
-app.get("/login",(req, res) => {
-    res.render('login.ejs')
-});
-
 app.get("/redirect",(req, res) => {
     res.redirect('login')
 });
-
-app.post("/login",passport.authenticate("local",{
-	successRedirect:"/soru-takvimi",
-	failureRedirect:"/login",
-	failureFlash: true
-}));
 
 app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 
 app.get("/soru-takvimi",protect,(req,res)=>{
-	res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	res.render("soru-takvimi.ejs")
 })
 
 app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
@@ -185,8 +176,6 @@ app.post("/soru-takvimi/sil",urlencodedParser, async (req,res)=>{
 		})
 		
 	silinecek_soru_takvimi?.destroy()
-
-	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 	res.end()
 })
 
@@ -214,8 +203,7 @@ app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 
 
 app.get("/profil",(req, res) => {
-	let temp_user_json = {isim:"Durmuş",soyisim:"Kartcı",okul_no:"5081",sifre:"ıhwrowhgıwegtıwuı"}
-    res.render('profil.ejs',{user:temp_user_json})
+    res.render('profil.ejs')
 });
 
 
@@ -228,7 +216,8 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	if(kullanici_var_mi == undefined){
 		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
 		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
-
+		// console.log("YENİ SİFRE: ",temp_user.get_Sifre())
+		// console.log("YENİ SİFRE HASH: ",md5(temp_user.get_Sifre()))
 		Kullanici.create({
 			isim: temp_user.get_İsim(),
 			soyisim: temp_user.get_Soyİsim(),

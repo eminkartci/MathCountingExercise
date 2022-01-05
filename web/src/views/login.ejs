@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Login 08</title>
+  	<title>AMEAN Akademi Giriş</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,47 +18,48 @@
 	<body>
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-5">
-					<div class="login-wrap p-4 p-md-5">
-		      	<div class="d-flex align-items-center justify-content-center">
-		      		<img src="assets/images/amean_logo.png" alt="AMEAN DANIŞMANLIK" style="width:50%;">
-		      	</div>
-		      	<h3 class="text-center mb-4">A-mean Danışmanlık</h3>
-				<div style="padding-top: 10px;text-align:center;color:rgb(199, 23, 23)">
-					<p id="hata_text"></p>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control rounded-left" placeholder="Okul Numaranız" required  id="school_no_input" name="okul_no">
-				</div>
-				<div class="form-group d-flex">
-				<input type="password" class="form-control rounded-left" placeholder="Şifreniz" required  id="password_input" name="password">
-				</div>
-				<div class="form-group d-md-flex">
-					<div class="w-50">
-						<label class="checkbox-wrap checkbox-primary">Beni Hatırla
-							<input type="checkbox" checked>
-							<span class="checkmark"></span>
-						</label>
-					</div>
-					<div class="w-50 text-md-right">
-						<a href="/register">Hesap Oluştur</a>
+			<form action="/login" method="post">
+				<div class="row justify-content-center">
+					<div class="col-md-6 text-center mb-5">
 					</div>
 				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary rounded p-3 px-5 " id="login_button">Giriş Yap</button>
-
+				<div class="row justify-content-center">
+					<div class="col-md-6 col-lg-5">
+						<div class="login-wrap p-4 p-md-5">
+					<div class="d-flex align-items-center justify-content-center">
+						<img src="assets/images/amean_logo.png" alt="AMEAN DANIŞMANLIK" style="width:50%;">
+					</div>
+					<h3 class="text-center mb-4">A-mean Danışmanlık</h3>
+					<div style="padding-top: 10px;text-align:center;color:rgb(199, 23, 23)">
+						<p id="hata_text"></p>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control rounded-left" placeholder="Okul Numaranız" required  id="school_no_input" name="username">
+					</div>
+					<div class="form-group d-flex">
+					<input type="password" class="form-control rounded-left" placeholder="Şifreniz" required  id="password_input" name="password">
+					</div>
+					<div class="form-group d-md-flex">
+						<div class="w-50">
+							<label class="checkbox-wrap checkbox-primary">Beni Hatırla
+								<input type="checkbox" checked>
+								<span class="checkmark"></span>
+							</label>
+						</div>
+						<div class="w-50 text-md-right">
+							<a href="/register">Hesap Oluştur</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary rounded p-3 px-5 " id="login_button">Giriş Yap</button>
+					</div>
 				</div>
-	        </div>
-            <div style="padding-top: 10px;text-align:center;color:rgb(180, 180, 180)">
-                <p>AMEAN Consultancy - Versiyon 1.0.0</p>
-            </div>
+				<div style="padding-top: 10px;text-align:center;color:rgb(180, 180, 180)">
+					<p>AMEAN Danışmanlık - Versiyon 1.0.0</p>
 				</div>
-			</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</section>
 

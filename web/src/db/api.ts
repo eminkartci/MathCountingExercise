@@ -17,10 +17,10 @@ const kullanici_ekle = async (kullanici:any, fn:any) => {
         if (eski_kullanici){
             return fn(new Error("Kullanıcı Mevcut !!"), null);
         }else{
-            const yeni_trafo = await Kullanici.create(kullanici);
+            const yeni_danisan = await Kullanici.create(kullanici);
 
             // Eğer bulunduysa o bilgiyi geri gönder
-            if (yeni_trafo) return fn(null, yeni_trafo);
+            if (yeni_danisan) return fn(null, yeni_danisan);
 
             // eklenemediyse hata dondur
             return fn(new Error("Kullanıcı Eklenemedi !!"), null);

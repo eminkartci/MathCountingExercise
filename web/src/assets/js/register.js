@@ -36,7 +36,7 @@ document.getElementById("register_button").onclick = () =>{
     isim = document.getElementById("name_input").value
     soyisim = document.getElementById("surname_input").value
     okul_no = document.getElementById("school_no_input").value
-    sifre = CryptoJS.MD5(document.getElementById("password_input").value).toString()
+    sifre = document.getElementById("password_input").value
     if(isim !=""&&soyisim !=""&&okul_no !=""&&sifre !=""){
         user_POST(isim,soyisim,okul_no,sifre)
         window.location.replace('./login')
