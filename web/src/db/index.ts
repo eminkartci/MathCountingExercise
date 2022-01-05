@@ -88,9 +88,9 @@ const SoruTakvimi = sequelize.define(
 			autoIncrement: true,
 			primaryKey: true,
 		},
-		// kullanici_adi: {
-		// 	type: DataTypes.STRING,
-		// },
+		kullanici_id: {
+			type: DataTypes.INTEGER,
+		},
 		tarih: {
 			type: DataTypes.STRING,
 		},

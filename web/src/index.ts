@@ -87,7 +87,7 @@ if (dev) {
 }
 
 //* App Start
-import sequelize, { Kullanici,SoruTakvimi } from "./db";
+import sequelize, { Dersler, Konular, Kullanici,SoruTakvimi, SoruTipleri } from "./db";
 import authRouter, { passport, protect } from "./core/auth";
 import kayitRouter from "./core/kayit"
 import apiRouter from "./core/api";
@@ -474,9 +474,48 @@ app.get("/html/testJSON/:test_icerigi",(req,res) =>{
 })
 
 
-app.get("/dersler",(req,res)=>{
+app.get("/dersler",async (req,res)=>{
 	let dersler_json :any = {}
-	for(let ders of Main.dersler){
+
+	
+	let dersler_value :any = await Dersler.findAll(
+		{
+			where:{ kategori:"tyt"}
+		})
+	let dersler_array :any = [];
+	for(let i = 0 ; i < dersler_value.length;i++){
+		dersler_array.push(new Ders((dersler_value[i].dataValues.ders_id).toString(),dersler_value[i].dataValues.ders_ismi,dersler_value[i].dataValues.ders_yazisi))
+	}
+
+	let konular_value :any = await Konular.findAll()
+	let konular_array :any = [];
+	for(let i = 0 ; i < konular_value.length;i++){		
+		let current_konu_dersi :any = null ;
+		let current_konu_ders_indexi : any = null;
+		for(let j = 0 ;j < dersler_array.length;j++){
+			if(dersler_array[j].get_DersID() == konular_value[i].dataValues.ders_id){
+				current_konu_dersi = dersler_array[j]
+				current_konu_ders_indexi=j
+			}
+		}
+		let current_konu : Konu =new Konu((konular_value[i].dataValues.konu_id).toString(),current_konu_dersi,konular_value[i].dataValues.konu_ismi,konular_value[i].dataValues.konu_yazisi)
+		konular_array.push(current_konu)
+		dersler_array[current_konu_ders_indexi].add_Konu(current_konu)
+		
+	}
+
+	console.log("KONULAR",konular_array)
+
+
+	// let soru_tipleri_data_valuse_array :any = []
+	// let soru_tipleri_value :any = await SoruTipleri.findAll()
+	// let soru_tipleri_array :any = []
+	// for(let i = 0;i< soru_tipleri_value.length;i++){
+	// 	soru_tipleri_array.push(soru_tipleri_value[i].dataValues)
+
+	// }
+	
+	for(let ders of dersler_array){
 		let current_dersID = ders.get_DersID()
 		dersler_json[current_dersID] = ders.toJSON()
 	}
