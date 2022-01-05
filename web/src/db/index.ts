@@ -120,6 +120,125 @@ const SoruTakvimi = sequelize.define(
 	}
 );
 
+const Dersler = sequelize.define(
+	"dersler",
+	{
+		ders_id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		// kullanici_adi: {
+		// 	type: DataTypes.STRING,
+		// },
+		kategori: {
+			type: DataTypes.STRING,
+		},
+
+		// Ders ismi javascript değişken formatında tutulan dersin ismi
+		ders_ismi : {
+			type : DataTypes.STRING,
+		},
+
+		// Ders yazısı türkçe formatında tutlan ders ismi
+		ders_yazisi : {
+			type : DataTypes.STRING,
+		}
+	},
+	{
+		freezeTableName: true,
+		createdAt: false,
+		updatedAt: false,
+	}
+);
+
+const SoruTipleri = sequelize.define(
+	"soru_tipleri",
+	{
+		soru_tipi_id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		// kullanici_adi: {
+		// 	type: DataTypes.STRING,
+		// },
+		ders_id: {
+			type: DataTypes.STRING,
+		},
+
+		konu_id: {
+			type: DataTypes.STRING,
+		},
+
+		// Soru Yazısını tutan değişken
+		soru_yazisi: {
+			type: DataTypes.STRING,
+		},
+
+		// Soru Değişkenlerinin tutan değişken
+		soru_degiskenleri: {
+			type: DataTypes.JSON,
+		},
+
+		// Soru şıklarına yerleştirmek istenilen değişkenleri tutan değişken
+		soru_siklari: {
+			type: DataTypes.ARRAY,
+		},
+
+		// Soru cevabının veya cevap formülünü tutan değişken
+		cevap: {
+			type: DataTypes.STRING,
+		}
+	},
+	{
+		freezeTableName: true,
+		createdAt: false,
+		updatedAt: false,
+	}
+);
+
+const Konular = sequelize.define(
+	"konular",
+	{
+		konu_id: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		// kullanici_adi: {
+		// 	type: DataTypes.STRING,
+		// },
+		ders_id: {
+			type: DataTypes.STRING,
+		},
+		// Konu ismi javascript değişken formatında tutulan konunun ismi
+		konu_ismi : {
+			type : DataTypes.STRING,
+		},
+
+		// Konu ismi javascript değişken formatında tutulan konunun ismi
+		konu_yazisi : {
+			type : DataTypes.STRING,
+		},
+
+		// Ders ismi javascript değişken formatında tutulan dersin ismi
+		ders_ismi : {
+			type : DataTypes.STRING,
+		},
+
+		// Ders yazısı türkçe formatında tutlan ders ismi
+		ders_yazisi : {
+			type : DataTypes.STRING,
+		}
+	},
+	{
+		freezeTableName: true,
+		createdAt: false,
+		updatedAt: false,
+	}
+);
+
 // Export
 //https://www.npmjs.com/package/sequelize-views-support
 export default sequelize;
