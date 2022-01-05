@@ -178,12 +178,12 @@ const SoruTipleri = sequelize.define(
 
 		// Soru Değişkenlerinin tutan değişken
 		soru_degiskenleri: {
-			type: DataTypes.JSON,
+			type: DataTypes.STRING,
 		},
 
 		// Soru şıklarına yerleştirmek istenilen değişkenleriykonuşar tutan değişken
 		soru_siklari: {
-			type: DataTypes.ARRAY(DataTypes.INTEGER),
+			type: DataTypes.STRING,
 		},
 
 		// Soru cevabının veya cevap formülünü tutan değişken
@@ -206,9 +206,6 @@ const Konular = sequelize.define(
 			autoIncrement: true,
 			primaryKey: true,
 		},
-		// kullanici_adi: {
-		// 	type: DataTypes.STRING,
-		// },
 		ders_id: {
 			type: DataTypes.STRING,
 		},

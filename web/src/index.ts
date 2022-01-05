@@ -110,7 +110,7 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 app.use(authRouter)
 
 app.get("/",(req, res) => {
-    res.redirect("soru-coz")
+    res.redirect("login")
 });
 
 app.get("/soru-coz",(req, res) => {
@@ -126,7 +126,7 @@ app.get("/redirect",(req, res) => {
 });
 
 app.post("/login",passport.authenticate("local",{
-	successRedirect:"/profil",
+	successRedirect:"/soru-takvimi",
 	failureRedirect:"/login",
 	failureFlash: true
 }));
@@ -135,15 +135,17 @@ app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 
-app.get("/soru-takvimi",(req,res)=>{
+app.get("/soru-takvimi",protect,(req,res)=>{
 	res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 })
 
 app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	let yeni_veri : any = req.query
-	console.log(yeni_veri)
+	console.log("Yeni Soru Verisi: ",yeni_veri)
+	console.log("Kullanici: ", req.user)
 	SoruTakvimi.create({
-		// kullanici_adi      		: yeni_veri.kullanici_adi,
+		// kullanici_id      		: yeni_veri.kullanici_id,
+		kullanici_id      		: req.user.kullanici_id ? req.user.kullanici_id : 1,
 		tarih 					: yeni_veri.tarih,
 		ders_id					: yeni_veri.ders_id,
 		konu_id					: yeni_veri.konu_id,
@@ -153,7 +155,6 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 		kisisel_degerlendirme	: yeni_veri.kisisel_degerlendirme
 	})
 
-	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
 	res.end()
 })
 
@@ -283,7 +284,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 })
 
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
-	let alinan_user  : any= req.query
+	let alinan_user = req.query
 
 	let kullanici = await Kullanici.findOne({ where: { okul_no: alinan_user.okul_no } })
 	
