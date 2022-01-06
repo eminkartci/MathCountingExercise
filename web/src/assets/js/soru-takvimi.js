@@ -18,11 +18,24 @@ mevcut_tarihin_soru_takvimi_json = {}
 gunluk_ozet_tablo_body.innerHTML = ""
 let soru_takvimi_ders_rengi = "#fff"
 
+let user;
+var user_settings = {
+    "url": "http://localhost:5006/user/infos",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Cookie": "connect.sid=s%3ACe1E1jk_2_DLE_iszl3bz62Zk6tEaJqK.4KZYfEBs%2FqSOyxqFw1jhWON8AM1g5hrml64eOuY2r00"
+    },
+  };
 
+$.ajax(user_settings).done(function (user_value) {
+    user = user_value
+    kullanici_bilgilerini_yerlestir(user.isim,user.soyisim,user.okul_no)
+})
 // Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
 let dersler;
 
-var settings = {
+var dersler_settings = {
     "url": "http://localhost:5006/dersler",
     "method": "GET",
     "timeout": 0,
@@ -31,7 +44,7 @@ var settings = {
     },
   };
   
-$.ajax(settings).done(function (dersler_value) {
+$.ajax(dersler_settings).done(function (dersler_value) {
     
     dersler = dersler_value
     ders_adi.innerHTML = `
@@ -343,6 +356,11 @@ function soru_takvimini_guncelle(){
 
         })
         .catch(error => console.log('error', error));
+}
+
+function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
+    document.getElementById("kullanici_adi").innerHTML = isim
+    document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
 }
 
 setInterval(soru_takviminde_onceden_varsa, 1000);

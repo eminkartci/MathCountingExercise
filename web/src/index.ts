@@ -531,6 +531,11 @@ app.get('/danisan/:danisan_id', async (req, res) => {
 	
 })
 
+app.get("/user/infos",protect,async (req, res)=>{
+	let user = req.user
+	res.send(user)
+})
+
 
 // Bütün dabışanları json olarak döndürür
 app.get("/danisanlar",(req,res)=>{
