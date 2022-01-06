@@ -20,7 +20,7 @@ let soru_takvimi_ders_rengi = "#fff"
 
 let user;
 var user_settings = {
-    "url": "http://localhost:5006/user/infos",
+    "url": "/user/infos",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -36,7 +36,7 @@ $.ajax(user_settings).done(function (user_value) {
 let dersler;
 
 var dersler_settings = {
-    "url": "http://localhost:5006/dersler",
+    "url": "/dersler",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -149,7 +149,7 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/soru-takvimi/ekle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
+    "url": `/soru-takvimi/ekle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -181,7 +181,7 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/soru-takvimi/guncelle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
+    "url": `/soru-takvimi/guncelle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -209,7 +209,7 @@ function soru_takvimi_sil_POST(tarih,ders_id,konu_id){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/soru-takvimi/sil?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}`,
+    "url": `/soru-takvimi/sil?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -338,7 +338,7 @@ function soru_takvimini_guncelle(){
           };
           
         let fetch_tarih_format = secilenTarih.split("/").join("-")
-        fetch("http://localhost:5006/soru-takvimi/getir/"+fetch_tarih_format, requestOptions)
+        fetch("/soru-takvimi/getir/"+fetch_tarih_format, requestOptions)
         .then(response => response.text())
         .then(result =>  {
 

@@ -10,7 +10,7 @@ function user_POST(isim,soyisim,okul_no,sifre){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/danisan/ekle?isim=${isim}&soyisim=${soyisim}&okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `/danisan/ekle?isim=${isim}&soyisim=${soyisim}&okul_no=${okul_no}&sifre=${sifre}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
