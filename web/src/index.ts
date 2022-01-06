@@ -220,8 +220,6 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	if(kullanici_var_mi == undefined){
 		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
 		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
-		// console.log("YENİ SİFRE: ",temp_user.get_Sifre())
-		// console.log("YENİ SİFRE HASH: ",md5(temp_user.get_Sifre()))
 		Kullanici.create({
 			isim: temp_user.get_İsim(),
 			soyisim: temp_user.get_Soyİsim(),
