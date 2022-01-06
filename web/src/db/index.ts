@@ -109,6 +109,9 @@ const SoruTakvimi = sequelize.define(
 		yanlis_soru_sayisi: {
 			type: DataTypes.INTEGER,
 		},
+		dakika: {
+			type: DataTypes.INTEGER,
+		},
 		kisisel_degerlendirme: {
 			type: DataTypes.INTEGER,
 		}

@@ -143,6 +143,7 @@ app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 		toplam_soru_sayisi		: yeni_veri.toplam_soru_sayisi,
 		dogru_soru_sayisi		: yeni_veri.dogru_soru_sayisi,
 		yanlis_soru_sayisi		: yeni_veri.yanlis_soru_sayisi,
+		dakika					: yeni_veri.dakika,
 		kisisel_degerlendirme	: yeni_veri.kisisel_degerlendirme
 	})
 
@@ -160,6 +161,8 @@ app.post("/soru-takvimi/guncelle",urlencodedParser, async (req,res)=>{
 		guncellenecek_soru_takvimi?.setDataValue("toplam_soru_sayisi",yeni_veri.toplam_soru_sayisi)
 		guncellenecek_soru_takvimi?.setDataValue("dogru_soru_sayisi",yeni_veri.dogru_soru_sayisi)
 		guncellenecek_soru_takvimi?.setDataValue("yanlis_soru_sayisi",yeni_veri.yanlis_soru_sayisi)
+		guncellenecek_soru_takvimi?.setDataValue("dakika",yeni_veri.dakika)
+		guncellenecek_soru_takvimi?.setDataValue("kisisel_degerlendirme",yeni_veri.kisisel_degerlendirme)
 
 		guncellenecek_soru_takvimi?.save()
 

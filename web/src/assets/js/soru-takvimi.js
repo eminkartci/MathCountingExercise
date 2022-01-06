@@ -242,7 +242,7 @@ background:${soru_takvimi_ders_rengi}" onclick='
     
 }
 
-function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,kisisel_degerlendirme){
+function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,dakika,kisisel_degerlendirme){
 
     var form = new FormData();
     form.append("tarih", tarih);
@@ -256,7 +256,7 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/soru-takvimi/ekle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
+    "url": `http://localhost:5006/soru-takvimi/ekle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -274,7 +274,7 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
 
 }
 
-function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,kisisel_degerlendirme){
+function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_soru_sayisi,yanlis_soru_sayisi,dakika,kisisel_degerlendirme){
 
     var form = new FormData();
     form.append("tarih", tarih);
@@ -288,7 +288,7 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/soru-takvimi/guncelle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
+    "url": `http://localhost:5006/soru-takvimi/guncelle?tarih=${tarih}&ders_id=${ders_id}&konu_id=${konu_id}&toplam_soru_sayisi=${toplam_soru_sayisi}&dogru_soru_sayisi=${dogru_soru_sayisi}&yanlis_soru_sayisi=${yanlis_soru_sayisi}&dakika=${dakika}&kisisel_degerlendirme=${kisisel_degerlendirme}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -406,14 +406,14 @@ function konu_ekle_guncelle(){
         if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value))){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]
-            soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(10))
+            soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(30),parseInt(10))
         }
     }else if(konu_ekle_button.innerHTML == "Güncelle"){
         if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value))){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]
             // tabloya_konu_guncelle(ders_adi.value,secilen_ders.DersYazisi,konu_adi.value,secilen_konu.KonuYazisi,toplam_soru_sayisi_input.value,dogru_soru_sayisi_input.value,yanlis_soru_sayisi_input.value)
-            soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(10))
+            soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(30),parseInt(10))
         }
 
     }
@@ -456,7 +456,7 @@ function konu_sil(){
     if(ders_adi.value != null && konu_adi.value != null && ders_adi.value != " " && konu_adi.value != " " && ders_adi.value != "" && konu_adi.value != "" ){            
         let secilen_ders = dersler[ders_adi.value]
         let secilen_konu = secilen_ders.Konular[konu_adi.value]
-        soru_takvimi_sil_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(10))
+        soru_takvimi_sil_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(30),parseInt(10))
         
     }
 
