@@ -9,8 +9,10 @@ let yanlis_soru_sayisi_input = document.getElementById("yanlis_sayisi_input")
 let dakika_input = document.getElementById("dakika_input")
 
 let tarih_secici = document.getElementById("tarih_secici")
-var today = new Date();
-var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
+console.log(onceki_tarih)
+var today = new Date(onceki_tarih.split("_")[2],(onceki_tarih.split("_")[1]-1),onceki_tarih.split("_")[0]);
+console.log(today)
+var date = tek_basamakli_sayidan_iki_basamakli_sayiya((today.getMonth()+1).toString())+'/'+tek_basamakli_sayidan_iki_basamakli_sayiya((today.getDate()).toString())+'/'+today.getFullYear()
 tarih_secici.value = date
 
 mevcut_tarihin_soru_takvimi_json = {}
@@ -162,7 +164,7 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
     }
 
     $.ajax(settings).done(function (response) {        
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
+        window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
 
 }
@@ -194,7 +196,7 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
     }
 
     $.ajax(settings).done(function (response) {
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
+        window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
 
 }
@@ -222,7 +224,7 @@ function soru_takvimi_sil_POST(tarih,ders_id,konu_id){
     }
 
     $.ajax(settings).done(function (response) {
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
+        window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
 
 }
@@ -330,6 +332,7 @@ function konu_sil(){
 }
 
 function soru_takvimini_guncelle(){
+    console.log("soru takvimi getirilmeye başlandı")
     let secilenTarih = tarih_secici.value;
         soru_takvimi_ders_rengi = "#fff"
         var requestOptions = {
@@ -361,6 +364,22 @@ function soru_takvimini_guncelle(){
 function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
     document.getElementById("kullanici_adi").innerHTML = isim
     document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
+}
+
+
+function tek_basamakli_sayidan_iki_basamakli_sayiya(sayi_string){
+    try{
+        if(sayi_string.length < 2){
+            console.log("önceden",sayi_string)
+            sayi_string = "0"+sayi_string
+            console.log("sonradan",sayi_string)
+            console.log("****************")
+
+        }
+    }catch(e){
+        console.log("string lazım")
+    }
+    return sayi_string
 }
 
 setInterval(soru_takviminde_onceden_varsa, 1000);
