@@ -35,6 +35,15 @@ router.post("/ogrenci_kayit", async(req, res) => {
 
 });
 
+router.get("/user", async(req, res) => {
+
+    let user = {
+        "name": "Emin"
+    }
+   res.send(user)
+
+});
+
 
 
 export default router;
