@@ -7194,7 +7194,7 @@ function datepicker_getZindex( elem ) {
 			// other browsers return a string
 			// we ignore the case of nested elements with an explicit value of 0
 			// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
-			value = parseInt( elem.css( "zIndex" ), 10 );
+			value = parseInt( elem.css( "zIndex" ), 10000 );
 			if ( !isNaN( value ) && value !== 0 ) {
 				return value;
 			}
@@ -7946,7 +7946,7 @@ $.extend( Datepicker.prototype, {
 		if ( !inst.inline ) {
 			showAnim = $.datepicker._get( inst, "showAnim" );
 			duration = $.datepicker._get( inst, "duration" );
-			inst.dpDiv.css( "z-index", datepicker_getZindex( $( input ) ) + 1 );
+			inst.dpDiv.css( "z-index", 1000);
 			$.datepicker._datepickerShowing = true;
 
 			if ( $.effects && $.effects.effect[ showAnim ] ) {
@@ -8163,7 +8163,7 @@ $.extend( Datepicker.prototype, {
 
 		inst[ "selected" + ( period === "M" ? "Month" : "Year" ) ] =
 		inst[ "draw" + ( period === "M" ? "Month" : "Year" ) ] =
-			parseInt( select.options[ select.selectedIndex ].value, 10 );
+			parseInt( select.options[ select.selectedIndex ].value, 1000 );
 
 		this._notifyChange( inst );
 		this._adjustDate( target );
@@ -10716,13 +10716,13 @@ $.ui.plugin.add( "draggable", "stack", {
 		var min,
 			o = instance.options,
 			group = $.makeArray( $( o.stack ) ).sort( function( a, b ) {
-				return ( parseInt( $( a ).css( "zIndex" ), 10 ) || 0 ) -
-					( parseInt( $( b ).css( "zIndex" ), 10 ) || 0 );
+				return ( parseInt( $( a ).css( "zIndex" ), 100 ) || 0 ) -
+					( parseInt( $( b ).css( "zIndex" ), 100 ) || 0 );
 			} );
 
 		if ( !group.length ) { return; }
 
-		min = parseInt( $( group[ 0 ] ).css( "zIndex" ), 10 ) || 0;
+		min = parseInt( $( group[ 0 ] ).css( "zIndex" ), 100 ) || 0;
 		$( group ).each( function( i ) {
 			$( this ).css( "zIndex", min + i );
 		} );
@@ -12157,7 +12157,8 @@ $.widget( "ui.dialog", {
 
 	_moveToTop: function( event, silent ) {
 		var moved = false,
-			zIndices = this.uiDialog.siblings( ".ui-front:visible" ).map( function() {
+			
+		zIndices = this.uiDialog.siblings( ".ui-front:visible" ).map( function() {
 				return +$( this ).css( "z-index" );
 			} ).get(),
 			zIndexMax = Math.max.apply( null, zIndices );

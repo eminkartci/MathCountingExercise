@@ -130,6 +130,13 @@ app.get("/soru-takvimi",protect,(req,res)=>{
 	res.render("soru-takvimi.ejs")
 })
 
+app.get("/soru-takvimi/:tarih",urlencodedParser,protect,(req,res)=>{
+	let tarih_param : any = req.params.tarih.toString();
+	console.log(chalk.red("tarih param"),tarih_param)
+	console.log(chalk.red("tarih param"),typeof tarih_param)
+	res.render("soru-takvimi-belirli-tarih.ejs",{tarih:tarih_param})
+})
+
 app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	let yeni_veri : any = req.query
 	SoruTakvimi.create({
