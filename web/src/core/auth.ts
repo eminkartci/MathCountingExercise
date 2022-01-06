@@ -102,6 +102,7 @@ router.post("/", (req, res, next) => {
 			console.log("Login...")
 			return req.login(kullanici, function (err) {
 				if (err) {
+					console.log("Error on auth: ", err)
 					return next(err);
 				}
 				return res.redirect("/soru-takvimi");
