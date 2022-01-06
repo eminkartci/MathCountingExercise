@@ -24,8 +24,6 @@ const findByOkulNo = async (okul_no: any, fn: any) => {
 			where: { okul_no:okul_no },
 		});
 
-		console.log(kullanici)
-
 		// Eğer bulunduysa o bilgiyi geri gönder
 		if (kullanici) return fn(null, kullanici);
 
@@ -70,9 +68,6 @@ passport.use(
 
 			//! HIGHLY DANGEROUS
 			if (kullanici.sifre !== password) {
-				console.log("Kullanıcı Şifre: ",kullanici.sifre)
-				console.log("Kullanıcı Şifre HASH: ",md5(kullanici.sifre))
-				console.log("Password: ",password)
 				console.log("Kullanici Bilgileri Eşleşmedi!")
 				return done(null, false);
 			}
@@ -95,7 +90,6 @@ router.get("/exit", (req, res) => {
 
 
 router.post("/", (req, res, next) => {
-	console.log("USER POST");
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
 			return res.redirect("/login");
@@ -106,7 +100,6 @@ router.post("/", (req, res, next) => {
 				if (err) {
 					return next(err);
 				}
-				//console.log("Giriş Başarılı!")
 				return res.redirect("/soru-takvimi");
 			});
 		}
