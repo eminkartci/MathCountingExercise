@@ -11,7 +11,7 @@ let soru_sayisi ;
 // Dersleri get yapıyoruz
 let myPromise = new Promise(function(myResolve, myReject) {
   let req = new XMLHttpRequest();
-  req.open('GET', "http://localhost:5006/dersler");
+  req.open('GET', "/dersler");
   req.onload = function() {
     if (req.status == 200) {
       myResolve(req.response);
@@ -406,7 +406,7 @@ function controlCheckAll() {
 
 function konuya_gore_test_getir(konuJSON){
   console.log("Gönderilen Konu Json",konuJSON)
-  let endpoint = "http://localhost:5006/matematik/yas-problemi/"+konuJSON.SoruSayisi;
+  let endpoint = "/matematik/yas-problemi/"+konuJSON.SoruSayisi;
 
   fetch(endpoint).then(res => res.json()).then(async test => {
     console.log(test)
@@ -416,7 +416,7 @@ function konuya_gore_test_getir(konuJSON){
 
 function test_coze_gonder(testicerigiJSON){
   
-  window.location.replace("http://localhost:5006/testHTML/"+JSON.stringify(testicerigiJSON))
+  window.location.replace("/testHTML/"+JSON.stringify(testicerigiJSON))
 
 }
 

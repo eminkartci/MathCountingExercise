@@ -132,8 +132,6 @@ app.get("/soru-takvimi",protect,(req,res)=>{
 
 app.post("/soru-takvimi/ekle",urlencodedParser, async (req,res)=>{
 	let yeni_veri : any = req.query
-	console.log("Yeni Soru Verisi: ",yeni_veri)
-	console.log("Kullanici: ", req.user)
 	SoruTakvimi.create({
 		// kullanici_id      		: yeni_veri.kullanici_id,
 		kullanici_id      		: req.user.kullanici_id ? req.user.kullanici_id : 1,
@@ -166,7 +164,8 @@ app.post("/soru-takvimi/guncelle",urlencodedParser, async (req,res)=>{
 
 		guncellenecek_soru_takvimi?.save()
 
-	// res.render("soru-takvimi.ejs",{user:{isim:"Durmuş",soyisim:"Kartcı",sifre:"XHdhfhdhXHhfwehDSH",okulno:"5081"}})
+	console.log(chalk.red("Soru takvimi güncellendi")+chalk.yellow(yeni_veri.tarih))
+	console.log(yeni_veri)
 	res.end()
 })
 
@@ -528,6 +527,11 @@ app.get('/danisan/:danisan_id', async (req, res) => {
 	res.send(tempUser.toJSON())
 	console.log(chalk.hex('#FFF01F').bold.underline("\nID : "),danisan_id,chalk.hex('#FFF01F').bold.underline(" DANIŞAN :\n"),tempUser)
 	
+})
+
+app.get("/user/infos",protect,async (req, res)=>{
+	let user = req.user
+	res.send(user)
 })
 
 

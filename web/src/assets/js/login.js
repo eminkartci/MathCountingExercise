@@ -7,7 +7,7 @@ function user_get(okul_no,sifre){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/danisan/bul?okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `/danisan/bul?okul_no=${okul_no}&sifre=${sifre}`,
     "method": "get",
     "headers": {
         "cache-control": "no-cache",
@@ -44,7 +44,7 @@ function user_POST(okul_no,sifre){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `http://localhost:5006/login?okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `/login?okul_no=${okul_no}&sifre=${sifre}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",

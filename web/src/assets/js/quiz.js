@@ -29,7 +29,7 @@ let test;
 // Dersleri get yapıyoruz
 let myPromise = new Promise(function(myResolve, myReject) {
   let req = new XMLHttpRequest();
-  req.open('GET', "http://localhost:5006/testJSON/"+JSON.stringify(test_icerigi));
+  req.open('GET', "/testJSON/"+JSON.stringify(test_icerigi));
   req.onload = function() {
     if (req.status == 200) {
       myResolve(req.response);
