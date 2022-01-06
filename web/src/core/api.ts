@@ -38,7 +38,13 @@ router.post("/ogrenci_kayit", async(req, res) => {
 router.get("/user", async(req, res) => {
 
     let user = {
-        "name": "Emin"
+        "username": "eminkartci",
+        "age": 22,
+        "timeP": 4,
+        "socialP": 2,
+        "physicalP": 5,
+        "entertainmentP":1,
+        "hobbies": "1,4"
     }
    res.send(user)
 
