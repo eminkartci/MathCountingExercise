@@ -90,6 +90,7 @@ router.get("/exit", (req, res) => {
 
 
 router.post("/", (req, res, next) => {
+	console.log("Authantication is started!!");
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
 			return res.redirect("/login");
