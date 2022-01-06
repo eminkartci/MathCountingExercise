@@ -43,8 +43,7 @@ router.get("/user", async(req, res) => {
         "timeP": 4,
         "socialP": 2,
         "physicalP": 5,
-        "entertainmentP":1,
-        "hobbies": "1,4"
+        "entertainmentP":1
     }
    res.send(user)
 
