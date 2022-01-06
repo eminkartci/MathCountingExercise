@@ -114,7 +114,7 @@ app.get("/",(req, res) => {
     res.redirect("login")
 });
 
-app.get("/soru-coz",(req, res) => {
+app.get("/soru-coz",protect,(req, res) => {
     res.render('index.ejs')
 });
 
@@ -187,7 +187,8 @@ app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 
 	let soruKTakvimiKayitlarDatatableArray : any = await SoruTakvimi.findAll({
 		where: {
-			tarih: tarih
+			tarih: tarih,
+			kullanici_id: req.user.kullanici_id
 		}
 	})
 	let soruKTakvimiKayitlar :any = {}
