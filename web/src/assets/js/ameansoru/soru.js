@@ -1,7 +1,7 @@
 console.log("Hello Soru")
 
 function soru_getir(){
-    let endpoint = "http://localhost:5006/matematik/yas-problemi";
+    let endpoint = "/matematik/yas-problemi";
 
     fetch(endpoint).then(res => res.json()).then(soru => {
         // console.log("SORU: ", soru)

@@ -1,5 +1,5 @@
 function kullanici_getir(){
-    let endpoint = "http://localhost:5006/profil";
+    let endpoint = "/profil";
     console.log(endpoint)
     fetch(endpoint).then(res => res.json()).then(data => {
         console.log("user: ", data)
