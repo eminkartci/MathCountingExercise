@@ -1,4 +1,4 @@
-
+let hata_yazisi_p = document.getElementById("hata_yazisi")
 let gunluk_ozet_tablo_body = document.getElementById("gunluk_ozet_tablo_body")
 let konu_ekle_button = document.getElementById("konu_ekle")
 let ders_adi = document.getElementById("ders_adi_input")
@@ -8,9 +8,12 @@ let dogru_soru_sayisi_input = document.getElementById("dogru_sayisi_input")
 let yanlis_soru_sayisi_input = document.getElementById("yanlis_sayisi_input")
 let dakika_input = document.getElementById("dakika_input")
 
+
+let konu_adi_innerHTML_butun_konular = ""
+
 let tarih_secici = document.getElementById("tarih_secici")
 var today = new Date();
-var date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
+var date = tek_basamakli_sayidan_iki_basamakli_sayiya((today.getMonth()+1).toString())+'/'+tek_basamakli_sayidan_iki_basamakli_sayiya((today.getDate()).toString())+'/'+today.getFullYear()
 tarih_secici.value = date
 
 mevcut_tarihin_soru_takvimi_json = {}
@@ -48,37 +51,43 @@ $.ajax(dersler_settings).done(function (dersler_value) {
     
     dersler = dersler_value
     ders_adi.innerHTML = `
-    <option label="&nbsp;">&nbsp;</option>                        
-        <optgroup label="Dersler">
+    <option label="" disabled selected>Ders seçiniz...</option>                        
     `
+    konu_adi.innerHTML = `<option label=""  disabled selected>Konu seçiniz...</option> `
+
     let ders_sayisi = Object.keys(dersler).length
     for(let i = 0;i<ders_sayisi;i++){
-        ders_adi.innerHTML += `<option value="${dersler[Object.keys(dersler)[i]].DersID}">${dersler[Object.keys(dersler)[i]].DersYazisi}</option>`
+        let mevcut_ders = dersler[Object.keys(dersler)[i]]
+        ders_adi.innerHTML += `<option value="${mevcut_ders.DersID}">${mevcut_ders.DersYazisi}</option>`
+        konu_adi.innerHTML += ` <optgroup label="${mevcut_ders.DersYazisi}">`
+        for(let k = 0 ;k<Object.keys(mevcut_ders.Konular).length;k++){
+            let mevcut_konu = mevcut_ders.Konular[Object.keys(mevcut_ders.Konular)[k]]            
+            konu_adi.innerHTML += `<option value="${mevcut_konu.KonuID}">${mevcut_konu.KonuYazisi}</option>`
+        }
+        konu_adi.innerHTML += `</optgroup>`
     }
 
-    ders_adi.innerHTML += `                      
-        </optgroup>
-    `
+    konu_adi_innerHTML_butun_konular = konu_adi.innerHTML
 
     soru_takvimini_guncelle()
 
     ders_adi.onchange = () =>{
-        if(ders_adi.value != null){
+        if(ders_adi.value != null && ders_adi.value != "" ){
             try {
                     
                 
                 let secilen_ders_konulari = dersler[ders_adi.value].Konular
-                konu_adi.innerHTML = `<option label="&nbsp;">&nbsp;</option> `
+                konu_adi.innerHTML = `<option label="" disabled selected>Konu seçiniz...</option> `
 
                 let konu_sayisi = Object.keys(secilen_ders_konulari).length;
                 for(let i = 0;i<konu_sayisi;i++){
                     konu_adi.innerHTML += `<option value="${secilen_ders_konulari[Object.keys(secilen_ders_konulari)[i]].KonuID}">${secilen_ders_konulari[Object.keys(secilen_ders_konulari)[i]].KonuYazisi}</option>`                    
                 }
             } catch (error) {
-                konu_adi.innerHTML = ``
+                konu_adi.innerHTML = konu_adi_innerHTML_butun_konular
             }
         }else if(ders_adi.value == null || ders_adi.value == ' '){
-            konu_adi.innerHTML = ``
+            konu_adi.innerHTML = konu_adi_innerHTML_butun_konular
         }
     }
 
@@ -271,12 +280,12 @@ function soru_takviminde_onceden_varsa(){
 function input_alanina_veriler_yerlestir(ders_id,konu_id,soru_sayisi,dogru_sayisi,yanlis_sayisi,dakika){
 
     ders_adi.value = ders_id
-    if(ders_adi.value != null){
+    if(ders_adi.value != null && ders_adi.value != "" ){
         try {
                 
             
             let secilen_ders_konulari = dersler[ders_adi.value].Konular
-            konu_adi.innerHTML = `<option label="&nbsp;">&nbsp;</option>`
+            konu_adi.innerHTML = `<option label=""  disabled selected>Konu seçiniz...</option>`
 
             let konu_sayisi = Object.keys(secilen_ders_konulari).length;
             for(let i = 0;i<konu_sayisi;i++){
@@ -358,9 +367,26 @@ function soru_takvimini_guncelle(){
         .catch(error => console.log('error', error));
 }
 
+function tek_basamakli_sayidan_iki_basamakli_sayiya(sayi_string){
+    try{
+        if(sayi_string.length < 2){
+            sayi_string = "0"+sayi_string
+
+        }
+    }catch(e){
+        console.log("string lazım")
+    }
+    return sayi_string
+}
+
 function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
     document.getElementById("kullanici_adi").innerHTML = isim
     document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
+}
+
+
+function hata_yazdir(hata_yazisi){
+    hata_yazisi_p.innerHTML = hata_yazisi
 }
 
 setInterval(soru_takviminde_onceden_varsa, 1000);
