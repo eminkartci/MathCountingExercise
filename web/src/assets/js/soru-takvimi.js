@@ -171,8 +171,10 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
     }
 
     $.ajax(settings).done(function (response) {        
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
+
+    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
+
 
 }
 
@@ -203,8 +205,8 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
     }
 
     $.ajax(settings).done(function (response) {
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
+    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
 
 }
 
@@ -231,8 +233,9 @@ function soru_takvimi_sil_POST(tarih,ders_id,konu_id){
     }
 
     $.ajax(settings).done(function (response) {
-                window.location.replace("soru-takvimi/'"+tarih_secici.value.split("/")[1]+"_"+tarih_secici.value.split("/")[0]+"_"+tarih_secici.value.split("/")[2]+"'")
     });
+    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
+
 
 }
 
