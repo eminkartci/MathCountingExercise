@@ -317,7 +317,7 @@ function input_alanina_veriler_yerlestir(ders_id,konu_id,soru_sayisi,dogru_sayis
 
 function konu_ekle_guncelle(){
     if(konu_ekle_button.innerHTML == "Ekle"){
-        if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && dakika_input.value != null && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) && parseInt(dakika_input.value) >= 0){            
+        if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && dakika_input.value != null && parseInt( toplam_soru_sayisi_input.value)>= 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) && parseInt(dakika_input.value) >= 0){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]
             soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(dakika_input.value),parseInt(10))
@@ -328,7 +328,7 @@ function konu_ekle_guncelle(){
             hata_yazdir("Boş input bırakılamaz")
         }
     }else if(konu_ekle_button.innerHTML == "Güncelle"){
-        if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && dakika_input.value != null  && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) && parseInt(dakika_input.value) >= 0){            
+        if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && dakika_input.value != null  && parseInt( toplam_soru_sayisi_input.value)>= 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) && parseInt(dakika_input.value) >= 0){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]            
             soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(dakika_input.value),parseInt(10))
