@@ -2087,7 +2087,7 @@ $.dore = function (element, options) {
             tooltips: chartTooltip
           },
           data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
+            labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"],
             datasets: [
               {
                 label: "Cakes",
@@ -2159,7 +2159,7 @@ $.dore = function (element, options) {
             tooltips: chartTooltip
           },
           data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
+            labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"],
             datasets: [
               {
                 label: "Cakes",
