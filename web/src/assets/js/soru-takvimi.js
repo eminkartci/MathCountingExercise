@@ -170,10 +170,13 @@ function soru_takvimi_ekle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dogru_s
     "data": form
     }
 
-    $.ajax(settings).done(function (response) {        
+    $.ajax(settings).done(function (response) { 
+        
+        const myTimeout = setTimeout(soru_takvimini_guncelle, 100);
+        
     });
 
-    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
+    
 
 
 }
@@ -205,8 +208,10 @@ function soru_takvimi_guncelle_POST(tarih,ders_id,konu_id,toplam_soru_sayisi,dog
     }
 
     $.ajax(settings).done(function (response) {
+
+        const myTimeout = setTimeout(soru_takvimini_guncelle, 100);
+
     });
-    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
 
 }
 
@@ -233,8 +238,10 @@ function soru_takvimi_sil_POST(tarih,ders_id,konu_id){
     }
 
     $.ajax(settings).done(function (response) {
+
+        const myTimeout = setTimeout(soru_takvimini_guncelle, 100);
+
     });
-    const myTimeout = setTimeout(soru_takvimini_guncelle, 200);
 
 
 }
@@ -314,12 +321,22 @@ function konu_ekle_guncelle(){
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]
             soru_takvimi_ekle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(dakika_input.value),parseInt(10))
+            hata_yazdir("")
+        }else if(parseInt( toplam_soru_sayisi_input.value) < (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) ){
+            hata_yazdir("Doğru ve yanlış soru sayısı toplamı , toplam soru sayısını geçemez.")
+        }else{
+            hata_yazdir("Boş input bırakılamaz")
         }
     }else if(konu_ekle_button.innerHTML == "Güncelle"){
         if(ders_adi.value != null && konu_adi.value != null && toplam_soru_sayisi_input.value != null && dogru_soru_sayisi_input.value != null && yanlis_soru_sayisi_input.value != null && dakika_input.value != null  && parseInt( toplam_soru_sayisi_input.value)> 0 && parseInt( dogru_soru_sayisi_input.value) >= 0 && parseInt( yanlis_soru_sayisi_input.value) >= 0 && parseInt( toplam_soru_sayisi_input.value) >= (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) && parseInt(dakika_input.value) >= 0){            
             let secilen_ders = dersler[ders_adi.value]
             let secilen_konu = secilen_ders.Konular[konu_adi.value]            
             soru_takvimi_guncelle_POST(tarih_secici.value,parseInt(secilen_ders.DersID),parseInt(secilen_konu.KonuID),parseInt(toplam_soru_sayisi_input.value),parseInt(dogru_soru_sayisi_input.value),parseInt(yanlis_soru_sayisi_input.value),parseInt(dakika_input.value),parseInt(10))
+            hata_yazdir("")
+        }else if(parseInt( toplam_soru_sayisi_input.value) < (parseInt( dogru_soru_sayisi_input.value)+parseInt( yanlis_soru_sayisi_input.value)) ){
+            hata_yazdir("Doğru ve yanlış soru sayısı toplamı , toplam soru sayısını geçemez.")
+        }else{
+            hata_yazdir("Boş input bırakılamaz")
         }
 
     }
