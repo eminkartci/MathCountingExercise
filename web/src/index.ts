@@ -114,7 +114,7 @@ app.get("/",(req, res) => {
     res.redirect("login")
 });
 
-app.get("/soru-coz",protect,(req, res) => {
+app.get("/soru-coz",(req, res) => {
     res.render('index.ejs')
 });
 
@@ -126,7 +126,7 @@ app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 
-app.get("/soru-takvimi",protect,(req,res)=>{
+app.get("/soru-takvimi",(req,res)=>{
 	res.render("soru-takvimi.ejs")
 })
 
