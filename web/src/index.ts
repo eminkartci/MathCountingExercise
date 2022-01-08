@@ -101,7 +101,6 @@ app.use(passport.session());
 
 
 
-app.use("/danisan", express.urlencoded({ extended: true }), authRouter);
 app.use("/login", express.urlencoded({ extended: true }), authRouter);
 app.use("/kayit_ol",express.urlencoded({ extended: true }), kayitRouter);
 app.use("/api",express.urlencoded({ extended: true }), apiRouter);

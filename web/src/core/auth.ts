@@ -105,7 +105,9 @@ router.post("/", (req, res, next) => {
 					console.log("Error on auth: ", err)
 					return next(err);
 				}
-				return res.redirect("/soru-takvimi");
+				req.session.save(function(){
+					return res.redirect("/soru-takvimi");
+				});
 			});
 		}
 	})(req, res);
