@@ -110,9 +110,10 @@ app.use("/admin",express.urlencoded({ extended: true }), adminPaneliRouter);
 
 app.use(authRouter)
 
-app.get("/",(req, res) => {
-    res.redirect("login")
+app.get("/",protect,(req, res) => {
+    res.redirect("danisan.ejs")
 });
+
 
 app.get("/soru-coz",protect,(req, res) => {
     res.render('index.ejs')
@@ -125,6 +126,14 @@ app.get("/redirect",(req, res) => {
 app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
+
+app.get("/blank",(req, res) => {
+    res.render('blank-page.ejs')
+});
+
+app.get("/anasayfa/danisan",protect,(req,res)=>{
+	res.render("danisan.ejs")
+})
 
 app.get("/soru-takvimi",protect,(req,res)=>{
 	res.render("soru-takvimi.ejs")
@@ -234,44 +243,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	}
 
 
-	// let id_index = 0;
-	// let isim_index = 0;
-	// let soyisim_index = 0;
-	// let okul_no_index = 0;
-	// let sifre_index = 0;
-	// let danisanlar : any[] = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	// for(let i = 0;i< danisanlar[0].length ;i++){
-	// 	if(danisanlar[0][i] == "id"){
-	// 		id_index = i
-	// 	}else if(danisanlar[0][i] == "isim"){
-	// 		isim_index = i
-	// 	}else if(danisanlar[0][i] == "soyisim"){
-	// 		soyisim_index = i
-	// 	}else if(danisanlar[0][i] == "okul_no"){
-	// 		okul_no_index = i
-	// 	}else if(danisanlar[0][i] == "sifre"){
-	// 		sifre_index = i
-	// 	}
-	// }
-
-	// for(let i =0;i<danisanlar.length;i++){
-	// 	if(danisanlar[i][okul_no_index] == new_user_data.okul_no){
-	// 		console.log(chalk.hex('#FF3131').bold.underline("\nKullanıcı zaten mevcut...\n"))
-	// 		return
-	// 	}
-	// }
-	// 	let new_user_csv_data : any []= []
-	// 	let new_user_id = danisanlar.length
-	// 	new_user_csv_data[id_index] = new_user_id.toString()
-	// 	new_user_csv_data[isim_index] = new_user_data.isim
-	// 	new_user_csv_data[soyisim_index] = new_user_data.soyisim
-	// 	new_user_csv_data[okul_no_index] = new_user_data.okul_no
-	// 	new_user_csv_data[sifre_index] = new_user_data.sifre
-
-	// 	danisanlar[danisanlar.length] = new_user_csv_data
-	// 	let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
-	// 	console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
-	// 	array_to_csv(danisanlar,"/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
+	
 })
 
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
@@ -295,38 +267,10 @@ app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 		res.send("Kullanıcı Bulunamadı")
 	}
 
-	//ESKİ YONTEM
-	// let id_index = 0;
-	// let isim_index = 0;
-	// let soyisim_index = 0;
-	// let okul_no_index = 0;
-	// let sifre_index = 0;
-	// let danisanlar : any[] = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	// for(let i = 0;i< danisanlar[0].length ;i++){
-	// 	if(danisanlar[0][i] == "id"){
-	// 		id_index = i
-	// 	}else if(danisanlar[0][i] == "isim"){
-	// 		isim_index = i
-	// 	}else if(danisanlar[0][i] == "soyisim"){
-	// 		soyisim_index = i
-	// 	}else if(danisanlar[0][i] == "okul_no"){
-	// 		okul_no_index = i
-	// 	}else if(danisanlar[0][i] == "sifre"){
-	// 		sifre_index = i
-	// 	}
-	// }
-
-	// for(let i =0;i<danisanlar.length;i++){
-		
-	// 	if(danisanlar[i][okul_no_index] == alinan_user.okul_no && danisanlar[i][sifre_index] == alinan_user.sifre){
-	// 		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
-	// 		res.send(temp_user.toJSON())
-	// 		console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
-	// 		return
-	// 	}
-	// }	
 	
 })
+
+
 
 
 
@@ -536,36 +480,6 @@ app.get("/user/infos",protect,async (req, res)=>{
 })
 
 
-// Bütün dabışanları json olarak döndürür
-app.get("/danisanlar",(req,res)=>{
-	let danisanlar = csv_to_array("/Users/eminkartci/Desktop/codenv/MathCountingExercise/web/src/SoruHazirlama/danisanlar.csv")
-	let id_index = 0;
-	let isim_index = 0;
-	let soyisim_index = 0;
-	let okul_no_index = 0;
-	let sifre_index = 0;
-	for(let i = 0;i< danisanlar[0].length;i++){
-		
-		if(danisanlar[0][i] == "id"){
-			id_index = i
-		}else if(danisanlar[0][i] == "isim"){
-			isim_index = i
-		}else if(danisanlar[0][i] == "soyisim"){
-			soyisim_index = i
-		}else if(danisanlar[0][i] == "okul_no"){
-			okul_no_index = i
-		}else if(danisanlar[0][i] == "sifre"){
-			sifre_index = i
-		}
-	}
-	let danisanlar_json : any= {}
-	for(let i = 1;i<danisanlar.length;i++){
-		let temp_user = new User(danisanlar[i][isim_index],danisanlar[i][soyisim_index],danisanlar[i][okul_no_index],danisanlar[i][sifre_index])
-		danisanlar_json[i-1] = temp_user.toJSON()
-	}
-	console.log(chalk.hex('#FFF01F').bold.underline("\nDANIŞANLAR :\n"),danisanlar_json)
-	res.send(danisanlar_json)	
-})
 
 app.use((err: Error, req: any, res: any, next: any) => {
 	console.error(err);
@@ -579,24 +493,3 @@ sequelize.sync({ force: process.env.NODE_ENV != "production" && false })
 	.then(async () => {
 		app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 	});
-
-function csv_to_array(file_path:string){
-	var data:any = fs.readFileSync(file_path, "utf8")
-	data = data.split("\n")
-	for (let i = 0;i<data.length;i++){
-		data[i] = data[i].split(",") 
-	}
-	return data
-}
-
-function array_to_csv(array:any,file_path:string){
-	let csv_content = ""
-	for(let i = 0;i<array.length;i++){
-		if(i == array.length-1){
-			csv_content += array[i].join()
-			break
-		}
-		csv_content += array[i].join()+"\n"
-	}
-    fs.writeFileSync(file_path, csv_content);
-}
