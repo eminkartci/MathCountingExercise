@@ -105,7 +105,7 @@ router.post("/", (req, res, next) => {
 					console.log("Error on auth: ", err)
 					return next(err);
 				}
-				return res.redirect("/anasayfa/danisan");
+				return res.redirect("/anasayfa");
 			});
 		}
 	})(req, res);

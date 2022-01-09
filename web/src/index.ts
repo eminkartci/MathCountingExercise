@@ -131,7 +131,7 @@ app.get("/blank",(req, res) => {
     res.render('blank-page.ejs')
 });
 
-app.get("/anasayfa/danisan",protect,(req,res)=>{
+app.get("/anasayfa",protect,(req,res)=>{
 	res.render("danisan.ejs")
 })
 
