@@ -106,7 +106,7 @@ router.post("/", (req, res, next) => {
 					return next(err);
 				}
 				req.session.save(function(){
-					return res.redirect("/soru-takvimi");
+					return res.redirect("/anasayfa");
 				});
 
 			});
