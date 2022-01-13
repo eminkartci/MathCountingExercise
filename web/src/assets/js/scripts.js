@@ -44,7 +44,6 @@ function loadStyle(href, callback) {
     var themeColorsDom = /*html*/`
   <div class="theme-colors">
     <div class="p-4">
-    <p class="text-muted mb-2">Light Theme</p>
     <div class="d-flex flex-row justify-content-between mb-3">
       <a href="#" data-theme="dore.light.bluenavy.min.css" class="theme-color theme-color-bluenavy"></a>
       <a href="#" data-theme="dore.light.blueyale.min.css" class="theme-color theme-color-blueyale"></a>
@@ -58,32 +57,6 @@ function loadStyle(href, callback) {
       <a href="#" data-theme="dore.light.redruby.min.css" class="theme-color theme-color-redruby"></a>
       <a href="#" data-theme="dore.light.yellowgranola.min.css" class="theme-color theme-color-yellowgranola"></a>
       <a href="#" data-theme="dore.light.greysteel.min.css" class="theme-color theme-color-greysteel"></a>
-    </div>
-    <p class="text-muted mb-2">Dark Theme</p>
-    <div class="d-flex flex-row justify-content-between mb-3">
-      <a href="#" data-theme="dore.dark.bluenavy.min.css" class="theme-color theme-color-bluenavy"></a>
-      <a href="#" data-theme="dore.dark.blueyale.min.css" class="theme-color theme-color-blueyale"></a>
-      <a href="#" data-theme="dore.dark.blueolympic.min.css" class="theme-color theme-color-blueolympic"></a>
-      <a href="#" data-theme="dore.dark.greenmoss.min.css" class="theme-color theme-color-greenmoss"></a>
-      <a href="#" data-theme="dore.dark.greenlime.min.css" class="theme-color theme-color-greenlime"></a>
-    </div>
-    <div class="d-flex flex-row justify-content-between">
-    <a href="#" data-theme="dore.dark.purplemonster.min.css" class="theme-color theme-color-purplemonster"></a>
-    <a href="#" data-theme="dore.dark.orangecarrot.min.css" class="theme-color theme-color-orangecarrot"></a>
-    <a href="#" data-theme="dore.dark.redruby.min.css" class="theme-color theme-color-redruby"></a>
-    <a href="#" data-theme="dore.dark.yellowgranola.min.css" class="theme-color theme-color-yellowgranola"></a>
-    <a href="#" data-theme="dore.dark.greysteel.min.css" class="theme-color theme-color-greysteel"></a>
-  </div>
-  </div>
-  <div class="p-4">
-    <p class="text-muted mb-2">Border Radius</p>
-    <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="roundedRadio" name="radiusRadio" class="custom-control-input radius-radio" data-radius="rounded">
-      <label class="custom-control-label" for="roundedRadio">Rounded</label>
-    </div>
-    <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="flatRadio" name="radiusRadio" class="custom-control-input radius-radio" data-radius="flat">
-      <label class="custom-control-label" for="flatRadio">Flat</label>
     </div>
   </div>
   
