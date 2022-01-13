@@ -8,7 +8,7 @@ import * as crypto from 'crypto';
 // database den User çağır
 	// siteye girmeye izin verirken kontrol edilmesi gerek
 import { Kullanici } from "../db";
-const md5 = (contents: string) => crypto.createHash('md5').update(contents).digest("hex");
+import {md5} from "../index"
 
 // Router yapısı
 const router = Router();
@@ -67,7 +67,7 @@ passport.use(
 			}
 
 			//! HIGHLY DANGEROUS
-			if (kullanici.sifre !== password) {
+			if (kullanici.sifre !== md5(password)) {
 				console.log("Kullanici Bilgileri Eşleşmedi!")
 				return done(null, false);
 			}
