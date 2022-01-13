@@ -30,6 +30,8 @@ try {
 //* CONSTANTS
 const PORT = process.env.PORT || 5006;
 const md5 = (contents: string) => crypto.createHash('md5').update(contents).digest("hex");
+
+export {md5} 
 //* APP
 const app = express();
 var engines = require('consolidate');
@@ -232,7 +234,7 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 			isim: temp_user.get_İsim(),
 			soyisim: temp_user.get_Soyİsim(),
 			okul_no: temp_user.get_okulNo(),
-			sifre: temp_user.get_Sifre(),
+			sifre: md5(temp_user.get_Sifre()),
 			rol: "danisan"
 		})
 
