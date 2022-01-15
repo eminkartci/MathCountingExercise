@@ -116,5 +116,37 @@ router.post("/", (req, res, next) => {
 	})(req, res);
 });
 
+router.post("/manual", async (req, res, next) => {
+	console.log("Manual Auth started...");
+	try {
+		
+	
+		let kullanici :any = await Kullanici.findOne({where:{ email:req.body.email }})
+		kullanici = kullanici.dataValues
+		console.log(kullanici)
+
+		if(kullanici != undefined || kullanici != null){
+			if(kullanici.sifre == md5(req.body.sifre)){
+				return req.login(kullanici, function (err) {
+					if (err) {
+						return next(err);
+					}
+					return res.redirect("/anasayfa");
+				});
+			}else{
+				console.log("Bilgiler Uyuşmadı")
+				return
+			}
+		}else{
+			console.log("Kullanıcı yok")
+		}
+	}
+	catch (error) {
+		console.log(error)
+	}
+	
+		
+});
+
 export default router;
 export { passport, protect };
