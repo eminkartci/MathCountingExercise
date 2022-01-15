@@ -4,9 +4,9 @@ declare namespace Express {
 			kullanici_id: number;
 			isim: string;
 			soyisim: string;
+			okul_no: string;
 			email: string;
 			sifre: string;
-			sirket_id: string;
 			rol: string;
 		};
 		sirket: {
