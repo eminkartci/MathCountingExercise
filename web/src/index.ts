@@ -31,7 +31,7 @@ try {
 const PORT = process.env.PORT || 5006;
 const md5 = (contents: string) => crypto.createHash('md5').update(contents).digest("hex");
 
-export {md5} 
+export {md5,chalk} 
 //* APP
 const app = express();
 var engines = require('consolidate');

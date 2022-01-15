@@ -8,7 +8,7 @@ import * as crypto from 'crypto';
 // database den User çağır
 	// siteye girmeye izin verirken kontrol edilmesi gerek
 import { Kullanici } from "../db";
-import {md5} from "../index"
+import {md5,chalk} from "../index"
 
 // Router yapısı
 const router = Router();
@@ -89,26 +89,30 @@ router.get("/exit", (req, res) => {
 });
 
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
 	console.log("Authantication is started!!");
+	console.log(Kullanici);
+	let current_kullanici : any = await Kullanici.findOne({where:{okul_no:req.body.okul_no}})
+	console.log(current_kullanici)
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
 			console.log("Error on auth: ", error)
+			console.log(chalk.red("KULLANICI ERROR "),error)
+
 			return res.redirect("/login");
-		} else if (!kullanici) {
-			console.log("No user!")
+		} else if ( current_kullanici == null || current_kullanici.sifre != md5(req.body.sifre)) {
+			console.log(kullanici)
+			console.log(chalk.red("KULLANICI YOK"))
 			return res.redirect("/login");
 		} else {
 			console.log("Login...")
-			return req.login(kullanici, function (err) {
+			return req.login(current_kullanici, function (err) {
 				if (err) {
 					console.log("Error on auth: ", err)
 					return next(err);
 				}
-				req.session.save(function(){
-					return res.redirect("/anasayfa");
-				});
-
+				console.log(chalk.green("GİRİŞ YAPILDI"))
+				return res.redirect("/anasayfa");
 			});
 		}
 	})(req, res);
