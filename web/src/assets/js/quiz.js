@@ -10,7 +10,7 @@ var user_settings = {
 
 $.ajax(user_settings).done(function (user_value) {
     kullanici_verileri = user_value
-    kullanici_bilgilerini_yerlestir(kullanici_verileri.isim,kullanici_verileri.soyisim,kullanici_verileri.okul_no)
+    kullanici_bilgilerini_yerlestir(kullanici_verileri.isim,kullanici_verileri.soyisim,kullanici_verileri.email)
 })
 
 
@@ -199,7 +199,7 @@ function soru_gorunum_butonlarini_etkinlestir(){
     }
 }
 
-function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
+function kullanici_bilgilerini_yerlestir(isim,soyisim,email){
     document.getElementById("kullanici_adi").innerHTML = isim
     document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
     document.getElementById("test_kullanici_adi").innerHTML = isim + " " + soyisim

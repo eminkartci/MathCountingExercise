@@ -67,6 +67,9 @@ const Kullanici = sequelize.define(
 		okul_no: {
 			type: DataTypes.STRING,
 		},
+		email: {
+			type: DataTypes.STRING,
+		},
 		sifre: {
 			type: DataTypes.STRING,
 		},rol: {

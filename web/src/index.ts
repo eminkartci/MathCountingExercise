@@ -212,8 +212,8 @@ app.get("/soru-takvimi/getir/:tarih" , async(req,res) => {
 
 
 
-app.get("/profil",(req, res) => {
-    res.render('profil.ejs')
+app.get("/profil",protect,(req, res) => {
+    res.render('profil.ejs',{user:req.user})
 });
 
 
@@ -221,15 +221,16 @@ app.get("/profil",(req, res) => {
 app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 	let new_user_data : any= req.query
 
-	let kullanici_var_mi = await Kullanici.findOne({ where: { okul_no: new_user_data.okul_no } })
+	let kullanici_var_mi = await Kullanici.findOne({ where: { email: new_user_data.email } })
 
 	if(kullanici_var_mi == undefined){
-		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.okul_no,new_user_data.sifre)
+		let temp_user = new User(new_user_data.isim,new_user_data.soyisim,new_user_data.email,new_user_data.sifre)
 		console.log(chalk.hex('#FFF01F').bold.underline("\nEKLENEN KULLANICI:\n"),temp_user)
 		Kullanici.create({
 			isim: temp_user.get_İsim(),
 			soyisim: temp_user.get_Soyİsim(),
-			okul_no: temp_user.get_okulNo(),
+			okul_no:"-1",
+			email: temp_user.get_Email(),
 			sifre: md5(temp_user.get_Sifre()),
 			rol: "danisan"
 		})
@@ -246,11 +247,11 @@ app.post('/danisan/ekle', urlencodedParser, async function (req, res) {
 app.get('/danisan/bul', urlencodedParser, async function (req, res) {
 	let alinan_user = req.query
 
-	let kullanici = await Kullanici.findOne({ where: { okul_no: alinan_user.okul_no } })
+	let kullanici = await Kullanici.findOne({ where: { email: alinan_user.email } })
 	
 	if(kullanici != undefined){
 		if(kullanici?.getDataValue("sifre")==alinan_user.sifre){
-			let temp_user = new User(kullanici.getDataValue("isim"),kullanici.getDataValue("soyisim"),kullanici.getDataValue("okul_no"),kullanici.getDataValue("sifre"))
+			let temp_user = new User(kullanici.getDataValue("isim"),kullanici.getDataValue("soyisim"),kullanici.getDataValue("email"),kullanici.getDataValue("sifre"))
 			res.send(temp_user.toJSON())
 			console.log(chalk.hex('#FFF01F').bold.underline("\nBULUNAN KULLANICI:\n"),temp_user)
 			return
@@ -465,7 +466,7 @@ app.get('/danisan/:danisan_id', async (req, res) => {
 			kullanici_id: danisan_id,
 		}
 	})
-	let tempUser = new User(kullaniciDB?.getDataValue("isim"),kullaniciDB?.getDataValue("soyisim"),kullaniciDB?.getDataValue("okul_no"),kullaniciDB?.getDataValue("sifre"))
+	let tempUser = new User(kullaniciDB?.getDataValue("isim"),kullaniciDB?.getDataValue("soyisim"),kullaniciDB?.getDataValue("email"),kullaniciDB?.getDataValue("sifre"))
 	res.send(tempUser.toJSON())
 	console.log(chalk.hex('#FFF01F').bold.underline("\nID : "),danisan_id,chalk.hex('#FFF01F').bold.underline(" DANIŞAN :\n"),tempUser)
 	

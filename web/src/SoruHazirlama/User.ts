@@ -1,7 +1,7 @@
 
 export class User{
 
-    constructor(private İsim:string,private Soyİsim:string,private OkulNo:string,private Sifre:string){}
+    constructor(private İsim:string,private Soyİsim:string,private Email:string,private Sifre:string){}
 
     //DAVRANISLARI
 
@@ -9,7 +9,7 @@ export class User{
         let user_json : any = {}
         user_json["isim"] = this.İsim
         user_json["soyisim"] = this.Soyİsim
-        user_json["okul_no"] = this.OkulNo
+        user_json["email"] = this.Email
         user_json["sifre"] = this.Sifre
         return user_json
 
@@ -23,8 +23,8 @@ export class User{
         return this.Soyİsim
     }
 
-    get_okulNo():string{
-        return this.OkulNo
+    get_Email():string{
+        return this.Email
     }
 
     get_Sifre():string{
@@ -40,8 +40,8 @@ export class User{
         this.Soyİsim = Soyİsim
     }
 
-    set_okulNo(OkulNo : string){
-        this.OkulNo = OkulNo
+    set_Email(Email : string){
+        this.Email = Email
     }
 
     set_Sifre(Sifre : string){

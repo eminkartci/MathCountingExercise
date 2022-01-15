@@ -10,10 +10,10 @@ var user_settings = {
 
 $.ajax(user_settings).done(function (user_value) {
     kullanici = user_value
-    kullanici_bilgilerini_yerlestir(kullanici.isim,kullanici.soyisim,kullanici.okul_no)
+    kullanici_bilgilerini_yerlestir(kullanici.isim,kullanici.soyisim,kullanici.email)
 })
 
-function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
+function kullanici_bilgilerini_yerlestir(isim,soyisim,email){
     document.getElementById("kullanici_adi").innerHTML = isim
     document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
 }

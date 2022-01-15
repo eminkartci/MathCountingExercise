@@ -33,7 +33,7 @@ var user_settings = {
 
 $.ajax(user_settings).done(function (user_value) {
     user = user_value
-    kullanici_bilgilerini_yerlestir(user.isim,user.soyisim,user.okul_no)
+    kullanici_bilgilerini_yerlestir(user.isim,user.soyisim,user.email)
 })
 // Databaseden alacağımız dersler için dersler değişkenini oluşturuyoruz
 let dersler;
@@ -402,7 +402,7 @@ function tek_basamakli_sayidan_iki_basamakli_sayiya(sayi_string){
     return sayi_string
 }
 
-function kullanici_bilgilerini_yerlestir(isim,soyisim,okul_no){
+function kullanici_bilgilerini_yerlestir(isim,soyisim,email){
     document.getElementById("kullanici_adi").innerHTML = isim
     document.getElementById("kullanici_soyadi").innerHTML = soyisim.toUpperCase();
 }

@@ -1,16 +1,16 @@
 
-function user_POST(isim,soyisim,okul_no,sifre){
+function user_POST(isim,soyisim,email,sifre){
 
     var form = new FormData();
     form.append("isim", isim);
     form.append("soyisim", soyisim);
-    form.append("okul_no", okul_no);
+    form.append("email", email);
     form.append("sifre", sifre);
 
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `/danisan/ekle?isim=${isim}&soyisim=${soyisim}&okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `/danisan/ekle?isim=${isim}&soyisim=${soyisim}&email=${email}&sifre=${sifre}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",
@@ -35,14 +35,16 @@ function hata_yazdir(hata){
 document.getElementById("register_button").onclick = () =>{
     isim = document.getElementById("name_input").value
     soyisim = document.getElementById("surname_input").value
-    okul_no = document.getElementById("school_no_input").value
+    email = document.getElementById("email_input").value
     sifre = document.getElementById("password_input").value
-    if(isim !=""&&soyisim !=""&&okul_no !=""&&sifre !=""){
-        user_POST(isim,soyisim,okul_no,sifre)
+    if(isim !=""&&soyisim !=""&&email !=""&&sifre !=""&& email.includes("@")){
+        user_POST(isim,soyisim,email,sifre)
         window.location.replace('./login')
-    }else{
+    }else if(!email.includes("@")){
+        hata_yazdir("Mail formatı yanlış")
+    }
+    else{
         console.log("\n%cİnput alanlarının hepsi dolu olması lazım !!!\n","color:red;")
         hata_yazdir("Kullanıcı bilgileri boş olamaz !")
     }
 }
-
