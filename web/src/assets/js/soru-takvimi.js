@@ -248,6 +248,7 @@ function soru_takvimi_sil_POST(tarih,ders_id,konu_id){
 
 function soru_takviminde_onceden_varsa(){
     if(ders_adi.value != null && konu_adi.value != null && ders_adi.value != " " && konu_adi.value != " " && ders_adi.value != "" && konu_adi.value != ""){
+        
         for(let i = 0;i<Object.keys(mevcut_tarihin_soru_takvimi_json).length;i++){
             if(mevcut_tarihin_soru_takvimi_json[i].tarih == tarih_secici.value && mevcut_tarihin_soru_takvimi_json[i].ders_id == parseInt(ders_adi.value) && mevcut_tarihin_soru_takvimi_json[i].konu_id == parseInt(konu_adi.value)){
             
@@ -284,6 +285,8 @@ function soru_takviminde_onceden_varsa(){
                     konu_ekle_guncelle()
                 }
         }
+    }else{
+        
     }
 }
 
