@@ -190,24 +190,25 @@ myPromise.then(
           test_icerigi_json["SoruSayisi_Array"] = test_icerigi_soru_sayilari
 
 
-          console.log("Test İçeriği",test_icerigi_json)
-          ///
-          if(kullanici_konulari_json.length != 0){
+          ///          
+          if(kullanici_konulari_json.secilen_konular.length != 0){
 
-              containerCard.classList.add("col-6")
-              containerCard.classList.remove("col-10")
-              containerCard.style.marginLeft = "25%"
-              containerCard.style.marginTop = "5%"
-              innerCard.style.height = "80%"
-              cardContent.style.height = "100%"
-              card_0.style.display = "none"
-              card_1.style.display = "none"
-              card_2.style.display = "block"
-              step_2.classList.add("active")
-              state += 1
-              next_button.style.display = "none"
-              submit_button.style.display = ""
-              hata_yazdir("")
+
+
+            containerCard.classList.add("col-6")
+            containerCard.classList.remove("col-10")
+            containerCard.style.marginLeft = "25%"
+            containerCard.style.marginTop = "5%"
+            innerCard.style.height = "80%"
+            cardContent.style.height = "100%"
+            card_0.style.display = "none"
+            card_1.style.display = "none"
+            card_2.style.display = "block"
+            step_2.classList.add("active")
+            state += 1
+            next_button.style.display = "none"
+            submit_button.style.display = ""
+            hata_yazdir("")
           }else{
               hata_yazdir("En az bir konu seçmelisiniz.")
           }

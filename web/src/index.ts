@@ -120,10 +120,6 @@ app.get("/soru-coz",protect,(req, res) => {
     res.render('index.ejs')
 });
 
-app.get("/redirect",(req, res) => {
-    res.redirect('login')
-});
-
 app.get("/register",(req, res) => {
     res.render('register.ejs')
 });

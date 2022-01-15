@@ -71,9 +71,11 @@
                 </span>
             </div>
 
-            <a class="btn btn-sm btn-outline-primary ml-3 d-none d-md-inline-block"
-                href="https://1.envato.market/5kAb">&nbsp;BUY&nbsp;</a>
+            <!-- <a class="btn btn-sm btn-outline-primary ml-3 d-none d-md-inline-block"
+                href="https://1.envato.market/5kAb">&nbsp;Satın Al&nbsp;
+            </a> -->
         </div>
+
 
         <a class="navbar-logo" href="Dashboard.Default.html" style="width:10%;height:100%">
             <span class="logo d-none d-xs-block" style="background-size: contain;width:100%;height:100%;"></span>
@@ -82,13 +84,13 @@
 
         <div class="navbar-right">
             <div class="header-icons d-inline-block align-middle">
-                <div class="d-none d-md-inline-block align-text-bottom mr-3">
+                <!-- <div class="d-none d-md-inline-block align-text-bottom mr-3">
                     <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1" 
                         data-toggle="tooltip" data-placement="left" title="Dark Mode">
                         <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
                         <label class="custom-switch-btn" for="switchDark"></label>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="position-relative d-none d-sm-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="iconMenuButton" data-toggle="dropdown"
@@ -98,38 +100,38 @@
                     <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
                         <a href="#" class="icon-menu-item">
                             <i class="iconsminds-equalizer d-block"></i>
-                            <span>Settings</span>
+                            <span>Ayarlar</span>
                         </a>
 
                         <a href="#" class="icon-menu-item">
                             <i class="iconsminds-male-female d-block"></i>
-                            <span>Users</span>
+                            <span>Kullanıcı</span>
                         </a>
 
                         <a href="#" class="icon-menu-item">
                             <i class="iconsminds-puzzle d-block"></i>
-                            <span>Components</span>
+                            <span>Bileşenler</span>
                         </a>
 
                         <a href="#" class="icon-menu-item">
                             <i class="iconsminds-bar-chart-4 d-block"></i>
-                            <span>Profits</span>
+                            <span>Veriler</span>
                         </a>
 
                         <a href="#" class="icon-menu-item">
                             <i class="iconsminds-file d-block"></i>
-                            <span>Surveys</span>
+                            <span>Anketler</span>
                         </a>
 
-                        <a href="#" class="icon-menu-item">
-                            <i class="iconsminds-suitcase d-block"></i>
-                            <span>Tasks</span>
+                        <a href="/login/exit" class="icon-menu-item">
+                            <i class="fas fa-sign-out-alt d-block"></i>
+                            <span>Çıkış Yap</span>
                         </a>
 
                     </div>
                 </div>
 
-                <div class="position-relative d-inline-block">
+                <!-- <div class="position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="simple-icon-bell"></i>
@@ -188,7 +190,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton">
                     <i class="simple-icon-size-fullscreen"></i>
@@ -198,17 +200,8 @@
             </div>
 
             <div class="user d-inline-block">
-                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">Emin Kartcı</span>
-                </button>
-
-                <div class="dropdown-menu dropdown-menu-right mt-3">
-                    <a class="dropdown-item" href="#">Hesap</a>
-                    <a class="dropdown-item" href="#">Özellikler</a>
-                    <a class="dropdown-item" href="#">Geçmiş</a>
-                    <a class="dropdown-item" href="#">Destek Al</a>
-                    <a class="dropdown-item" href="#">Çıkıl yap</a>
+                <div class="btn btn-empty p-0">
+                    <span class="name"> <span id="kullanici_adi"></span> <span id="kullanici_soyadi"></span></span>
                 </div>
             </div>
         </div>
@@ -218,32 +211,32 @@
             <div class="scroll">
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#dashboard">
+                        <a href="/anasayfa">
                             <i class="iconsminds-shop-4"></i>
-                            <span>Dashboards</span>
+                            <span>Ana Sayfa</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#layouts">
-                            <i class="iconsminds-digital-drawing"></i> Pages
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#applications">
-                            <i class="iconsminds-air-balloon-1"></i> Applications
+                        <a href="/soru-takvimi">
+                            <i class="iconsminds-digital-drawing"></i> Soru Takvimi
                         </a>
                     </li>
                     <li>
-                        <a href="#ui">
-                            <i class="iconsminds-pantone"></i> UI
+                        <a href="https://www.ameandanismanlik.com/randevu" target="_blank">
+                            <i class="iconsminds-air-balloon-1"></i> Randevu Al
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a href="/soru-coz">
+                            <i class="iconsminds-pantone"></i> Soru Çöz
                         </a>
                     </li>
                     <li>
                         <a href="#menu">
-                            <i class="iconsminds-three-arrow-fork"></i> Menu
+                            <i class="iconsminds-three-arrow-fork"></i> Koçluk Testi
                         </a>
                     </li>
-                    <li>
+                    <!-- <li class="">
                         <a href="Blank.Page.html">
                             <i class="iconsminds-bucket"></i> Blank Page
                         </a>
@@ -252,7 +245,7 @@
                         <a href="https://dore-jquery-docs.coloredstrategies.com" target="_blank">
                             <i class="iconsminds-library"></i> Docs
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -767,7 +760,7 @@
                                             <p class="list-item-heading mb-4">Test</p>
                                             <p class="text-muted text-small mb-2">İsim</p>
                                             <p class="mb-3">
-                                                Emin Kartcı
+                                                <span id="test_kullanici_adi"></span>
                                             </p>
                                             <p class="text-muted text-small mb-2">Motive Edici Söz</p>
                                             <p class="mb-3" style="display: flex;flex-direction:column;">
