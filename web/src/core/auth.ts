@@ -122,10 +122,10 @@ router.post("/manual", async (req, res, next) => {
 		
 	
 		let kullanici :any = await Kullanici.findOne({where:{ email:req.body.email }})
-		kullanici = kullanici.dataValues
 		console.log(kullanici)
 
 		if(kullanici != undefined || kullanici != null){
+			kullanici = kullanici.dataValues
 			if(kullanici.sifre == md5(req.body.sifre)){
 				return req.login(kullanici, function (err) {
 					if (err) {
