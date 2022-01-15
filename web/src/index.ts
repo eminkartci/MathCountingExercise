@@ -103,7 +103,7 @@ app.use(passport.session());
 
 
 
-app.use("/giris_yap", express.urlencoded({ extended: true }), authRouter);
+app.use("/login", express.urlencoded({ extended: true }), authRouter);
 app.use("/kayit_ol",express.urlencoded({ extended: true }), kayitRouter);
 app.use("/api",express.urlencoded({ extended: true }), apiRouter);
 app.use("/ogrenci_paneli",express.urlencoded({ extended: true }), ogrenciPaneliRouter);
@@ -120,7 +120,7 @@ app.get("/soru-coz",protect,(req, res) => {
     res.render('index.ejs')
 });
 
-app.get("/kayit_ol",(req, res) => {
+app.get("/register",(req, res) => {
     res.render('register.ejs')
 });
 

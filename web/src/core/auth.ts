@@ -94,10 +94,10 @@ router.post("/", (req, res, next) => {
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
 		if (error) {
 			console.log("Error on auth: ", error)
-			return res.redirect("/giris_yap");
+			return res.redirect("/login");
 		} else if (!kullanici) {
 			console.log("No user!")
-			return res.redirect("/giris_yap");
+			return res.redirect("/login");
 		} else {
 			console.log("Login...")
 			return req.login(kullanici, function (err) {
