@@ -74,7 +74,6 @@ passport.use(
 					console.log("Kullanici Bilgileri Eşleşmedi!")
 					return done(null, false);
 				}
-	
 				return done(null, kullanici);
 			})
 			
