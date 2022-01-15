@@ -135,14 +135,16 @@ router.post("/manual", async (req, res, next) => {
 				});
 			}else{
 				console.log("Bilgiler Uyuşmadı")
-				return
+				return res.redirect("/login");
 			}
 		}else{
 			console.log("Kullanıcı yok")
+			return res.redirect("/login");
 		}
 	}
 	catch (error) {
 		console.log(error)
+		return res.redirect("/login");
 	}
 	
 		
