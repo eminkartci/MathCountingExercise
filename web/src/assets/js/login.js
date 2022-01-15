@@ -44,7 +44,7 @@ function user_POST(okul_no,sifre){
     var settings = {
     "async": true,
     "crossDomain": true,
-    "url": `/login?okul_no=${okul_no}&sifre=${sifre}`,
+    "url": `/giris_yap?okul_no=${okul_no}&sifre=${sifre}`,
     "method": "POST",
     "headers": {
         "cache-control": "no-cache",

@@ -39,7 +39,7 @@ document.getElementById("register_button").onclick = () =>{
     sifre = document.getElementById("password_input").value
     if(isim !=""&&soyisim !=""&&okul_no !=""&&sifre !=""){
         user_POST(isim,soyisim,okul_no,sifre)
-        window.location.replace('./login')
+        window.location.replace('./giris_yap')
     }else{
         console.log("\n%cİnput alanlarının hepsi dolu olması lazım !!!\n","color:red;")
         hata_yazdir("Kullanıcı bilgileri boş olamaz !")
