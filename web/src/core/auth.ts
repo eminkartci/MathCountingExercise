@@ -57,22 +57,27 @@ passport.deserializeUser(async (email: any, done: any) => {
 passport.use(
 	new LocalStrategy(async (email, password, done) => {
 		try {
-			const kullanici: any = await Kullanici.findOne({ where: { email:email } });
+			const kullanici: any = findByUsername(email,(error: any, kullanici: any)  => {
 
-			console.log("Kullanici: ",kullanici)
+				if(error){
+					console.log("HATA!",error)
+					return done(null, false);
+				}
+
+				if (!kullanici) {
+					console.log("Kullanici Bulunamadi!")
+					return done(null, false);
+				}
+	
+				//! HIGHLY DANGEROUS
+				if (kullanici.sifre !== md5(password)) {
+					console.log("Kullanici Bilgileri Eşleşmedi!")
+					return done(null, false);
+				}
+	
+				return done(null, kullanici);
+			})
 			
-			if (!kullanici) {
-				console.log("Kullanici Bulunamadi!")
-				return done(null, false);
-			}
-
-			//! HIGHLY DANGEROUS
-			if (kullanici.sifre !== md5(password)) {
-				console.log("Kullanici Bilgileri Eşleşmedi!")
-				return done(null, false);
-			}
-
-			return done(null, kullanici);
 		} catch (err) {
 			return done(err);
 		}
@@ -92,7 +97,6 @@ router.get("/exit", (req, res) => {
 router.post("/", (req, res, next) => {
 	console.log("Auth started...");
 	passport.authenticate("local", (error: any, kullanici: any, info: any) => {
-		console.log("Kullanici: ",kullanici)
 		if (error) {
 			console.log(error)
 			return res.redirect("/login");
@@ -100,6 +104,7 @@ router.post("/", (req, res, next) => {
 			console.log("kullanici yok")
 			return res.redirect("/login");
 		} else {
+			console.log("Giriş Yapılıyor...")
 			return req.login(kullanici, function (err) {
 				if (err) {
 					return next(err);
